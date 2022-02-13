@@ -1,1 +1,1 @@
-worker: python3 -m Neyork
+worker: python3 -m HmsRobot

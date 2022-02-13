@@ -2,9 +2,9 @@
   <img src="https://telegra.ph/file/991c94db16a466f580686.jpg">
 </p>
 
-<h4><p align="center"> HMS </p></h4>
+<h4><p align="center"> HmsRobot </p></h4>
 
-<p align="center">Hms is a modular bot running on python3 with anime theme and have a lot features.</p>
+<p align="center">HmsRobot is a modular bot running on python3 with anime theme and have a lot features.</p>
 
 <p align="center">
 <a href="https://t.me/hms_0bot"> <img src="https://img.shields.io/badge/Hms-Robot-blue?&logo=telegram" alt="Hms on Telegram" /> </a><br>
@@ -22,9 +22,9 @@
 <p align="center"><a href="https://heroku.com/deploy?template=https://github.com/HmsNew/hms"> <img src="https://img.shields.io/badge/Deploy%20To%20Heroku-blue?style=for-the-badge&logo=heroku" width="220" height="38.45"/></a></p>
 
 ```
-This Bot is Created by NeyorkProject, If your kanging this without fork at least give a credit to get a smile of my hard work. 
-- Neyork
+This Bot is Created by Neyork, If your kanging this without fork at least give a credit to get a smile of my hard work. 
 - HmsRobot
+- Neyork
 - SaitamaRobot 
 - TheRealPhoenixBot
 - DaisyX 
@@ -40,8 +40,8 @@ This Bot is Created by NeyorkProject, If your kanging this without fork at least
 
 ## Credit 
 
-• [Neyork](https://github.com/Neyork)
+• [HmsRobot](https://github.com/HmsNew)
 
-• [Hms](https://github.com/HmsNew)
+• [Neyork](https://github.com/Neyork)
 
 • [Kyy](https://github.com/zxcskyy)
