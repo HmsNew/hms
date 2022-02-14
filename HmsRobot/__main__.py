@@ -103,7 +103,7 @@ buttons = [
     ],
     [
         InlineKeyboardButton(
-            text="➗  Run Hms To Your Group  ➗", url="t.me/hms_0bot?startgroup=new"),
+            text="➗  Run Hms To Your Group  ➗", url="t.me/Hms_1bot?startgroup=new"),
     ],
     [
         InlineKeyboardButton(
@@ -387,7 +387,7 @@ def emiko_about_callback(update, context):
                     InlineKeyboardButton(text="Credits", callback_data="emiko_credit"),
                  ],
                  [
-                    InlineKeyboardButton(text="Queen", url="https://t.me/hms_01"),
+                    InlineKeyboardButton(text="Queen Hms", url="https://t.me/hms_01"),
                  ],
                  [
                     InlineKeyboardButton(text="Go Back", callback_data="emiko_back"),
