@@ -12,7 +12,7 @@ from HmsRobot import telethn
 
 client = MongoClient()
 client = MongoClient(MONGO_DB_URI)
-db = client["hms_0bot"]
+db = client["Hms_1bot"]
 gbanned = db.gban
 
 def register(**args):
