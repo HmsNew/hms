@@ -32,7 +32,7 @@ async def repo(_, message):
         photo=MEMEK,
         caption=f"""✨ **Hey I'm Hms** 
 
-**Owner repo : [Development](https://t.me/hms_01)**
+**Owner repo : [Queen Hms](https://t.me/hms_01)**
 **Python Version :** `{y()}`
 **Library Version :** `{o}`
 **Telethon Version :** `{s}`
@@ -44,7 +44,7 @@ async def repo(_, message):
             [
                 [
                     InlineKeyboardButton(
-                        "Queen", url="https://t.me/hms_01"), 
+                        "Queen Hms", url="https://t.me/hms_01"), 
                     InlineKeyboardButton(
                         "Support", url="https://t.me/dd3mhms")
                 ]

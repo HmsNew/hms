@@ -316,7 +316,7 @@ def info(update: Update, context: CallbackContext):
         text += "\n\nThe Disaster level of this person is 'Soldier'."
         disaster_level_present = True
     elif user.id == 1829047705:
-         text += "\n\nOwner Of A Bot. Queen Of @excrybaby. Bot Name Inspired From 'JoJo'."
+         text += "\n\nOwner Of A Bot. Queen Of @hms_01. Bot Name Inspired From 'JoJo'."
          disaster_level_present = True
 
     try:
@@ -353,9 +353,9 @@ def info(update: Update, context: CallbackContext):
                     [
                         [
                             InlineKeyboardButton(
-                                "Health", url="https://t.me/URLS_USA/123"),
+                                "Health", url="https://t.me/botatiiii/472"),
                             InlineKeyboardButton(
-                                "Disaster", url="https://t.me/URLS_USA/123")
+                                "Disaster", url="https://t.me/botatiiii/472")
                         ],
                     ]
                 ),
@@ -371,9 +371,9 @@ def info(update: Update, context: CallbackContext):
                     [
                         [
                             InlineKeyboardButton(
-                                "Health", url="https://t.me/URLS_USA/123"),
+                                "Health", url="https://t.me/botatiiii/472"),
                             InlineKeyboardButton(
-                                "Disaster", url="https://t.me/URLS_USA/123")
+                                "Disaster", url="https://t.me/botatiiii/472")
                         ],
                     ]
                 ),
@@ -569,7 +569,7 @@ When marked as AFK, any mentions will be replied to with a message stating that 
   - brb <reason>: Same as the afk command, but not a command. 
   
 *What is that health thingy?*
- Come and see [HP System explained](https://t.me/URLS_USA/123)
+ Come and see [HP System explained](https://t.me/botatiiii/472)
 """
 
 SET_BIO_HANDLER = DisableAbleCommandHandler("setbio", set_about_bio, run_async=True)
