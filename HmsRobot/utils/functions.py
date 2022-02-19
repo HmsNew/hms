@@ -40,7 +40,7 @@ from HmsRobot.utils.http import get, post
 async def restart(m: Message):
     if m:
         await start_restart_stage(m.chat.id, m.message_id)
-    execvp(executable, [executable, "-m", "Source1bot"])
+    execvp(executable, [executable, "-m", "Hms_1bot"])
 
 
 def generate_captcha():
@@ -69,8 +69,8 @@ def generate_captcha():
     width = 80 * 4
     height = 100
     correct_answer = ""
-    font = ImageFont.truetype("Source1bot/resources/default.ttf", 55)
-    file = f"Source1bot/resources/{randint(1000, 9999)}.jpg"
+    font = ImageFont.truetype("Hms_1bot/resources/default.ttf", 55)
+    file = f"Hms_1bot/resources/{randint(1000, 9999)}.jpg"
     image = Image.new("RGB", (width, height), (255, 255, 255))
     draw = ImageDraw.Draw(image)
 

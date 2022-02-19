@@ -115,14 +115,14 @@ async def alive_function(answers):
     bot_state = "Dead" if not await app.get_me() else "Alive"
     ubot_state = "Dead" if not await ubot2.get_me() else "Alive"
     buttons.add(
-        InlineKeyboardButton("Main bot", url="https://t.me/hms_0bot"),
+        InlineKeyboardButton("Main bot", url="https://t.me/Hms_1bot"),
         InlineKeyboardButton(
             "Go Inline!", switch_inline_query_current_chat=""
         ),
     )
 
     msg = f"""
-**[Owner Hms ❤️](https://t.me/hms_01):**
+**[Queen Hms ❤️](https://t.me/hms_01):**
 **MainBot:** `{bot_state}`
 **UserBot:** `{ubot_state}`
 **Python:** `{pyver.split()[0]}`
