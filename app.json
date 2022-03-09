@@ -1,5 +1,5 @@
 {
-      "name": "Hms",
+      "name": "Neyork",
       "description": "A Powerful  Telegram group management bot with anime theme.",
       "keywords": [
          "telegram",
@@ -9,7 +9,7 @@
          "naorobot"
       ],
     
-   "logo":    "https://telegra.ph/file/991c94db16a466f580686.jpg",  
+   "logo":    "https://telegra.ph/file/f67dd5909bbff96ff17bd.jpg",  
    "repository": "https://github.com/HmsNew/https://github.com/HmsNew/hms",
    "addons": [
           {
@@ -69,7 +69,7 @@
       },
       "BOT_USERNAME": {
          "description": "username of your bot without the @",
-         "value": "Hms_1bot"
+         "value": "hms_1bot"
       },
 
       "BOT_ID": {
