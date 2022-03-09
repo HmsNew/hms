@@ -18,7 +18,7 @@ class ChatAccessConnectionSettings(BASE):
         self.allow_connect_to_chat = str(allow_connect_to_chat)
 
     def __repr__(self):
-        return "<Chat access settings ({}) is {}>".format(
+        return "<إعدادات الوصول إلى الدردشة ({}) is {}>".format(
             self.chat_id,
             self.allow_connect_to_chat,
         )
@@ -48,7 +48,7 @@ class ConnectionHistory(BASE):
         self.conn_time = int(conn_time)
 
     def __repr__(self):
-        return "<connection user {} history {}>".format(self.user_id, self.chat_id)
+        return "<مستخدم الاتصال {} التاريخ {}>".format(self.user_id, self.chat_id)
 
 
 ChatAccessConnectionSettings.__table__.create(checkfirst=True)

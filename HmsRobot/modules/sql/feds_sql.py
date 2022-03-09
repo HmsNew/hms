@@ -66,7 +66,7 @@ class FedsUserSettings(BASE):
         self.user_id = user_id
 
     def __repr__(self):
-        return "<Feds report settings ({})>".format(self.user_id)
+        return "<Feds إعدادات التقرير ({})>".format(self.user_id)
 
 
 class FedSubs(BASE):
@@ -79,7 +79,7 @@ class FedSubs(BASE):
         self.fed_subs = fed_subs
 
     def __repr__(self):
-        return "<Fed {} subscribes for {}>".format(self.fed_id, self.fed_subs)
+        return "<Fed {} الاشتراكات for {}>".format(self.fed_id, self.fed_subs)
 
 
 # Dropping db
@@ -203,7 +203,7 @@ def new_fed(owner_id, fed_name, fed_id):
             str(owner_id),
             fed_name,
             str(fed_id),
-            "Rules is not set in this federation.",
+            "لم يتم تعيين القواعد في هذا الاتحاد.",
             None,
             str({"owner": str(owner_id), "members": "[]"}),
         )
@@ -212,21 +212,21 @@ def new_fed(owner_id, fed_name, fed_id):
         FEDERATION_BYOWNER[str(owner_id)] = {
             "fid": str(fed_id),
             "fname": fed_name,
-            "frules": "Rules is not set in this federation.",
+            "frules": "لم يتم تعيين القواعد في هذا الاتحاد.",
             "flog": None,
             "fusers": str({"owner": str(owner_id), "members": "[]"}),
         }
         FEDERATION_BYFEDID[str(fed_id)] = {
             "owner": str(owner_id),
             "fname": fed_name,
-            "frules": "Rules is not set in this federation.",
+            "frules": "لم يتم تعيين القواعد في هذا الاتحاد.",
             "flog": None,
             "fusers": str({"owner": str(owner_id), "members": "[]"}),
         }
         FEDERATION_BYNAME[fed_name] = {
             "fid": str(fed_id),
             "owner": str(owner_id),
-            "frules": "Rules is not set in this federation.",
+            "frules": "لم يتم تعيين القواعد في هذا الاتحاد.",
             "flog": None,
             "fusers": str({"owner": str(owner_id), "members": "[]"}),
         }

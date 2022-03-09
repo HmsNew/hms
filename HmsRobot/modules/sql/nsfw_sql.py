@@ -2,7 +2,7 @@ import threading
 from sqlalchemy import Column, String
 from HmsRobot.modules.sql import BASE, SESSION
 #   |----------------------------------|
-#   |  Test Module by @EverythingSuckz |
+#   |  Test Module by @iNeyork |
 #   |        Kang with Credits         |
 #   |----------------------------------|
 class NSFWChats(BASE):

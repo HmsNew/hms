@@ -15,7 +15,7 @@ class StickersFilters(BASE):
         self.trigger = trigger
 
     def __repr__(self):
-        return "<Stickers filter '%s' for %s>" % (self.trigger, self.chat_id)
+        return "<مرشح الملصقات '%s' الي %s>" % (self.trigger, self.chat_id)
 
     def __eq__(self, other):
         return bool(
@@ -37,7 +37,7 @@ class StickerSettings(BASE):
         self.value = value
 
     def __repr__(self):
-        return "<{} will executing {} for blacklist trigger.>".format(
+        return "<{} سوف ينفذ {} لمشغل القائمة السوداء.>".format(
             self.chat_id,
             self.blacklist_type,
         )

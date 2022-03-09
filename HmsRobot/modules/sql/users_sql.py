@@ -24,7 +24,7 @@ class Users(BASE):
         self.username = username
 
     def __repr__(self):
-        return "<User {} ({})>".format(self.username, self.user_id)
+        return "<مستخدم {} ({})>".format(self.username, self.user_id)
 
 
 class Chats(BASE):
@@ -37,7 +37,7 @@ class Chats(BASE):
         self.chat_name = chat_name
 
     def __repr__(self):
-        return "<Chat {} ({})>".format(self.chat_name, self.chat_id)
+        return "<دردشه {} ({})>".format(self.chat_name, self.chat_id)
 
 
 class ChatMembers(BASE):
@@ -61,7 +61,7 @@ class ChatMembers(BASE):
         self.user = user
 
     def __repr__(self):
-        return "<Chat user {} ({}) in chat {} ({})>".format(
+        return "<مستخدم الدردشه {} ({}) في الدردشه {} ({})>".format(
             self.user.username,
             self.user.user_id,
             self.chat.chat_name,

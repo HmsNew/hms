@@ -89,7 +89,7 @@ class NewCustomFilters(BASE):
         self.file_id = file_id
 
     def __repr__(self):
-        return "<Filter for %s>" % self.chat_id
+        return "<Filter الي %s>" % self.chat_id
 
     def __eq__(self, other):
         return bool(
@@ -209,7 +209,7 @@ def new_add_filter(chat_id, keyword, reply_text, file_type, file_id, buttons):
         filt = CustomFilters(
             str(chat_id),
             keyword,
-            reply="there is should be a new reply",
+            reply="يجب أن يكون هناك رد جديد",
             is_sticker=False,
             is_document=False,
             is_image=False,

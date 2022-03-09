@@ -18,7 +18,7 @@ class AntiChannelSettings(BASE):
         self.setting = disabled
 
     def __repr__(self):
-        return "<Antiflood setting {} ({})>".format(self.chat_id, self.setting)
+        return "<وضع مضاد للفيضان {} ({})>".format(self.chat_id, self.setting)
 
 
 AntiChannelSettings.__table__.create(checkfirst=True)

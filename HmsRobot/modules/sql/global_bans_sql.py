@@ -16,7 +16,7 @@ class GloballyBannedUsers(BASE):
         self.reason = reason
 
     def __repr__(self):
-        return "<GBanned User {} ({})>".format(self.name, self.user_id)
+        return "<GBanned مستخدم {} ({})>".format(self.name, self.user_id)
 
     def to_dict(self):
         return {"user_id": self.user_id, "name": self.name, "reason": self.reason}
@@ -32,7 +32,7 @@ class GbanSettings(BASE):
         self.setting = enabled
 
     def __repr__(self):
-        return "<Gban setting {} ({})>".format(self.chat_id, self.setting)
+        return "<Gban اعدادات {} ({})>".format(self.chat_id, self.setting)
 
 
 GloballyBannedUsers.__table__.create(checkfirst=True)
