@@ -6,8 +6,8 @@ from telegram.ext import CallbackContext
 from telegram.inline.inlinekeyboardbutton import InlineKeyboardButton
 from telegram.inline.inlinekeyboardmarkup import InlineKeyboardMarkup
 
-from HmsRobot import DRAGONS, DEV_USERS, dispatcher
-from HmsRobot.modules.helper_funcs.decorators import HmsRobotcallback
+from HmsRobot import DEV_USERS, LOGGER, dispatcher
+from .decorators import HmsRobotcallback
 
 
 class AdminPerms(Enum):
@@ -36,7 +36,7 @@ def user_admin(permission: AdminPerms):
             if update.effective_chat.type == 'private':
                 return func(update, context, *args, **kwargs)
             message = update.effective_message
-            is_anon = bool(update.effective_message.sender_chat)
+            is_anon = update.effective_message.sender_chat
 
             if is_anon:
                 callback_id = f'anoncb/{message.chat.id}/{message.message_id}/{permission.value}'
@@ -50,7 +50,7 @@ def user_admin(permission: AdminPerms):
                 user_id = message.from_user.id
                 chat_id = message.chat.id
                 mem = context.bot.get_chat_member(chat_id=chat_id, user_id=user_id)
-                if getattr(mem, permission.value) is True or mem.status == "creator" or user_id in DEV_USERS:
+                if getattr(mem, permission.value) is True or mem.status == "creator" or user_id in SUDO_USERS:
                     return func(update, context, *args, **kwargs)
                 else:
                     return message.reply_text(f"أنت تفتقر إلى الإذن: `{permission.name}`",
@@ -76,7 +76,7 @@ def anon_callback_handler1(upd: Update, _: CallbackContext):
         callback.answer("أنت لست مشرف.")
         dispatcher.bot.delete_message(chat_id, anon_callback_messages.pop((chat_id, message_id), None))
         dispatcher.bot.send_message(chat_id, "تفتقر إلى الأذونات المطلوبة لهذا الأمر")
-    elif getattr(mem, perm) is True or mem.status == "creator" or mem.user.id in DRAGONS:
+    elif getattr(mem, perm) is True or mem.status == "creator" or mem.user.id in DEV_USERS:
         cb = anon_callbacks.pop((chat_id, message_id), None)
         if cb:
             message_id = anon_callback_messages.pop((chat_id, message_id), None)

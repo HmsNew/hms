@@ -6,12 +6,12 @@ def send_message(message, text, *args, **kwargs):
     try:
         return message.reply_text(text, *args, **kwargs)
     except error.BadRequest as err:
-        if str(err) == "Reply message not found":
+        if str(err) == "لم يتم العثور على رسالة الرد":
             return message.reply_text(text, quote=False, *args, **kwargs)
 
 
 def typing_action(func):
-    """Sends typing action while processing func command."""
+    """يرسل إجراء كتابة أثناء معالجة أمر func."""
 
     @wraps(func)
     def command_func(update, context, *args, **kwargs):
@@ -24,7 +24,7 @@ def typing_action(func):
 
 
 def send_action(action):
-    """Sends `action` while processing func command."""
+    """يرسل `action` أثناء معالجة الأمر func."""
 
     def decorator(func):
         @wraps(func)
