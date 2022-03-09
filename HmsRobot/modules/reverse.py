@@ -38,7 +38,7 @@ def reverse(update: Update, context: CallbackContext):
         elif reply.document:
             file_id = reply.document.file_id
         else:
-            msg.reply_text("Reply to an image or sticker to lookup.")
+            msg.reply_text("الرد على صورة أو ملصق للبحث.")
             return
         image_file = bot.get_file(file_id)
         image_file.download(imagename)
@@ -62,28 +62,28 @@ def reverse(update: Update, context: CallbackContext):
             img_link = splatargs[1]
             lim = 2
         else:
-            msg.reply_text("/reverse <link> <amount of images to return.>")
+            msg.reply_text("/reverse <link> <كمية الصور للعودة.>")
             return
         try:
             urllib.request.urlretrieve(img_link, imagename)
         except HTTPError as HE:
-            if HE.reason == "Not Found":
-                msg.reply_text("Image not found.")
+            if HE.reason == "لم يتم العثور على":
+                msg.reply_text("الصورة غير موجودة.")
                 return
             if HE.reason == "Forbidden":
                 msg.reply_text(
-                    "Couldn't access the provided link, The website might have blocked accessing to the website by bot or the website does not existed."
+                    "تعذر الوصول إلى الرابط المقدم ، ربما حظر موقع الويب الوصول إلى موقع الويب عن طريق الروبوت أو أن موقع الويب غير موجود."
                 )
                 return
         except URLError as UE:
             msg.reply_text(f"{UE.reason}")
             return
         except ValueError as VE:
-            msg.reply_text(f"{VE}\nPlease try again using http or https protocol.")
+            msg.reply_text(f"{VE}\nيرجى المحاولة مرة أخرى باستخدام بروتوكول http أو https.")
             return
     else:
         msg.reply_markdown(
-            "Please reply to a sticker, or an image to search it!\nDo you know that you can search an image with a link too? `/reverse [picturelink] <amount>`."
+            "الرجاء الرد على ملصق أو صورة للبحث عنها!\nهل تعلم أنه يمكنك البحث عن صورة باستخدام رابط أيضًا؟ `/reverse [picturelink] <amount>`."
         )
         return
 
@@ -99,13 +99,13 @@ def reverse(update: Update, context: CallbackContext):
         if response != 400:
             xx = bot.send_message(
                 chat_id,
-                "Image was successfully uploaded to Google."
-                "\nParsing it, please wait.",
+                "تم تحميل الصورة بنجاح إلى Google."
+                "\nتحليلها ، من فضلك انتظر.",
                 reply_to_message_id=rtmid,
             )
         else:
             xx = bot.send_message(
-                chat_id, "Google told me to go away.", reply_to_message_id=rtmid
+                chat_id, "أخبرني Google بالذهاب بعيدًا.", reply_to_message_id=rtmid
             )
             return
 
@@ -119,19 +119,19 @@ def reverse(update: Update, context: CallbackContext):
 
         if guess and imgspage:
             xx.edit_text(
-                f"[{guess}]({fetchUrl})\nProcessing...",
+                f"[{guess}]({fetchUrl})\nمعالجة...",
                 parse_mode="Markdown",
                 disable_web_page_preview=True,
             )
         else:
-            xx.edit_text("Couldn't find anything.")
+            xx.edit_text("لا يمكن العثور على أي شيء.")
             return
 
         images = scam(imgspage, lim)
         if len(images) == 0:
             xx.edit_text(
                 f"[{guess}]({fetchUrl})\n[Visually similar images]({imgspage})"
-                "\nCouldn't fetch any images.",
+                "\nتعذر جلب أي صور.",
                 parse_mode="Markdown",
                 disable_web_page_preview=True,
             )
@@ -155,7 +155,7 @@ def reverse(update: Update, context: CallbackContext):
 
 
 def ParseSauce(googleurl):
-    """Parse/Scrape the HTML code for the info we want."""
+    """Parse/Scrape the HTML كود HTML للمعلومات التي نريدها."""
 
     source = opener.open(googleurl).read()
     soup = BeautifulSoup(source, "html.parser")
@@ -182,7 +182,7 @@ def ParseSauce(googleurl):
 
 
 def scam(imgspage, lim):
-    """Parse/Scrape the HTML code for the info we want."""
+    """Parse/Scrape كود HTML للمعلومات التي نريدها."""
 
     single = opener.open(imgspage).read()
     decoded = single.decode("utf-8")

@@ -37,19 +37,19 @@ async def _(event):
         tts.save("k.mp3")
     except AssertionError:
         await event.reply(
-            "The text is empty.\n"
-            "Nothing left to speak after pre-precessing, "
-            "tokenizing and cleaning."
+            "النص فارغ.\n"
+            "لم يتبق شيء للتحدث بعد التجهيز المسبق ، "
+            "الترميز والتنظيف."
         )
         return
     except ValueError:
-        await event.reply("Language is not supported.")
+        await event.reply("اللغة غير مدعومة.")
         return
     except RuntimeError:
-        await event.reply("Error loading the languages dictionary.")
+        await event.reply("خطأ في تحميل قاموس اللغات.")
         return
     except gTTSError:
-        await event.reply("Error in Google Text-to-Speech API request !")
+        await event.reply("خطأ في طلب واجهة برمجة تطبيقات تحويل النص إلى كلام من Google!")
         return
     with open("k.mp3", "r"):
         await tbot.send_file(

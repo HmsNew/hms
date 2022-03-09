@@ -9,7 +9,7 @@ from HmsRobot import OWNER_ID, DEV_USERS
 from HmsRobot import TEMP_DOWNLOAD_DIRECTORY as path
 from HmsRobot import TEMP_DOWNLOAD_DIRECTORY
 from datetime import datetime
-water = './HmsRobot/resources/emiko.png'
+water = './HmsRobot/resources/HmsRobot.png'
 client = tbot
 
 @register(pattern=r"^/send ?(.*)")
@@ -33,4 +33,4 @@ async def Prof(event):
              reply_to=message_id,
          )
     else:
-        await event.reply("No File Found!")
+        await event.reply("لم يتم العثور على ملف!")

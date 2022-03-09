@@ -14,12 +14,12 @@ def convert(speed):
 def speedtestxyz(update: Update, context: CallbackContext):
     buttons = [
         [
-            InlineKeyboardButton("Image", callback_data="speedtest_image"),
-            InlineKeyboardButton("Text", callback_data="speedtest_text"),
+            InlineKeyboardButton("صورة", callback_data="speedtest_image"),
+            InlineKeyboardButton("نص", callback_data="speedtest_text"),
         ],
     ]
     update.effective_message.reply_text(
-        "Select SpeedTest Mode",
+        "حدد وضع SpeedTest",
         reply_markup=InlineKeyboardMarkup(buttons),
     )
 
@@ -33,7 +33,7 @@ def speedtestxyz_callback(update: Update, context: CallbackContext):
         speed.get_best_server()
         speed.download()
         speed.upload()
-        replymsg = "SpeedTest Results:"
+        replymsg = "SpeedTest نتائج:"
 
         if query.data == "speedtest_image":
             speedtest_image = speed.results.share()
@@ -45,10 +45,10 @@ def speedtestxyz_callback(update: Update, context: CallbackContext):
 
         elif query.data == "speedtest_text":
             result = speed.results.dict()
-            replymsg += f"\nDownload: `{convert(result['download'])}Mb/s`\nUpload: `{convert(result['upload'])}Mb/s`\nPing: `{result['ping']}`"
+            replymsg += f"\nتحميل: `{convert(result['download'])}Mb/s`\nUpload: `{convert(result['upload'])}Mb/s`\nPing: `{result['ping']}`"
             update.effective_message.edit_text(replymsg, parse_mode=ParseMode.MARKDOWN)
     else:
-        query.answer("You are required to join Heroes Association to use this command.")
+        query.answer("أنت مطالب بالانضمام إلى جمعية الأبطال لاستخدام هذا الأمر.")
 
 
 SPEED_TEST_HANDLER = DisableAbleCommandHandler(

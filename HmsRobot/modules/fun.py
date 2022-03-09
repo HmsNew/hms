@@ -17,7 +17,7 @@ GIF_ID = "CgACAgQAAx0CSVUvGgAC7KpfWxMrgGyQs-GUUJgt-TSO8cOIDgACaAgAAlZD0VHT3Zynpr
 def runs(update: Update, context: CallbackContext):
     temp = random.choice(fun_strings.RUN_STRINGS)
     if update.effective_user.id == 1170714920:
-        temp = "Run everyone, they just dropped a bomb 💣💣"
+        temp = "قم بتشغيل الجميع ، لقد أسقطوا قنبلة 💣💣"
     update.effective_message.reply_text(temp)
 
 
@@ -102,7 +102,7 @@ def slap(update: Update, context: CallbackContext):
     throw = random.choice(fun_strings.THROW)
 
     if update.effective_user.id == 1096215023:
-        temp = "@NeoTheKitty scratches {user2}"
+        temp = "@botatiiii scratches {user2}"
 
     reply = temp.format(user1=user1, user2=user2, item=item, hits=hit, throws=throw)
 
@@ -313,20 +313,20 @@ def weebify(update: Update, context: CallbackContext):
 
 
 __help__ = """
-❂ /runs*:* reply a random string from an array of replies
-❂ /slap*:* slap a user, or get slapped if not a reply
-❂ /shrug*:* get shrug XD
-❂ /table*:* get flip/unflip :v
-❂ /decide*:* Randomly answers yes/no/maybe
-❂ /toss*:* Tosses A coin
-❂ /bluetext*:* check urself :V
-❂ /roll*:* Roll a dice
-❂ /rlg*:* Join ears,nose,mouth and create an emo ;-;
-❂ /shout <keyword>*:* write anything you want to give loud shout
-❂ /weebify <text>*:* returns a weebified text
-❂ /sanitize*:* always use this before /pat or any contact
-❂ /pat*:* pats a user, or get patted
-❂ /8ball*:* predicts using 8ball method
+❂ /runs*:* الرد على سلسلة عشوائية من مجموعة من الردود
+❂ /slap*:* صفعة المستخدم ، أو صفعة إذا لم يكن الرد
+❂ /shrug*:* تجاهل XD
+❂ /table*:* احصل على flip/unflip :v
+❂ /decide*:* إجابات عشوائية yes/no/maybe
+❂ /toss*:* يلقي عملة
+❂ /bluetext*:* تحقق من نفسك :V
+❂ /roll*:* لفة النرد
+❂ /rlg*:* ربط الأذنين والأنف والفم وإنشاء emo ;-;
+❂ /shout <keyword>*:* اكتب أي شيء تريد أن تسمعه بصوت عالٍ
+❂ /weebify <text>*:* إرجاع نص ويبييد
+❂ /sanitize*:* استخدم هذا دائمًا قبل /pat أو أي جهة اتصال
+❂ /pat*:* يربت مستخدمًا ، أو يربت
+❂ /8ball*:* يتوقع باستخدام طريقة 8ball
 
 - Animation
 ❂ /love 
@@ -334,18 +334,18 @@ __help__ = """
 ❂ /bombs 
 
 - Shippering
-❂ /couples - get couples of today
+❂ /couples - الحصول على أزواج اليوم
 
-- Here is the help for the Styletext module:
+- هذه هي المساعدة الخاصة بوحدة Styletext:
 
-❂ /weebify <text>: weebify your text!
-❂ /bubble <text>: bubble your text!
-❂ /fbubble <text>: bubble-filled your text!
-❂ /square <text>: square your text!
-❂ /fsquare <text>: square-filled your text!
-❂ /blue <text>: bluify your text!
-❂ /latin <text>: latinify your text!
-❂ /lined <text>: lined your text!
+❂ /weebify <text>: ويبييفي النص الخاص بك!
+❂ /bubble <text>: فقاعة النص الخاص بك!
+❂ /fbubble <text>: تملأ فقاعة النص الخاص بك!
+❂ /square <text>: تربيع النص الخاص بك!
+❂ /fsquare <text>: مربع نصك!
+❂ /blue <text>: زرقة النص الخاص بك!
+❂ /latin <text>: تصغير النص الخاص بك!
+❂ /lined <text>: اصطف النص الخاص بك!
 """
 
 SANITIZE_HANDLER = DisableAbleCommandHandler("sanitize", sanitize, run_async=True)

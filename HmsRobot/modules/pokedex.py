@@ -8,14 +8,14 @@ from HmsRobot import pbot as tomori
 @tomori.on_message(filters.command("pokedex"))
 async def PokeDex(_, message):
     if len(message.command) != 2:
-        await message.reply_text("/pokedex Pokemon Name")
+        await message.reply_text("/pokedex اسم بوكيمون")
         return
     pokemon = message.text.split(None, 1)[1]
     pokedex = f"https://some-random-api.ml/pokedex?pokemon={pokemon}"
     async with aiohttp.ClientSession() as session:
         async with session.get(pokedex) as request:
             if request.status == 404:
-                return await message.reply_text("Wrong Pokemon Name")
+                return await message.reply_text("اسم بوكيمون خاطئ")
 
             result = await request.json()
             try:

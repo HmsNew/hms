@@ -27,11 +27,11 @@ async def whatanime(e):
         r = await e.get_reply_message()
         media = getattr(r, "media", None)
     if not media:
-        await e.reply("`Media required`")
+        await e.reply("`الوسائط المطلوبة`")
         return
     ig = is_gif(media) or is_video(media)
     if not is_image(media) and not ig:
-        await e.reply("`Media must be an image or gif or video`")
+        await e.reply("`لازم تكون الوسائط صورة أو جيف أو فيديو يحب 😌`")
         return
     filename = "file.jpg"
     if not ig and isinstance(media, MessageMediaDocument):
@@ -40,9 +40,9 @@ async def whatanime(e):
             if isinstance(i, DocumentAttributeFilename):
                 filename = i.file_name
                 break
-    cut = await e.reply("`Downloading image..`")
+    cut = await e.reply("`احملك الصورة ..`")
     content = await e.client.download_media(media, bytes, thumb=-1 if ig else None)
-    await cut.edit("`Searching for result..`")
+    await cut.edit("`البحث عن المطلوب ..`")
     file = memory_file(filename, content)
     async with aiohttp.ClientSession() as session:
         url = "https://api.trace.moe/search?anilistInfo"
@@ -50,7 +50,7 @@ async def whatanime(e):
             resp0 = await raw_resp0.json()
         js0 = resp0.get("result")
         if not js0:
-            await cut.edit("`No results found.`")
+            await cut.edit("`ملقتش حاجه من الي انت عاوزها يا معلم.`")
             return
         js0 = js0[0]
         text = f'<b>{html.escape(js0["anilist"]["title"]["romaji"])}'
@@ -75,7 +75,7 @@ async def whatanime(e):
         try:
             await e.reply(ctext, file=file, parse_mode="html")
         except FilePartsInvalidError:
-            await e.reply("`Cannot send preview.`")
+            await e.reply("`مينفعش ترسل معاينه.`")
 
 
 def memory_file(name=None, contents=None, *, _bytes=True):

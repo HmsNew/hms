@@ -24,7 +24,7 @@ def get_invalid_chats(update: Update, context: CallbackContext, remove: bool = F
     for chat in chats:
 
         if ((100 * chats.index(chat)) / len(chats)) > progress:
-            progress_bar = f"{progress}% completed in getting invalid chats."
+            progress_bar = f"{progress}% أكمل في الحصول على محادثات غير صالحة."
             if progress_message:
                 try:
                     bot.editMessageText(
@@ -90,14 +90,14 @@ def get_invalid_gban(update: Update, context: CallbackContext, remove: bool = Fa
 def dbcleanup(update: Update, context: CallbackContext):
     msg = update.effective_message
 
-    msg.reply_text("Getting invalid chat count ...")
+    msg.reply_text("الحصول على عدد محادثة غير صالح ...")
     invalid_chat_count = get_invalid_chats(update, context)
 
-    msg.reply_text("Getting invalid gbanned count ...")
+    msg.reply_text("الحصول على حساب gbanned غير صالح ...")
     invalid_gban_count = get_invalid_gban(update, context)
 
-    reply = f"Total invalid chats - {invalid_chat_count}\n"
-    reply += f"Total invalid gbanned users - {invalid_gban_count}"
+    reply = f"إجمالي الدردشات غير الصالحة - {invalid_chat_count}\n"
+    reply += f"إجمالي المستخدمين gbanned غير صالحين - {invalid_gban_count}"
 
     buttons = [[InlineKeyboardButton("Cleanup DB", callback_data="db_cleanup")]]
 
@@ -120,23 +120,23 @@ def callback_button(update: Update, context: CallbackContext):
 
     if query_type == "db_leave_chat":
         if query.from_user.id in admin_list:
-            bot.editMessageText("Leaving chats ...", chat_id, message.message_id)
+            bot.editMessageText("ترك الدردشات ...", chat_id, message.message_id)
             chat_count = get_muted_chats(update, context, True)
-            bot.sendMessage(chat_id, f"Left {chat_count} chats.")
+            bot.sendMessage(chat_id, f"غادر {chat_count} الدردشات.")
         else:
-            query.answer("You are not allowed to use this.")
+            query.answer("لا يسمح لك باستخدام هذا.")
     elif query_type == "db_cleanup":
         if query.from_user.id in admin_list:
             bot.editMessageText("Cleaning up DB ...", chat_id, message.message_id)
             invalid_chat_count = get_invalid_chats(update, context, True)
             invalid_gban_count = get_invalid_gban(update, context, True)
-            reply = "Cleaned up {} chats and {} gbanned users from db.".format(
+            reply = "نظيف {} الدردشات و {} المستخدمين gbanned من ديسيبل.".format(
                 invalid_chat_count,
                 invalid_gban_count,
             )
             bot.sendMessage(chat_id, reply)
         else:
-            query.answer("You are not allowed to use this.")
+            query.answer("لا يسمح لك باستخدام هذا.")
 
 
 DB_CLEANUP_HANDLER = CommandHandler("dbcleanup", dbcleanup, run_async=True)

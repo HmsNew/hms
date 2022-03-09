@@ -46,14 +46,14 @@ def generate_time(to_find: str, findtype: List[str]) -> str:
 
     try:
         result = (
-            f"<b>Country:</b> <code>{country_name}</code>\n"
-            f"<b>Zone Name:</b> <code>{country_zone}</code>\n"
-            f"<b>Country Code:</b> <code>{country_code}</code>\n"
-            f"<b>Daylight saving:</b> <code>{daylight_saving}</code>\n"
-            f"<b>Day:</b> <code>{current_day}</code>\n"
-            f"<b>Current Time:</b> <code>{current_time}</code>\n"
-            f"<b>Current Date:</b> <code>{current_date}</code>\n"
-            '<b>Timezones:</b> <a href="https://en.wikipedia.org/wiki/List_of_tz_database_time_zones">List here</a>'
+            f"<b>دولة:</b> <code>{country_name}</code>\n"
+            f"<b>اسم المنطقة:</b> <code>{country_zone}</code>\n"
+            f"<b>الرقم الدولي:</b> <code>{country_code}</code>\n"
+            f"<b>التوقيت الصيفي:</b> <code>{daylight_saving}</code>\n"
+            f"<b>اليوم:</b> <code>{current_day}</code>\n"
+            f"<b>الوقت الحالي:</b> <code>{current_time}</code>\n"
+            f"<b>التاريخ الحالي:</b> <code>{current_date}</code>\n"
+            '<b>المناطق الزمنية:</b> <a href="https://en.wikipedia.org/wiki/List_of_tz_database_time_zones">List here</a>'
         )
     except:
         result = None
@@ -70,7 +70,7 @@ def gettime(update: Update, context: CallbackContext):
         message.reply_text("Provide a country name/abbreviation/timezone to find.")
         return
     send_message = message.reply_text(
-        f"Finding timezone info for <b>{query}</b>",
+        f"البحث عن معلومات المنطقة الزمنية لـ <b>{query}</b>",
         parse_mode=ParseMode.HTML,
     )
 
@@ -82,8 +82,8 @@ def gettime(update: Update, context: CallbackContext):
 
     if not result:
         send_message.edit_text(
-            f"Timezone info not available for <b>{query}</b>\n"
-            '<b>All Timezones:</b> <a href="https://en.wikipedia.org/wiki/List_of_tz_database_time_zones">List here</a>',
+            f"معلومات المنطقة الزمنية غير متوفرة لـ <b>{query}</b>\n"
+            '<b>جميع المناطق الزمنية:</b> <a href="https://en.wikipedia.org/wiki/List_of_tz_database_time_zones">List here</a>',
             parse_mode=ParseMode.HTML,
             disable_web_page_preview=True,
         )

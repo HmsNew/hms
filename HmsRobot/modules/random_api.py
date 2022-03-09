@@ -34,7 +34,7 @@ async def _(hilih):
         hilihnya = f"{resp['result']}"
         return await hilih.reply(hilihnya)
     except Exception:
-        await hilih.reply("Something went wrong LOL...")
+        await hilih.reply("حدث خطأ ما LOL ...")
 
 
 # Copyright 2021 ©

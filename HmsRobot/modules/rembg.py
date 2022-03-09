@@ -47,7 +47,7 @@ async def is_register_admin(chat, user):
 
 @register(pattern="^/rmbg")
 async def _(event):
-    HELP_STR = "use `/rmbg` as reply to a media"
+    HELP_STR = "use `/rmbg` كرد على إحدى وسائل الإعلام"
     if event.fwd_from:
         return
     if event.is_group:
@@ -56,14 +56,14 @@ async def _(event):
         else:
             return
     if REM_BG_API_KEY is None:
-        await event.reply("`You need API token from remove.bg to use this plugin.`")
+        await event.reply("`أنت بحاجة إلى رمز API المميز من remove.bg لاستخدام هذا المكون الإضافي.`")
         return False
     start = datetime.now()
     message_id = event.message.id
     if event.reply_to_msg_id:
         message_id = event.reply_to_msg_id
         reply_message = await event.get_reply_message()
-        await event.reply("`Processing...`")
+        await event.reply("`معالجة...`")
         try:
             downloaded_file_name = await tbot.download_media(
                 reply_message, TEMP_DOWNLOAD_DIRECTORY
@@ -91,10 +91,10 @@ async def _(event):
             )
         end = datetime.now()
         ms = (end - start).seconds
-        await event.reply("Background Removed in {} seconds".format(ms))
+        await event.reply("تمت إزالة الخلفية في {} ثانية".format(ms))
     else:
         await event.reply(
-            "remove.bg API returned Errors. Please report to @kenbotsupport\n`{}".format(
+            "أرجع remove.bg API أخطاء. الرجاء الإبلاغ عن @dd3mhms\n`{}".format(
                 output_file_name.content.decode("UTF-8")
             )
         )

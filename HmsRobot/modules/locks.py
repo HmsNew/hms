@@ -131,7 +131,7 @@ def unrestr_members(
 def locktypes(update, context):
     update.effective_message.reply_text(
         "\n × ".join(
-            ["Locks available: "]
+            ["الأقفال المتاحة: "]
             + sorted(list(LOCK_TYPES) + list(LOCK_CHAT_RESTRICTION))
         )
     )
@@ -158,18 +158,18 @@ def lock(update, context) -> str:
                     chat = dispatcher.bot.getChat(conn)
                     chat_id = conn
                     chat_name = chat.title
-                    text = "Locked {} for non-admins in {}!".format(ltype, chat_name)
+                    text = "مقفل {} لغير المسؤولين في {}!".format(ltype, chat_name)
                 else:
                     if update.effective_message.chat.type == "private":
                         send_message(
                             update.effective_message,
-                            "This command is meant to use in group not in PM",
+                            "هذا الأمر مخصص للاستخدام في المجموعة وليس في PM",
                         )
                         return ""
                     chat = update.effective_chat
                     chat_id = update.effective_chat.id
                     chat_name = update.effective_message.chat.title
-                    text = "Locked {} for non-admins!".format(ltype)
+                    text = "مقفل {} لغير المسؤولين".format(ltype)
                 sql.update_lock(chat.id, ltype, locked=True)
                 send_message(update.effective_message, text, parse_mode="markdown")
 
@@ -191,20 +191,20 @@ def lock(update, context) -> str:
                     chat = dispatcher.bot.getChat(conn)
                     chat_id = conn
                     chat_name = chat.title
-                    text = "Locked {} for all non-admins in {}!".format(
+                    text = "مقفل {} لغير المسؤولين في {}!".format(
                         ltype, chat_name
                     )
                 else:
                     if update.effective_message.chat.type == "private":
                         send_message(
                             update.effective_message,
-                            "This command is meant to use in group not in PM",
+                            "هذا الأمر مخصص للاستخدام في المجموعة وليس في PM",
                         )
                         return ""
                     chat = update.effective_chat
                     chat_id = update.effective_chat.id
                     chat_name = update.effective_message.chat.title
-                    text = "Locked {} for all non-admins!".format(ltype)
+                    text = "مقفل {} لجميع غير المسؤولين!".format(ltype)
 
                 current_permission = context.bot.getChat(chat_id).permissions
                 context.bot.set_chat_permissions(
@@ -228,15 +228,15 @@ def lock(update, context) -> str:
                 )
             send_message(
                 update.effective_message,
-                "What are you trying to lock...? Try /locktypes for the list of lockables",
+                "ما الذي تحاول قفله ...؟ جرب /locktypes للحصول على قائمة قابلة للقفل",
             )
         else:
-            send_message(update.effective_message, "What are you trying to lock...?")
+            send_message(update.effective_message, "ما الذي تحاول قفله ...؟")
 
     else:
         send_message(
             update.effective_message,
-            "I am not administrator or haven't got enough rights.",
+            "أنا لست مسؤولاً أو ليس لدي حقوق كافية.",
         )
 
     return ""
@@ -260,18 +260,18 @@ def unlock(update, context) -> str:
                     chat = dispatcher.bot.getChat(conn)
                     chat_id = conn
                     chat_name = chat.title
-                    text = "Unlocked {} for everyone in {}!".format(ltype, chat_name)
+                    text = "مفتوحة {} للجميع في {}!".format(ltype, chat_name)
                 else:
                     if update.effective_message.chat.type == "private":
                         send_message(
                             update.effective_message,
-                            "This command is meant to use in group not in PM",
+                            "هذا الأمر مخصص للاستخدام في المجموعة وليس في PM",
                         )
                         return ""
                     chat = update.effective_chat
                     chat_id = update.effective_chat.id
                     chat_name = update.effective_message.chat.title
-                    text = "Unlocked {} for everyone!".format(ltype)
+                    text = "مفتوحة {} للجميع!".format(ltype)
                 sql.update_lock(chat.id, ltype, locked=False)
                 send_message(update.effective_message, text, parse_mode="markdown")
                 return (
@@ -292,18 +292,18 @@ def unlock(update, context) -> str:
                     chat = dispatcher.bot.getChat(conn)
                     chat_id = conn
                     chat_name = chat.title
-                    text = "Unlocked {} for everyone in {}!".format(ltype, chat_name)
+                    text = "مفتوحة {} للجميع في {}!".format(ltype, chat_name)
                 else:
                     if update.effective_message.chat.type == "private":
                         send_message(
                             update.effective_message,
-                            "This command is meant to use in group not in PM",
+                            "هذا الأمر مخصص للاستخدام في المجموعة وليس في PM",
                         )
                         return ""
                     chat = update.effective_chat
                     chat_id = update.effective_chat.id
                     chat_name = update.effective_message.chat.title
-                    text = "Unlocked {} for everyone!".format(ltype)
+                    text = "مفتوحة {} للجميع!".format(ltype)
 
                 current_permission = context.bot.getChat(chat_id).permissions
                 context.bot.set_chat_permissions(
@@ -328,11 +328,11 @@ def unlock(update, context) -> str:
                 )
             send_message(
                 update.effective_message,
-                "What are you trying to unlock...? Try /locktypes for the list of lockables.",
+                "ما الذي تحاول فتحه ...؟ جرب /locktypes للحصول على قائمة قابلة للقفل.",
             )
 
         else:
-            send_message(update.effective_message, "What are you trying to unlock...?")
+            send_message(update.effective_message, "ما الذي تحاول فتحه ...؟")
 
     return ""
 
@@ -353,8 +353,8 @@ def del_lockables(update, context):
                         try:
                             message.delete()
                         except BadRequest as excp:
-                            if excp.message != "Message to delete not found":
-                                LOGGER.exception("ERROR in lockables")
+                            if excp.message != "لم يتم العثور على رسالة للحذف":
+                                LOGGER.exception("خطأ في القفل")
                         break
                 if message.text:
                     check = ad.detect_alphabet("{}".format(message.text))
@@ -362,8 +362,8 @@ def del_lockables(update, context):
                         try:
                             message.delete()
                         except BadRequest as excp:
-                            if excp.message != "Message to delete not found":
-                                LOGGER.exception("ERROR in lockables")
+                            if excp.message != "لم يتم العثور على رسالة للحذف":
+                                LOGGER.exception("خطأ في القفل")
                         break
             continue
         if lockable == "button":
@@ -376,8 +376,8 @@ def del_lockables(update, context):
                 try:
                     message.delete()
                 except BadRequest as excp:
-                    if excp.message != "Message to delete not found":
-                        LOGGER.exception("ERROR in lockables")
+                    if excp.message != "لم يتم العثور على رسالة للحذف":
+                        LOGGER.exception("خطأ في القفل")
                 break
             continue
         if lockable == "inline":
@@ -390,8 +390,8 @@ def del_lockables(update, context):
                 try:
                     message.delete()
                 except BadRequest as excp:
-                    if excp.message != "Message to delete not found":
-                        LOGGER.exception("ERROR in lockables")
+                    if excp.message != "لم يتم العثور على رسالة للحذف":
+                        LOGGER.exception("خطأ في القفل")
                 break
             continue
         if (
@@ -406,23 +406,23 @@ def del_lockables(update, context):
                         if not is_bot_admin(chat, context.bot.id):
                             send_message(
                                 update.effective_message,
-                                "I see a bot and I've been told to stop them from joining..."
-                                "but I'm not admin!",
+                                "أرى روبوتًا وقد طُلب مني منعهم من الانضمام ..."
+                                "لكنني لست مشرفًا!",
                             )
                             return
 
                         chat.ban_member(new_mem.id)
                         send_message(
                             update.effective_message,
-                            "Only admins are allowed to add bots in this chat! Get outta here.",
+                            "يُسمح للمسؤولين فقط بإضافة روبوتات في هذه الدردشة! الحصول على وتا هنا.",
                         )
                         break
             else:
                 try:
                     message.delete()
                 except BadRequest as excp:
-                    if excp.message != "Message to delete not found":
-                        LOGGER.exception("ERROR in lockables")
+                    if excp.message != "لم يتم العثور على رسالة للحذف":
+                        LOGGER.exception("خطأ في القفل")
 
                 break
 
@@ -433,7 +433,7 @@ def build_lock_message(chat_id):
     locklist = []
     permslist = []
     if locks:
-        res += "*" + "These are the current locks in this Chat:" + "*"
+        res += "*" + "هذه هي الأقفال الحالية في هذه الدردشة:" + "*"
         locklist.append("sticker = `{}`".format(locks.sticker))
         locklist.append("audio = `{}`".format(locks.audio))
         locklist.append("voice = `{}`".format(locks.voice))
@@ -467,7 +467,7 @@ def build_lock_message(chat_id):
         # Building lock list string
         for x in locklist:
             res += "\n × {}".format(x)
-    res += "\n\n*" + "These are the current chat permissions:" + "*"
+    res += "\n\n*" + "هذه هي أذونات الدردشة الحالية:" + "*"
     for x in permslist:
         res += "\n × {}".format(x)
     return res
@@ -488,7 +488,7 @@ def list_locks(update, context):
         if update.effective_message.chat.type == "private":
             send_message(
                 update.effective_message,
-                "This command is meant to use in group not in PM",
+                "هذا الأمر مخصص للاستخدام في المجموعة وليس في PM",
             )
             return ""
         chat = update.effective_chat
@@ -496,7 +496,7 @@ def list_locks(update, context):
 
     res = build_lock_message(chat.id)
     if conn:
-        res = res.replace("Locks in", "*{}*".format(chat_name))
+        res = res.replace("يحبس في", "*{}*".format(chat_name))
 
     send_message(update.effective_message, res, parse_mode=ParseMode.MARKDOWN)
 
@@ -536,27 +536,27 @@ def __chat_settings__(chat_id, user_id):
 
 
 __help__ = """
-Do stickers annoy you? or want to avoid people sharing links? or pictures? \
-You're in the right place!
-The locks module allows you to lock away some common items in the \
-telegram world; the bot will automatically delete them!
+هل الملصقات تزعجك؟ أو تريد تجنب مشاركة الأشخاص للروابط؟ او الصور؟ \
+أنت في المكان الصحيح!
+تتيح لك وحدة الأقفال قفل بعض العناصر الشائعة في ملف \
+عالم برقية سيقوم الروبوت بحذفها تلقائيًا!
 
-❂ /locktypes*:* Lists all possible locktypes
+❂ /locktypes*:* يسرد كل أنواع القفل الممكنة
 
-*Admins only:*
-❂ /lock <type>*:* Lock items of a certain type (not available in private)
-❂ /unlock <type>*:* Unlock items of a certain type (not available in private)
-❂ /locks*:* The current list of locks in this chat.
+*المشرفين فقط:*
+❂ /lock <type>*:* قفل العناصر من نوع معين (غير متوفر بشكل خاص)
+❂ /unlock <type>*:* فتح عناصر من نوع معين (غير متوفرة بشكل خاص)
+❂ /locks*:* القائمة الحالية للأقفال في هذه الدردشة.
 
-Locks can be used to restrict a group's users.
+يمكن استخدام الأقفال لتقييد مستخدمي المجموعة.
 eg:
-Locking urls will auto-delete all messages with urls, locking stickers will restrict all \
-non-admin users from sending stickers, etc.
-Locking bots will stop non-admins from adding bots to the chat.
+سيؤدي قفل عناوين url إلى حذف جميع الرسائل التي تحتوي على عناوين url تلقائيًا ، وسيؤدي قفل الملصقات إلى تقييد الكل \
+المستخدمين غير الإداريين من إرسال الملصقات ، إلخ.
+سيؤدي قفل الروبوتات إلى منع غير المسؤولين من إضافة برامج الروبوت إلى الدردشة.
 
 *Note:*
-❂ Unlocking permission *info* will allow members (non-admins) to change the group information, such as the description or the group name
-❂ Unlocking permission *pin* will allow members (non-admins) to pinned a message in a group
+➢ فتح الإذن *info* سيسمح للأعضاء (غير المسؤولين) بتغيير معلومات المجموعة ، مثل الوصف أو اسم المجموعة
+➢ فتح إذن *pin* سيسمح للأعضاء (غير المسؤولين) بتثبيت رسالة في مجموعة
 """
 
 __mod_name__ = "Locks"

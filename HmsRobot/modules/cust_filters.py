@@ -69,7 +69,7 @@ def list_handlers(update, context):
 
     if not all_handlers:
         send_message(
-            update.effective_message, "No filters saved in {}!".format(chat_name)
+            update.effective_message, "لا توجد فلاتر محفوظة في {}!".format(chat_name)
         )
         return
 
@@ -117,7 +117,7 @@ def filters(update, context):
     if not msg.reply_to_message and len(args) < 2:
         send_message(
             update.effective_message,
-            "Please provide keyboard keyword for this filter to reply with!",
+            "يرجى تقديم كلمة رئيسية للوحة المفاتيح لهذا المرشح للرد عليها!",
         )
         return
 
@@ -125,7 +125,7 @@ def filters(update, context):
         if len(args) < 2:
             send_message(
                 update.effective_message,
-                "Please provide keyword for this filter to reply with!",
+                "يرجى تقديم كلمة أساسية لهذا المرشح للرد عليها!",
             )
             return
         else:
@@ -155,7 +155,7 @@ def filters(update, context):
         if not text:
             send_message(
                 update.effective_message,
-                "There is no note message - You can't JUST have buttons, you need a message to go with it!",
+                "لا توجد رسالة ملاحظة - لا يمكنك الحصول على أزرار فقط ، فأنت بحاجة إلى رسالة لتتوافق معها!",
             )
             return
 
@@ -177,7 +177,7 @@ def filters(update, context):
     elif not text and not file_type:
         send_message(
             update.effective_message,
-            "Please provide keyword for this filter reply with!",
+            "يرجى تقديم كلمة أساسية لهذا المرشح الرد بـ!",
         )
         return
 
@@ -198,7 +198,7 @@ def filters(update, context):
         if (msg.reply_to_message.text or msg.reply_to_message.caption) and not text:
             send_message(
                 update.effective_message,
-                "There is no note message - You can't JUST have buttons, you need a message to go with it!",
+                "لا توجد رسالة ملاحظة - لا يمكنك الحصول على أزرار فقط ، فأنت بحاجة إلى رسالة لتتوافق معها!",
             )
             return
 
@@ -213,7 +213,7 @@ def filters(update, context):
     if add is True:
         send_message(
             update.effective_message,
-            "Saved filter '{}' in *{}*!".format(keyword, chat_name),
+            "مرشح محفوظ '{}' in *{}*!".format(keyword, chat_name),
             parse_mode=telegram.ParseMode.MARKDOWN,
         )
     raise DispatcherHandlerStop
@@ -234,7 +234,7 @@ def stop_filter(update, context):
     else:
         chat_id = update.effective_chat.id
         if chat.type == "private":
-            chat_name = "Local filters"
+            chat_name = "المرشحات المحلية"
         else:
             chat_name = chat.title
 
@@ -245,7 +245,7 @@ def stop_filter(update, context):
     chat_filters = sql.get_chat_triggers(chat_id)
 
     if not chat_filters:
-        send_message(update.effective_message, "No filters active here!")
+        send_message(update.effective_message, "لا توجد فلاتر نشطة هنا!")
         return
 
     for keyword in chat_filters:
@@ -253,14 +253,14 @@ def stop_filter(update, context):
             sql.remove_filter(chat_id, args[1])
             send_message(
                 update.effective_message,
-                "Okay, I'll stop replying to that filter in *{}*.".format(chat_name),
+                "حسنًا ، سأتوقف عن الرد على هذا الفلتر *{}*.".format(chat_name),
                 parse_mode=telegram.ParseMode.MARKDOWN,
             )
             raise DispatcherHandlerStop
 
     send_message(
         update.effective_message,
-        "That's not a filter - Click: /filters to get currently active filters.",
+        "هذا ليس عامل تصفية - انقر فوق: /filters للحصول على عوامل التصفية النشطة حاليًا.",
     )
 
 
@@ -281,7 +281,7 @@ def reply_filter(update, context):
             if MessageHandlerChecker.check_user(update.effective_user.id):
                 return
             filt = sql.get_filter(chat.id, keyword)
-            if filt.reply == "there is should be a new reply":
+            if filt.reply == "يجب أن يكون هناك رد جديد":
                 buttons = sql.get_buttons(chat.id, filt.keyword)
                 keyb = build_keyboard_parser(context.bot, chat.id, buttons)
                 keyboard = InlineKeyboardMarkup(keyb)
@@ -316,15 +316,15 @@ def reply_filter(update, context):
                         except BadRequest as excp:
                             if (
                                 excp.message
-                                == "Wrong remote file identifier specified: wrong padding in the string"
+                                == "تم تحديد معرف ملف بعيد خاطئ: ترك مساحة خاطئة في السلسلة"
                             ):
                                 context.bot.send_message(
                                     chat.id,
-                                    "Message couldn't be sent, Is the sticker id valid?",
+                                    "تعذر إرسال الرسالة ، هل معرف الملصق صالح؟",
                                 )
                                 return
                             else:
-                                LOGGER.exception("Error in filters: " + excp.message)
+                                LOGGER.exception("خطأ في المرشحات: " + excp.message)
                                 return
                     valid_format = escape_invalid_curly_brackets(
                         text, VALID_WELCOME_FORMATTERS
@@ -384,7 +384,7 @@ def reply_filter(update, context):
                                     reply_markup=keyboard,
                                 )
                             except BadRequest as excp:
-                                LOGGER.exception("Error in filters: " + excp.message)
+                                LOGGER.exception("خطأ في المرشحات: " + excp.message)
                                 send_message(
                                     update.effective_message,
                                     get_exception(excp, filt, chat),
@@ -397,7 +397,7 @@ def reply_filter(update, context):
                                 )
                             except BadRequest as excp:
                                 LOGGER.exception(
-                                    "Failed to send message: " + excp.message
+                                    "فشل في إرسال الرسالة: " + excp.message
                                 )
                                 pass
                 else:
@@ -445,18 +445,18 @@ def reply_filter(update, context):
                             reply_markup=keyboard,
                         )
                     except BadRequest as excp:
-                        if excp.message == "Unsupported url protocol":
+                        if excp.message == "بروتوكول URL غير مدعوم":
                             try:
                                 send_message(
                                     update.effective_message,
-                                    "You seem to be trying to use an unsupported url protocol. "
-                                    "Telegram doesn't support buttons for some protocols, such as tg://. Please try "
-                                    "again...",
+                                    "يبدو أنك تحاول استخدام بروتوكول عنوان url غير مدعوم."
+                                    "لا يدعم Telegram الأزرار لبعض البروتوكولات ، مثل tg: //. أرجوك حاول"
+                                    "تكرارا...",
                                 )
                             except BadRequest as excp:
-                                LOGGER.exception("Error in filters: " + excp.message)
+                                LOGGER.exception("خطأ في المرشحات: " + excp.message)
                                 pass
-                        elif excp.message == "Reply message not found":
+                        elif excp.message == "لم يتم العثور على رسالة الرد":
                             try:
                                 context.bot.send_message(
                                     chat.id,
@@ -466,22 +466,22 @@ def reply_filter(update, context):
                                     reply_markup=keyboard,
                                 )
                             except BadRequest as excp:
-                                LOGGER.exception("Error in filters: " + excp.message)
+                                LOGGER.exception("خطأ في المرشحات: " + excp.message)
                                 pass
                         else:
                             try:
                                 send_message(
                                     update.effective_message,
-                                    "This message couldn't be sent as it's incorrectly formatted.",
+                                    "تعذر إرسال هذه الرسالة لأنها منسقة بشكل غير صحيح.",
                                 )
                             except BadRequest as excp:
-                                LOGGER.exception("Error in filters: " + excp.message)
+                                LOGGER.exception("خطأ في المرشحات: " + excp.message)
                                 pass
                             LOGGER.warning(
-                                "Message %s could not be parsed", str(filt.reply)
+                                "رسالة %s لا يمكن تحليلها", str(filt.reply)
                             )
                             LOGGER.exception(
-                                "Could not parse filter %s in chat %s",
+                                "تعذر تحليل عامل التصفية %s في الدردشه %s",
                                 str(filt.keyword),
                                 str(chat.id),
                             )
@@ -491,7 +491,7 @@ def reply_filter(update, context):
                     try:
                         send_message(update.effective_message, filt.reply)
                     except BadRequest as excp:
-                        LOGGER.exception("Error in filters: " + excp.message)
+                        LOGGER.exception("خطأ في المرشحات: " + excp.message)
                         pass
                 break
 
@@ -502,7 +502,7 @@ def rmall_filters(update, context):
     member = chat.get_member(user.id)
     if member.status != "creator" and user.id not in DRAGONS:
         update.effective_message.reply_text(
-            "Only the chat owner can clear all notes at once."
+            "يمكن لمالك الدردشة فقط مسح جميع الملاحظات دفعة واحدة."
         )
     else:
         buttons = InlineKeyboardMarkup(
@@ -516,7 +516,7 @@ def rmall_filters(update, context):
             ]
         )
         update.effective_message.reply_text(
-            f"Are you sure you would like to stop ALL filters in {chat.title}? This action cannot be undone.",
+            f"هل أنت متأكد أنك تريد إيقاف كافة عوامل التصفية في {chat.title}? لا يمكن التراجع عن هذا الإجراء.",
             reply_markup=buttons,
             parse_mode=ParseMode.MARKDOWN,
         )
@@ -531,7 +531,7 @@ def rmall_callback(update, context):
         if member.status == "creator" or query.from_user.id in DRAGONS:
             allfilters = sql.get_chat_triggers(chat.id)
             if not allfilters:
-                msg.edit_text("No filters in this chat, nothing to stop!")
+                msg.edit_text("لا توجد عوامل تصفية في هذه الدردشة ، لا شيء للتوقف!")
                 return
 
             count = 0
@@ -546,32 +546,32 @@ def rmall_callback(update, context):
             msg.edit_text(f"Cleaned {count} filters in {chat.title}")
 
         if member.status == "administrator":
-            query.answer("Only owner of the chat can do this.")
+            query.answer("يمكن لمالك الدردشة فقط القيام بذلك.")
 
         if member.status == "member":
-            query.answer("You need to be admin to do this.")
+            query.answer("يجب أن تكون مشرفًا للقيام بذلك.")
     elif query.data == "filters_cancel":
         if member.status == "creator" or query.from_user.id in DRAGONS:
-            msg.edit_text("Clearing of all filters has been cancelled.")
+            msg.edit_text("تم إلغاء مسح جميع المرشحات.")
             return
         if member.status == "administrator":
-            query.answer("Only owner of the chat can do this.")
+            query.answer("يمكن لمالك الدردشة فقط القيام بذلك.")
         if member.status == "member":
-            query.answer("You need to be admin to do this.")
+            query.answer("يجب أن تكون مشرفًا للقيام بذلك.")
 
 
 # NOT ASYNC NOT A HANDLER
 def get_exception(excp, filt, chat):
-    if excp.message == "Unsupported url protocol":
-        return "You seem to be trying to use the URL protocol which is not supported. Telegram does not support key for multiple protocols, such as tg: //. Please try again!"
-    elif excp.message == "Reply message not found":
+    if excp.message == "بروتوكول URL غير مدعوم":
+        return "يبدو أنك تحاول استخدام بروتوكول URL غير المدعوم. لا يدعم Telegram المفتاح لبروتوكولات متعددة ، مثل tg: //. حاول مرة اخرى!"
+    elif excp.message == "لم يتم العثور على رسالة الرد":
         return "noreply"
     else:
-        LOGGER.warning("Message %s could not be parsed", str(filt.reply))
+        LOGGER.warning("رساله %s لا يمكن تحليلها", str(filt.reply))
         LOGGER.exception(
-            "Could not parse filter %s in chat %s", str(filt.keyword), str(chat.id)
+            "تعذر تحليل عامل التصفية %s في الدردشه %s", str(filt.keyword), str(chat.id)
         )
-        return "This data could not be sent because it is incorrectly formatted."
+        return "تعذر إرسال هذه البيانات لأنها منسقة بشكل غير صحيح."
 
 
 # NOT ASYNC NOT A HANDLER
@@ -579,7 +579,7 @@ def addnew_filter(update, chat_id, keyword, text, file_type, file_id, buttons):
     msg = update.effective_message
     totalfilt = sql.get_chat_triggers(chat_id)
     if len(totalfilt) >= 150:  # Idk why i made this like function....
-        msg.reply_text("This group has reached its max filters limit of 150.")
+        msg.reply_text("وصلت هذه المجموعة إلى الحد الأقصى للفلاتر وهو 150.")
         return False
     else:
         sql.new_add_filter(chat_id, keyword, text, file_type, file_id, buttons)
@@ -587,7 +587,7 @@ def addnew_filter(update, chat_id, keyword, text, file_type, file_id, buttons):
 
 
 def __stats__():
-    return "× {} filters, across {} chats.".format(sql.num_filters(), sql.num_chats())
+    return "× {} مرشحات عبر {} دردشات.".format(sql.num_filters(), sql.num_chats())
 
 
 def __import_data__(chat_id, data):
@@ -603,32 +603,32 @@ def __migrate__(old_chat_id, new_chat_id):
 
 def __chat_settings__(chat_id, user_id):
     cust_filters = sql.get_chat_triggers(chat_id)
-    return "There are `{}` custom filters here.".format(len(cust_filters))
+    return "هناك `{}` مرشحات مخصصة هنا.".format(len(cust_filters))
 
 
 __help__ = """
-❂ /filters*:* List all active filters saved in the chat.
+❂ /filters*:* قائمة بجميع المرشحات النشطة المحفوظة في الدردشة.
 *Admin only:*
-❂ /filter <keyword> <reply message>*:* Add a filter to this chat. The bot will now reply that message whenever 'keyword'\
-is mentioned. If you reply to a sticker with a keyword, the bot will reply with that sticker. NOTE: all filter \
-keywords are in lowercase. If you want your keyword to be a sentence, use quotes. eg: /filter "hey there" How you \
-doin?
- Separate diff replies by `%%%` to get random replies
- *Example:* 
- `/filter "filtername"
+❂ /filter <keyword> <reply message>*:* أضف مرشح لهذه الدردشة. سيقوم الروبوت الآن بالرد على هذه الرسالة في أي وقت 'keyword'\
+مذكور. إذا قمت بالرد على ملصق بكلمة رئيسية ، سيرد الروبوت بذلك الملصق. ملاحظة: كل مرشح \
+الكلمات الرئيسية بأحرف صغيرة. إذا كنت تريد أن تكون كلمتك الرئيسية جملة ، فاستخدم علامات الاقتباس. على سبيل المثال: /filter "hey there" How you \
+تفعلين؟
+ ردود فرق منفصلة حسب `%%%` للحصول على ردود عشوائية
+ *مثال:* 
+ `!filter "filtername"
  Reply 1
  %%%
  Reply 2
  %%%
  Reply 3`
 
-❂ /stop <filter keyword>*:* Stop that filter.
+❂ /stop <filter keyword>*:* أوقف هذا المرشح.
 
-*Chat creator only:*
+*منشئ الدردشة فقط:*
 
-❂ /removeallfilters*:* Remove all chat filters at once.
-*Note*: Filters also support markdown formatters like: {first}, {last} etc.. and buttons.
-Check /markdownhelp to know more!
+❂ /removeallfilters*:* قم بإزالة جميع مرشحات الدردشة مرة واحدة.
+*Note*: تدعم الفلاتر أيضًا تنسيقات تخفيض السعر مثل: {first}, {last} etc.. والازرار
+يفحص /markdownhelp لمعرفة المزيد!
 """
 
 __mod_name__ = "Filters"

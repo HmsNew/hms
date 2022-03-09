@@ -78,10 +78,10 @@ def get(update, context, notename, show_none=True, no_format=False):
                         message_id=note.value,
                     )
                 except BadRequest as excp:
-                    if excp.message == "Message to forward not found":
+                    if excp.message == "لم يتم العثور على رسالة لإعادة التوجيه":
                         message.reply_text(
-                            "This message seems to have been lost - I'll remove it "
-                            "from your notes list.",
+                            "يبدو أن هذه الرسالة قد ضاعت - سأزيلها "
+                            "من قائمة الملاحظات الخاصة بك.",
                         )
                         sql.rm_note(note_chat_id, notename)
                     else:
@@ -94,12 +94,12 @@ def get(update, context, notename, show_none=True, no_format=False):
                         message_id=note.value,
                     )
                 except BadRequest as excp:
-                    if excp.message == "Message to forward not found":
+                    if excp.message == "لم يتم العثور على رسالة لإعادة التوجيه":
                         message.reply_text(
-                            "Looks like the original sender of this note has deleted "
-                            "their message - sorry! Get your bot admin to start using a "
-                            "message dump to avoid this. I'll remove this note from "
-                            "your saved notes.",
+                            "يبدو أن المُرسِل الأصلي لهذه الملاحظة قد تم حذفه"
+                            "رسالتهم - آسف! احصل على مسؤول الروبوت الخاص بك لبدء استخدام ملف"
+                            "تفريغ الرسائل لتجنب ذلك. سأزيل هذه الملاحظة من"
+                            "ملاحظاتك المحفوظة.",
                         )
                         sql.rm_note(note_chat_id, notename)
                     else:
@@ -196,31 +196,31 @@ def get(update, context, notename, show_none=True, no_format=False):
             except BadRequest as excp:
                 if excp.message == "Entity_mention_user_invalid":
                     message.reply_text(
-                        "Looks like you tried to mention someone I've never seen before. If you really "
-                        "want to mention them, forward one of their messages to me, and I'll be able "
-                        "to tag them!",
+                        "يبدو أنك حاولت ذكر شخص لم أره من قبل. إذا كنت حقا"
+                        "أريد أن أذكرهم ، وأرسل إحدى رسائلهم إليّ ، وسأكون قادرًا"
+                        "لتمييزهم!",
                     )
                 elif FILE_MATCHER.match(note.value):
                     message.reply_text(
-                        "This note was an incorrectly imported file from another bot - I can't use "
-                        "it. If you really need it, you'll have to save it again. In "
-                        "the meantime, I'll remove it from your notes list.",
+                        "كانت هذه الملاحظة ملفًا مستوردًا بشكل غير صحيح من روبوت آخر - لا يمكنني استخدام"
+                        "هو - هي. إذا كنت حقًا في حاجة إليه ، فسيتعين عليك حفظه مرة أخرى. في"
+                        "في غضون ذلك ، سأزيله من قائمة ملاحظاتك.",
                     )
                     sql.rm_note(note_chat_id, notename)
                 else:
                     message.reply_text(
-                        "This note could not be sent, as it is incorrectly formatted. Ask in "
-                        f"@{SUPPORT_CHAT} if you can't figure out why!",
+                        "تعذر إرسال هذه الملاحظة حيث تم تنسيقها بشكل غير صحيح. اسأل في"
+                        f"@{SUPPORT_CHAT} إذا لم تستطع معرفة السبب!",
                     )
                     LOGGER.exception(
-                        "Could not parse message #%s in chat %s",
+                        "تعذر تحليل الرسالة #%s in chat %s",
                         notename,
                         str(note_chat_id),
                     )
-                    LOGGER.warning("Message was: %s", str(note.value))
+                    LOGGER.warning("كانت الرسالة: %s", str(note.value))
         return
     if show_none:
-        message.reply_text("This note doesn't exist")
+        message.reply_text("هذه الملاحظة غير موجودة")
 
 
 @connection_status
@@ -265,7 +265,7 @@ def save(update: Update, context: CallbackContext):
     note_name, text, data_type, content, buttons = get_note_type(msg)
     note_name = note_name.lower()
     if data_type is None:
-        msg.reply_text("Dude, there's no note")
+        msg.reply_text("يا صاح ، ليس هناك ملاحظة")
         return
 
     sql.add_note_to_db(
@@ -278,24 +278,24 @@ def save(update: Update, context: CallbackContext):
     )
 
     msg.reply_text(
-        f"Yas! Added `{note_name}`.\nGet it with /get `{note_name}`, or `#{note_name}`",
+        f"ياس! مضاف `{note_name}`.\nاحصل عليه مع /get `{note_name}`, or `#{note_name}`",
         parse_mode=ParseMode.MARKDOWN,
     )
 
     if msg.reply_to_message and msg.reply_to_message.from_user.is_bot:
         if text:
             msg.reply_text(
-                "Seems like you're trying to save a message from a bot. Unfortunately, "
-                "bots can't forward bot messages, so I can't save the exact message. "
-                "\nI'll save all the text I can, but if you want more, you'll have to "
-                "forward the message yourself, and then save it.",
+                "يبدو أنك تحاول حفظ رسالة من الروبوت. لسوء الحظ،"
+                "لا تستطيع برامج الروبوت إعادة توجيه رسائل الروبوت ، لذا لا يمكنني حفظ الرسالة بالضبط."
+                "\nسأحفظ كل النص الذي أستطيعه ، ولكن إذا كنت تريد المزيد ، فسيتعين عليك ذلك"
+                "قم بإعادة توجيه الرسالة بنفسك ، ثم احفظها.",
             )
         else:
             msg.reply_text(
-                "Bots are kinda handicapped by telegram, making it hard for bots to "
-                "interact with other bots, so I can't save this message "
-                "like I usually would - do you mind forwarding it and "
-                "then saving that new message? Thanks!",
+                "يتم إعاقة برامج الروبوت نوعًا ما عن طريق التلغرام ، مما يجعل من الصعب على الروبوتات القيام بذلك"
+                "تتفاعل مع برامج الروبوت الأخرى ، لذا لا يمكنني حفظ هذه الرسالة"
+                "كما أفعل عادةً - هل تمانع في إعادة توجيهه و"
+                "ثم حفظ تلك الرسالة الجديدة؟ شكرا!",
             )
         return
 
@@ -309,9 +309,9 @@ def clear(update: Update, context: CallbackContext):
         notename = args[0].lower()
 
         if sql.rm_note(chat_id, notename):
-            update.effective_message.reply_text("Successfully removed note.")
+            update.effective_message.reply_text("تمت إزالة الملاحظة بنجاح.")
         else:
-            update.effective_message.reply_text("That's not a note in my database!")
+            update.effective_message.reply_text("هذه ليست ملاحظة في قاعدة بياناتي!")
 
 
 def clearall(update: Update, context: CallbackContext):
@@ -320,14 +320,14 @@ def clearall(update: Update, context: CallbackContext):
     member = chat.get_member(user.id)
     if member.status != "creator" and user.id not in DRAGONS:
         update.effective_message.reply_text(
-            "Only the chat owner can clear all notes at once.",
+            "يمكن لمالك الدردشة فقط مسح جميع الملاحظات دفعة واحدة.",
         )
     else:
         buttons = InlineKeyboardMarkup(
             [
                 [
                     InlineKeyboardButton(
-                        text="Delete all notes",
+                        text="احذف كافة الملاحظات",
                         callback_data="notes_rmall",
                     ),
                 ],
@@ -335,7 +335,7 @@ def clearall(update: Update, context: CallbackContext):
             ],
         )
         update.effective_message.reply_text(
-            f"Are you sure you would like to clear ALL notes in {chat.title}? This action cannot be undone.",
+            f"هل أنت متأكد من رغبتك في مسح كافة الملاحظات بتنسيق {chat.title}? لا يمكن التراجع عن هذا الإجراء.",
             reply_markup=buttons,
             parse_mode=ParseMode.MARKDOWN,
         )
@@ -353,23 +353,23 @@ def clearall_btn(update: Update, context: CallbackContext):
                 for notename in note_list:
                     note = notename.name.lower()
                     sql.rm_note(chat.id, note)
-                message.edit_text("Deleted all notes.")
+                message.edit_text("تم حذف كافة الملاحظات.")
             except BadRequest:
                 return
 
         if member.status == "administrator":
-            query.answer("Only owner of the chat can do this.")
+            query.answer("يمكن لمالك الدردشة فقط القيام بذلك.")
 
         if member.status == "member":
-            query.answer("You need to be admin to do this.")
+            query.answer("يجب أن تكون مشرفًا للقيام بذلك.")
     elif query.data == "notes_cancel":
         if member.status == "creator" or query.from_user.id in DRAGONS:
-            message.edit_text("Clearing of all notes has been cancelled.")
+            message.edit_text("تم إلغاء مسح جميع الأوراق النقدية.")
             return
         if member.status == "administrator":
-            query.answer("Only owner of the chat can do this.")
+            query.answer("يمكن لمالك الدردشة فقط القيام بذلك.")
         if member.status == "member":
-            query.answer("You need to be admin to do this.")
+            query.answer("يجب أن تكون مشرفًا للقيام بذلك.")
 
 
 @connection_status
@@ -377,7 +377,7 @@ def list_notes(update: Update, context: CallbackContext):
     chat_id = update.effective_chat.id
     note_list = sql.get_all_chat_notes(chat_id)
     notes = len(note_list) + 1
-    msg = "Get note by `/notenumber` or `#notename` \n\n  *ID*    *Note* \n"
+    msg = "احصل على ملاحظات `/notenumber` or `#notename` \n\n  *ID*    *Note* \n"
     for note_id, note in zip(range(1, notes), note_list):
         if note_id < 10:
             note_name = f"`{note_id:2}.`  `#{(note.name.lower())}`\n"
@@ -390,9 +390,9 @@ def list_notes(update: Update, context: CallbackContext):
 
     if not note_list:
         try:
-            update.effective_message.reply_text("No notes in this chat!")
+            update.effective_message.reply_text("لا توجد ملاحظات في هذه الدردشة!")
         except BadRequest:
-            update.effective_message.reply_text("No notes in this chat!", quote=False)
+            update.effective_message.reply_text("لا توجد ملاحظات في هذه الدردشة!", quote=False)
 
     elif len(msg) != 0:
         update.effective_message.reply_text(msg, parse_mode=ParseMode.MARKDOWN)
@@ -527,14 +527,14 @@ def __import_data__(chat_id, data):
                 chat_id,
                 document=output,
                 filename="failed_imports.txt",
-                caption="These files/photos failed to import due to originating "
-                "from another bot. This is a telegram API restriction, and can't "
-                "be avoided. Sorry for the inconvenience!",
+                caption="فشل استيراد هذه الملفات / الصور بسبب إنشائها"
+                "من بوت آخر. هذا أحد قيود Telegram API ، ولا يمكن"
+                "قد تم تحاشيه. آسف للإزعاج!",
             )
 
 
 def __stats__():
-    return f"× {sql.num_notes()} notes, across {sql.num_chats()} chats."
+    return f"× {sql.num_notes()} الملاحظات عبر {sql.num_chats()} محادثات."
 
 
 def __migrate__(old_chat_id, new_chat_id):
@@ -543,34 +543,34 @@ def __migrate__(old_chat_id, new_chat_id):
 
 def __chat_settings__(chat_id, user_id):
     notes = sql.get_all_chat_notes(chat_id)
-    return f"There are `{len(notes)}` notes in this chat."
+    return f"هناك `{len(notes)}` ملاحظات في هذه الدردشة."
 
 
 __help__ = """
-❂ /get <notename>*:* get the note with this notename
-❂ #<notename>*:* same as /get
-❂ /notes or /saved*:* list all saved notes in this chat
-❂ /number *:* Will pull the note of that number in the list
-If you would like to retrieve the contents of a note without any formatting, use `/get <notename> noformat`. This can \
-be useful when updating a current note
+❂ /get <notename>*:* الحصول على الملاحظة بهذا الاسم
+❂ #<notename>*:* مثل !get
+❂ /notes or !saved*:* قائمة بجميع الملاحظات المحفوظة في هذه الدردشة
+❂ /number *:* سوف يسحب ملاحظة هذا الرقم في القائمة
+إذا كنت ترغب في استرداد محتويات ملاحظة بدون أي تنسيق ، فاستخدم `/get <notename> noformat`. This can \
+تكون مفيدة عند تحديث ملاحظة حالية
 
-*Admins only:*
-❂ /save <notename> <notedata>*:* saves notedata as a note with name notename
-A button can be added to a note by using standard markdown link syntax - the link should just be prepended with a \
-`buttonurl:` section, as such: `[somelink](buttonurl:example.com)`. Check `/markdownhelp` for more info
-❂ /save <notename>*:* save the replied message as a note with name notename
- Separate diff replies by `%%%` to get random notes
- *Example:*
- `/save notename
+*المشرفين فقط:*
+❂ /save <notename> <notedata>*:* يحفظ الملاحظات كملاحظة بالاسم لاسم
+يمكن إضافة زر إلى ملاحظة باستخدام صيغة ارتباط markdown القياسية - يجب أن يتم إضافة الرابط مسبقًا بامتداد \
+`buttonurl:` القسم ، على هذا النحو: `[somelink](buttonurl:example.com)`. يفحص `!markdownhelp` لمزيد من المعلومات
+❂ /save <notename>*:* حفظ الرسالة التي تم الرد عليها كملاحظة بالاسم والاسم
+ ردود فرق منفصلة حسب `%%%` للحصول على ملاحظات عشوائية
+ *مثال:*
+ `!save notename
  Reply 1
  %%%
  Reply 2
  %%%
  Reply 3`
-❂ /clear <notename>*:* clear note with this name
-❂ /removeallnotes*:* removes all notes from the group
+❂ /clear <notename>*:* ملاحظة واضحة بهذا الاسم
+❂ /removeallnotes*:* يزيل كافة الملاحظات من المجموعة
 
- *Note:* Note names are case-insensitive, and they are automatically converted to lowercase before getting saved.
+ *Note:* أسماء الملاحظات غير حساسة لحالة الأحرف ، ويتم تحويلها تلقائيًا إلى أحرف صغيرة قبل حفظها.
 """
 
 __mod_name__ = "Notes"

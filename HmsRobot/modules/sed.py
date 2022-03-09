@@ -8,7 +8,7 @@ from HmsRobot.modules.helper_funcs.regex_helper import infinite_loop_check
 from telegram import Update
 from telegram.ext import CallbackContext, Filters, run_async
 
-DELIMITERS = ("/", ":", "|", "_")
+DELIMITERS = ("/", ":", "!", "_")
 
 
 def separate_sed(sed_string):
@@ -71,7 +71,7 @@ def sed(update: Update, context: CallbackContext):
         repl, repl_with, flags = sed_result
         if not repl:
             update.effective_message.reply_to_message.reply_text(
-                "You're trying to replace... " "nothing with something?"
+                "أنت تحاول استبدال... " "لا شيء بشيء؟"
             )
             return
 
@@ -82,14 +82,14 @@ def sed(update: Update, context: CallbackContext):
                 return
             if check and check.group(0).lower() == to_fix.lower():
                 update.effective_message.reply_to_message.reply_text(
-                    "Hey everyone, {} is trying to make "
-                    "me say stuff I don't wanna "
-                    "say!".format(update.effective_user.first_name)
+                    "مرحبا جميعا, {} يحاول أن يصنع "
+                    "أقول أشياء لا أريدها "
+                    "قل!".format(update.effective_user.first_name)
                 )
                 return
             if infinite_loop_check(repl):
                 update.effective_message.reply_text(
-                    "I'm afraid I can't run that regex."
+                    "أخشى أنني لا أستطيع تشغيل هذا التعبير العادي."
                 )
                 return
             if "i" in flags and "g" in flags:
@@ -109,14 +109,14 @@ def sed(update: Update, context: CallbackContext):
             return
         except sre_constants.error:
             LOGGER.warning(update.effective_message.text)
-            LOGGER.exception("SRE constant error")
-            update.effective_message.reply_text("Do you even sed? Apparently not.")
+            LOGGER.exception("خطأ ثابت SRE")
+            update.effective_message.reply_text("هل حتى سيد؟ على ما يبدو لا.")
             return
 
         # empty string errors -_-
         if len(text) >= telegram.MAX_MESSAGE_LENGTH:
             update.effective_message.reply_text(
-                "The result of the sed command was too long for \
+                "كانت نتيجة الأمر sed طويلة جدًا بالنسبة لها \
                                                  telegram!"
             )
         elif text:

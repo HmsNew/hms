@@ -81,20 +81,20 @@ if is_module_loaded(FILENAME):
                 disable_web_page_preview=True,
             )
         except BadRequest as excp:
-            if excp.message == "Chat not found":
+            if excp.message == "لم يتم العثور على الدردشة":
                 bot.send_message(
-                    orig_chat_id, "This log channel has been deleted - unsetting."
+                    orig_chat_id, "تم حذف قناة السجل هذه - عدم ضبطها."
                 )
                 sql.stop_chat_logging(orig_chat_id)
             else:
                 LOGGER.warning(excp.message)
                 LOGGER.warning(result)
-                LOGGER.exception("Could not parse")
+                LOGGER.exception("تعذر التحليل")
 
                 bot.send_message(
                     log_chat_id,
                     result
-                    + "\n\nFormatting has been disabled due to an unexpected error.",
+                    + "\n\nتم تعطيل التنسيق بسبب خطأ غير متوقع.",
                 )
 
     @user_admin
@@ -107,13 +107,13 @@ if is_module_loaded(FILENAME):
         if log_channel:
             log_channel_info = bot.get_chat(log_channel)
             message.reply_text(
-                f"This group has all it's logs sent to:"
+                f"تحتوي هذه المجموعة على كل السجلات التي تم إرسالها إليها:"
                 f" {escape_markdown(log_channel_info.title)} (`{log_channel}`)",
                 parse_mode=ParseMode.MARKDOWN,
             )
 
         else:
-            message.reply_text("No log channel has been set for this group!")
+            message.reply_text("لم يتم تعيين قناة تسجيل لهذه المجموعة!")
 
     @user_admin
     def setlog(update: Update, context: CallbackContext):
@@ -122,7 +122,7 @@ if is_module_loaded(FILENAME):
         chat = update.effective_chat
         if chat.type == chat.CHANNEL:
             message.reply_text(
-                "Now, forward the /setlog to the group you want to tie this channel to!"
+                "الآن ، قم بإعادة توجيه ملف /setlog للمجموعة التي تريد ربط هذه القناة بها!"
             )
 
         elif message.forward_from_chat:
@@ -130,32 +130,32 @@ if is_module_loaded(FILENAME):
             try:
                 message.delete()
             except BadRequest as excp:
-                if excp.message == "Message to delete not found":
+                if excp.message == "لم يتم العثور على رسالة للحذف":
                     pass
                 else:
                     LOGGER.exception(
-                        "Error deleting message in log channel. Should work anyway though."
+                        "خطأ في حذف الرسالة في قناة السجل. يجب أن تعمل على أي حال."
                     )
 
             try:
                 bot.send_message(
                     message.forward_from_chat.id,
-                    f"This channel has been set as the log channel for {chat.title or chat.first_name}.",
+                    f"تم تعيين هذه القناة كقناة تسجيل لـ {chat.title or chat.first_name}.",
                 )
             except Unauthorized as excp:
-                if excp.message == "Forbidden: bot is not a member of the channel chat":
-                    bot.send_message(chat.id, "Successfully set log channel!")
+                if excp.message == "Forbidden: bot ليس عضوا في قناة الدردشة":
+                    bot.send_message(chat.id, "تم تعيين قناة السجل بنجاح!")
                 else:
-                    LOGGER.exception("ERROR in setting the log channel.")
+                    LOGGER.exception("خطأ في تحديد قناة السجل.")
 
-            bot.send_message(chat.id, "Successfully set log channel!")
+            bot.send_message(chat.id, "تم تعيين قناة السجل بنجاح!")
 
         else:
             message.reply_text(
-                "The steps to set a log channel are:\n"
-                " - add bot to the desired channel\n"
-                " - send /setlog to the channel\n"
-                " - forward the /setlog to the group\n"
+                "الخطوات لتعيين قناة السجل هي:\n"
+                " - إضافة بوت إلى القناة المطلوبة\n"
+                " - إرسال /setlog للقناة\n"
+                " - إعادة توجيه /setlog الي المجموعه\n"
             )
 
     @user_admin
@@ -167,15 +167,15 @@ if is_module_loaded(FILENAME):
         log_channel = sql.stop_chat_logging(chat.id)
         if log_channel:
             bot.send_message(
-                log_channel, f"Channel has been unlinked from {chat.title}"
+                log_channel, f"تم إلغاء ربط القناة من {chat.title}"
             )
-            message.reply_text("Log channel has been un-set.")
+            message.reply_text("تم إلغاء تعيين قناة السجل.")
 
         else:
-            message.reply_text("No log channel has been set yet!")
+            message.reply_text("لم يتم تعيين قناة سجل حتى الآن!")
 
     def __stats__():
-        return f"× {sql.num_logchannels()} log channels set."
+        return f"× {sql.num_logchannels()} تعيين قنوات السجل."
 
     def __migrate__(old_chat_id, new_chat_id):
         sql.migrate_chat(old_chat_id, new_chat_id)
@@ -184,25 +184,25 @@ if is_module_loaded(FILENAME):
         log_channel = sql.get_chat_log_channel(chat_id)
         if log_channel:
             log_channel_info = dispatcher.bot.get_chat(log_channel)
-            return f"This group has all it's logs sent to: {escape_markdown(log_channel_info.title)} (`{log_channel}`)"
-        return "No log channel is set for this group!"
+            return f"تحتوي هذه المجموعة على كل السجلات التي تم إرسالها إليها: {escape_markdown(log_channel_info.title)} (`{log_channel}`)"
+        return "لم يتم تعيين قناة تسجيل لهذه المجموعة!"
 
 
     __help__ = """
 ──「 Log channel 」──
 
-❂ /logchannel*:* get log channel info
-❂ /setlog*:* set the log channel.
-❂ /unsetlog*:* unset the log channel.
+❂ /logchannel*:* الحصول على معلومات قناة السجل
+❂ /setlog*:* ضبط قناة السجل.
+❂ /unsetlog*:* قم بفك قناة السجل.
 
-*Setting the log channel is done by*:
+*يتم ضبط قناة السجل بواسطة*:
 
-➩ adding the bot to the desired channel (as an admin!)
-➩ sending /setlog in the channel
-➩ forwarding the /setlog to the group
+➩ إضافة الروبوت إلى القناة المطلوبة (كمسؤول!)
+➩ إرسال /setlog في القناة
+➩ إحالة ال /setlog للمجموعة
 """
 
-    __mod_name__ = "Log Channel​"
+    __mod_name__ = "Logger Ch​"
 
     LOG_HANDLER = CommandHandler("logchannel", logging, run_async=True)
     SET_LOG_HANDLER = CommandHandler("setlog", setlog, run_async=True)

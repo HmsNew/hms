@@ -140,14 +140,14 @@ if is_module_loaded(FILENAME):
             if disable_cmd in set(DISABLE_CMDS + DISABLE_OTHER):
                 sql.disable_command(chat.id, str(disable_cmd).lower())
                 update.effective_message.reply_text(
-                    f"Disabled the use of `{disable_cmd}`",
+                    f"استخدام المعوقين `{disable_cmd}`",
                     parse_mode=ParseMode.MARKDOWN,
                 )
             else:
-                update.effective_message.reply_text("That command can't be disabled")
+                update.effective_message.reply_text("لا يمكن تعطيل هذا الأمر")
 
         else:
-            update.effective_message.reply_text("What should I disable?")
+            update.effective_message.reply_text("ما الذي يجب علي تعطيله؟")
 
     @connection_status
     @user_admin
@@ -155,19 +155,19 @@ if is_module_loaded(FILENAME):
         args = context.args
         chat = update.effective_chat
         if len(args) >= 1:
-            disable_module = "SaitamaRobot.modules." + args[0].rsplit(".", 1)[0]
+            disable_module = "hms_1bot.modules." + args[0].rsplit(".", 1)[0]
 
             try:
                 module = importlib.import_module(disable_module)
             except:
-                update.effective_message.reply_text("Does that module even exist?")
+                update.effective_message.reply_text("هل هذه الوحدة موجودة حتى؟")
                 return
 
             try:
                 command_list = module.__command_list__
             except:
                 update.effective_message.reply_text(
-                    "Module does not contain command list!",
+                    "الوحدة النمطية لا تحتوي على قائمة الأوامر!",
                 )
                 return
 
@@ -187,19 +187,19 @@ if is_module_loaded(FILENAME):
             if disabled_cmds:
                 disabled_cmds_string = ", ".join(disabled_cmds)
                 update.effective_message.reply_text(
-                    f"Disabled the uses of `{disabled_cmds_string}`",
+                    f"استخدامات المعوقين `{disabled_cmds_string}`",
                     parse_mode=ParseMode.MARKDOWN,
                 )
 
             if failed_disabled_cmds:
                 failed_disabled_cmds_string = ", ".join(failed_disabled_cmds)
                 update.effective_message.reply_text(
-                    f"Commands `{failed_disabled_cmds_string}` can't be disabled",
+                    f"أوامر `{failed_disabled_cmds_string}` لا يمكن تعطيله",
                     parse_mode=ParseMode.MARKDOWN,
                 )
 
         else:
-            update.effective_message.reply_text("What should I disable?")
+            update.effective_message.reply_text("ما الذي يجب علي تعطيله؟")
 
     @connection_status
     @user_admin
@@ -213,14 +213,14 @@ if is_module_loaded(FILENAME):
 
             if sql.enable_command(chat.id, enable_cmd):
                 update.effective_message.reply_text(
-                    f"Enabled the use of `{enable_cmd}`",
+                    f"تمكين استخدام `{enable_cmd}`",
                     parse_mode=ParseMode.MARKDOWN,
                 )
             else:
-                update.effective_message.reply_text("Is that even disabled?")
+                update.effective_message.reply_text("هل هذا معطل حتى؟")
 
         else:
-            update.effective_message.reply_text("What should I enable?")
+            update.effective_message.reply_text("ما الذي يجب علي تمكينه؟")
 
     @connection_status
     @user_admin
@@ -229,19 +229,19 @@ if is_module_loaded(FILENAME):
         chat = update.effective_chat
 
         if len(args) >= 1:
-            enable_module = "SaitamaRobot.modules." + args[0].rsplit(".", 1)[0]
+            enable_module = "hms_1bot.modules." + args[0].rsplit(".", 1)[0]
 
             try:
                 module = importlib.import_module(enable_module)
             except:
-                update.effective_message.reply_text("Does that module even exist?")
+                update.effective_message.reply_text("هل هذه الوحدة موجودة حتى؟")
                 return
 
             try:
                 command_list = module.__command_list__
             except:
                 update.effective_message.reply_text(
-                    "Module does not contain command list!",
+                    "الوحدة النمطية لا تحتوي على قائمة الأوامر!",
                 )
                 return
 
@@ -260,19 +260,19 @@ if is_module_loaded(FILENAME):
             if enabled_cmds:
                 enabled_cmds_string = ", ".join(enabled_cmds)
                 update.effective_message.reply_text(
-                    f"Enabled the uses of `{enabled_cmds_string}`",
+                    f"تمكين استخدامات `{enabled_cmds_string}`",
                     parse_mode=ParseMode.MARKDOWN,
                 )
 
             if failed_enabled_cmds:
                 failed_enabled_cmds_string = ", ".join(failed_enabled_cmds)
                 update.effective_message.reply_text(
-                    f"Are the commands `{failed_enabled_cmds_string}` even disabled?",
+                    f"هي الأوامر `{failed_enabled_cmds_string}` حتى المعوقين؟",
                     parse_mode=ParseMode.MARKDOWN,
                 )
 
         else:
-            update.effective_message.reply_text("What should I enable?")
+            update.effective_message.reply_text("ما الذي يجب علي تمكينه؟")
 
     @connection_status
     @user_admin
@@ -282,11 +282,11 @@ if is_module_loaded(FILENAME):
             for cmd in set(DISABLE_CMDS + DISABLE_OTHER):
                 result += f" - `{escape_markdown(cmd)}`\n"
             update.effective_message.reply_text(
-                f"The following commands are toggleable:\n{result}",
+                f"الأوامر التالية قابلة للتبديل:\n{result}",
                 parse_mode=ParseMode.MARKDOWN,
             )
         else:
-            update.effective_message.reply_text("No commands can be disabled.")
+            update.effective_message.reply_text("لا يمكن تعطيل أي أوامر.")
 
     # do not async
     def build_curr_disabled(chat_id: Union[str, int]) -> str:
@@ -297,7 +297,7 @@ if is_module_loaded(FILENAME):
         result = ""
         for cmd in disabled:
             result += " - `{}`\n".format(escape_markdown(cmd))
-        return "The following commands are currently restricted:\n{}".format(result)
+        return "الأوامر التالية مقيدة حاليا:\n{}".format(result)
 
     @connection_status
     def commands(update: Update, context: CallbackContext):
@@ -308,7 +308,7 @@ if is_module_loaded(FILENAME):
         )
 
     def __stats__():
-        return f"× {sql.num_disabled()} disabled items, across {sql.num_chats()} chats."
+        return f"× {sql.num_disabled()} العناصر المعطلة ، عبر {sql.num_chats()} الدردشات."
 
     def __migrate__(old_chat_id, new_chat_id):
         sql.migrate_chat(old_chat_id, new_chat_id)
@@ -318,15 +318,15 @@ if is_module_loaded(FILENAME):
 
 
     __help__ = """
-❂ /cmds*:* check the current status of disabled commands
+❂ /cmds*:* تحقق من الحالة الحالية للأوامر المعطلة
 
 *Admins only:*
 
-❂ /enable <cmd name>*:* enable that command
-❂ /disable <cmd name>*:* disable that command
-❂ /enablemodule <module name>*:* enable all commands in that module
-❂ /disablemodule <module name>*:* disable all commands in that module
-❂ /listcmds*:* list all possible toggleable commands
+❂ /enable <cmd name>*:* تمكين هذا الأمر
+❂ /disable <cmd name>*:* تعطيل هذا الأمر
+❂ /enablemodule <module name>*:* تمكين جميع الأوامر في تلك الوحدة
+❂ /disablemodule <module name>*:* تعطيل كافة الأوامر في تلك الوحدة
+❂ /listcmds*:* قائمة بجميع الأوامر الممكنة للتبديل
 """
 
     DISABLE_HANDLER = CommandHandler("disable", disable, run_async=True)

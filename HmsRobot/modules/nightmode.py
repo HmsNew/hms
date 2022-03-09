@@ -85,42 +85,42 @@ async def profanity(event):
     input = event.pattern_match.group(2)
     if not event.sender_id == OWNER_ID:
         if not await is_register_admin(event.input_chat, event.sender_id):
-           await event.reply("Only admins can execute this command!")
+           await event.reply("يمكن للمسؤولين فقط تنفيذ هذا الأمر!")
            return
         else:
           if not await can_change_info(message=event):
-            await event.reply("You are missing the following rights to use this command:CanChangeinfo")
+            await event.reply("تفتقد الحقوق التالية لاستخدام هذا الأمر: CanChangeinfo")
             return
     if not input:
         if is_nightmode_indb(str(event.chat_id)):
                 await event.reply(
-                    "Currently NightMode is Enabled for this Chat"
+                    "تم تمكين NightMode حاليًا لهذه الدردشة"
                 )
                 return
         await event.reply(
-            "Currently NightMode is Disabled for this Chat"
+            "NightMode معطل حاليًا لهذه الدردشة"
         )
         return
     if "on" in input:
         if event.is_group:
             if is_nightmode_indb(str(event.chat_id)):
                     await event.reply(
-                        "Night Mode is Already Turned ON for this Chat"
+                        "الوضع الليلي قيد التشغيل بالفعل لهذه الدردشة"
                     )
                     return
             add_nightmode(str(event.chat_id))
-            await event.reply("NightMode turned on for this chat.")
+            await event.reply("تم تشغيل الوضع الليلي لهذه الدردشة.")
     if "off" in input:
         if event.is_group:
             if not is_nightmode_indb(str(event.chat_id)):
                     await event.reply(
-                        "Night Mode is Already Off for this Chat"
+                        "الوضع الليلي متوقف بالفعل لهذه الدردشة"
                     )
                     return
         rmnightmode(str(event.chat_id))
-        await event.reply("NightMode Disabled!")
+        await event.reply("الوضع الليلي معطل!")
     if not "off" in input and not "on" in input:
-        await event.reply("Please Specify On or Off!")
+        await event.reply("يرجى تحديد تشغيل أو إيقاف تشغيل!")
         return
 
 
@@ -131,7 +131,7 @@ async def job_close():
     for pro in chats:
         try:
             await tbot.send_message(
-              int(pro.chat_id), "12:00 Am, Group Is Closing Till 6 Am. Night Mode Started ! \n**Powered By @Hms_1bot**"
+              int(pro.chat_id), "12:00 صباحًا ، ستغلق المجموعة حتى الساعة 6 صباحًا. بدأ الوضع الليلي! \n**بواسطه @hms_1bot**"
             )
             await tbot(
             functions.messages.EditChatDefaultBannedRightsRequest(
@@ -139,10 +139,10 @@ async def job_close():
             )
             )
         except Exception as e:
-            logger.info(f"Unable To Close Group {chat} - {e}")
+            logger.info(f"تعذر إغلاق المجموعة {chat} - {e}")
 
 #Run everyday at 12am
-scheduler = AsyncIOScheduler(timezone="Asia/Jakarta")
+scheduler = AsyncIOScheduler(timezone="Africa/Cairo")
 scheduler.add_job(job_close, trigger="cron", hour=23, minute=59)
 scheduler.start()
 
@@ -153,7 +153,7 @@ async def job_open():
     for pro in chats:
         try:
             await tbot.send_message(
-              int(pro.chat_id), "06:00 Am, Group Is Opening.\n**Powered By @Hms_1bot**"
+              int(pro.chat_id), "06:00 صباحًا ، سيتم افتتاح المجموعة.\n**بواسطه @hms_1bot**"
             )
             await tbot(
             functions.messages.EditChatDefaultBannedRightsRequest(
@@ -161,9 +161,9 @@ async def job_open():
             )
         )
         except Exception as e:
-            logger.info(f"Unable To Open Group {pro.chat_id} - {e}")
+            logger.info(f"تعذر فتح المجموعة {pro.chat_id} - {e}")
 
 # Run everyday at 06
-scheduler = AsyncIOScheduler(timezone="Asia/Jakarta")
+scheduler = AsyncIOScheduler(timezone="Africa/Cairo")
 scheduler.add_job(job_open, trigger="cron", hour=5, minute=58)
 scheduler.start()

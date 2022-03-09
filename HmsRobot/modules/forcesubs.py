@@ -40,13 +40,13 @@ def _onUnMuteRequest(client, cb):
                 except UserNotParticipant:
                     client.answer_callback_query(
                         cb.id,
-                        text=f"❗ Join our @{channel} channel and press 'Unmute Me' button.",
+                        text=f"❗ انضم الينا @{channel} القناة واضغط 'Unmute Me' زر.",
                         show_alert=True,
                     )
             else:
                 client.answer_callback_query(
                     cb.id,
-                    text="❗ You have been muted by admins due to some other reason.",
+                    text="❗ لقد تم كتم صوتك بواسطة المشرفين لسبب آخر.",
                     show_alert=True,
                 )
         else:
@@ -54,13 +54,13 @@ def _onUnMuteRequest(client, cb):
             ):
                 client.send_message(
                     chat_id,
-                    f"❗ **{cb.from_user.mention} is trying to UnMute himself but i can't unmute him because i am not an admin in this chat add me as admin again.**\n__#Leaving this chat...__",
+                    f"❗ **{cb.from_user.mention} يحاول إلغاء كتم الصوت بنفسه ولكن لا يمكنني إلغاء كتمه لأنني لست مشرفًا في هذه الدردشة ، أضفني كمسؤول مرة أخرى.**\n__#Leaving this chat...__",
                 )
 
             else:
                 client.answer_callback_query(
                     cb.id,
-                    text="❗ Warning! Don't press the button when you cn talk.",
+                    text="❗ تحذير! لا تضغط على الزر عندما يمكنك التحدث.",
                     show_alert=True,
                 )
 
@@ -80,7 +80,7 @@ def _check_member(client, message):
             except UserNotParticipant:
                 try:
                     sent_message = message.reply_text(
-                        "Welcome {} 🙏 \n **You haven't joined our @{} Channel yet**👷 \n \nPlease Join [Our Channel](https://t.me/{}) and hit the **UNMUTE ME** Button. \n \n ".format(
+                        "أهلا بك {} 🙏 \n **أنت لم تنضم إلى @{} القناة حتى الان**👷 \n \nيرجى الانضمام [Our Channel](https://t.me/{}) واضغط علي **UNMUTE ME** زر. \n \n ".format(
                             message.from_user.mention, channel, channel
                         ),
                         disable_web_page_preview=True,
@@ -88,13 +88,13 @@ def _check_member(client, message):
                             [
                                 [
                                     InlineKeyboardButton(
-                                        "Join Channel",
+                                        "الانضمام إلى القناة",
                                         url="https://t.me/{}".format(channel),
                                     )
                                 ],
                                 [
                                     InlineKeyboardButton(
-                                        "Unmute Me", callback_data="onUnMuteRequest"
+                                        "قم بإلغاء الكتم عني", callback_data="onUnMuteRequest"
                                     )
                                 ],
                             ]
@@ -105,13 +105,13 @@ def _check_member(client, message):
                     )
                 except ChatAdminRequired:
                     sent_message.edit(
-                        "😕 **Emiko is not admin here..**\n__Give me ban permissions and retry.. \n#Ending FSub...__"
+                        "😕 **نيورك ليس المشرف هنا..**\n__أعطني حظر الأذونات وأعد المحاولة.. \n#Ending FSub...__"
                     )
 
             except ChatAdminRequired:
                 client.send_message(
                     chat_id,
-                    text=f"😕 **I not an admin of @{channel} channel.**\n__Give me admin of that channel and retry.\n#Ending FSub...__",
+                    text=f"😕 **أنا لست مشرفًا على @{channel} قناة.**\n__أعطني المسؤول عن تلك القناة وأعد المحاولة.\n#Ending FSub...__",
                 )
 
 
@@ -125,10 +125,10 @@ def config(client, message):
             input_str = input_str.replace("@", "")
             if input_str.lower() in ("off", "no", "disable"):
                 sql.disapprove(chat_id)
-                message.reply_text("❌ **Force Subscribe is Disabled Successfully.**")
+                message.reply_text("❌ **تم تعطيل فرض الاشتراك بنجاح.**")
             elif input_str.lower() in ("clear"):
                 sent_message = message.reply_text(
-                    "**Unmuting all members who are muted by me...**"
+                    "**إعادة صوت جميع الأعضاء الذين قمت بكتم صوتهم ...**"
                 )
                 try:
                     for chat_member in client.get_chat_members(
@@ -137,67 +137,67 @@ def config(client, message):
                         if chat_member.restricted_by.id == (client.get_me()).id:
                             client.unban_chat_member(chat_id, chat_member.user.id)
                             time.sleep(1)
-                    sent_message.edit("✅ **Unmuted all members who are muted by me.**")
+                    sent_message.edit("✅ **تمت إعادة صوت جميع الأعضاء الذين قمت بكتم صوتهم.**")
                 except ChatAdminRequired:
                     sent_message.edit(
-                        "😕 **I am not an admin in this chat.**\n__I can't unmute members because i am not an admin in this chat make me admin with ban user permission.__"
+                        "😕 **أنا لست مشرفًا في هذه الدردشة.**\n__لا يمكنني إلغاء كتم صوت الأعضاء لأنني لست مسؤولاً في هذه الدردشة ، اجعلني مشرفًا بإذن حظر المستخدم.__"
                     )
             else:
                 try:
                     client.get_chat_member(input_str, "me")
                     sql.add_channel(chat_id, input_str)
                     message.reply_text(
-                        f"✅ **Force Subscribe is Enabled**\n__Force Subscribe is enabled, all the group members have to subscribe this [channel](https://t.me/{input_str}) in order to send messages in this group.__",
+                        f"✅ **تم تمكين فرض الاشتراك**\n__تم تمكين فرض الاشتراك ، يجب على جميع أعضاء المجموعة الاشتراك في هذا [channel](https://t.me/{input_str}) من أجل إرسال الرسائل في هذه المجموعة.__",
                         disable_web_page_preview=True,
                     )
                 except UserNotParticipant:
                     message.reply_text(
-                        f"😕 **Not an Admin in the Channel**\n__I am not an admin in the [channel](https://t.me/{input_str}). Add me as a admin in order to enable ForceSubscribe.__",
+                        f"😕 **ليس مشرفًا في القناة**\n__أنا لست مشرفًا في [channel](https://t.me/{input_str}). أضفني كمسؤول من أجل تمكين ForceSubscribe.__",
                         disable_web_page_preview=True,
                     )
                 except (UsernameNotOccupied, PeerIdInvalid):
-                    message.reply_text(f"❗ **Invalid Channel Username.**")
+                    message.reply_text(f"❗ **اسم مستخدم قناة غير صالح.**")
                 except Exception as err:
-                    message.reply_text(f"❗ **ERROR:** ```{err}```")
+                    message.reply_text(f"❗ **خطأ:** ```{err}```")
         else:
             if sql.fs_settings(chat_id):
                 message.reply_text(
-                    f"✅ **Force Subscribe is enabled in this chat.**\n__For this [Channel](https://t.me/{sql.fs_settings(chat_id).channel})__",
+                    f"✅ **تم تفعيل فرض الاشتراك في هذه الدردشة.**\n__For this [Channel](https://t.me/{sql.fs_settings(chat_id).channel})__",
                     disable_web_page_preview=True,
                 )
             else:
-                message.reply_text("❌ **Force Subscribe is disabled in this chat.**")
+                message.reply_text("❌ **تم تعطيل فرض الاشتراك في هذه الدردشة.**")
     else:
         message.reply_text(
-            "❗ **Group Creator Required**\n__You have to be the group creator to do that.__"
+            "❗ **مطلوب منشئ المجموعة**\n__عليك أن تكون منشئ المجموعة للقيام بذلك.__"
         )
 
 
 __help__ = """
 *Force Subscribe:*
-❂ HmsRobot can mute members who are not subscribed your channel until they subscribe
-❂ When enabled I will mute unsubscribed members and show them a unmute button. When they pressed the button I will unmute them
+❂ يمكن لنيورك كتم صوت الأعضاء غير المشتركين في قناتك حتى يشتركوا فيها
+❂ عند التمكين ، سأقوم بكتم صوت الأعضاء غير المشتركين وأظهر لهم زر إلغاء كتم الصوت. عندما ضغطوا على الزر سأعيد صوتهم
 ❂*Setup*
 *Only creator*
-❂ Add me in your group as admin
-❂ Add me in your channel as admin 
+❂ أضفني في مجموعتك كمسؤول
+❂ أضفني في قناتك كمسؤول
  
 *Commmands*
-❂ /fsub {channel username} - To turn on and setup the channel.
-  💡Do this first...
-❂ /fsub - To get the current settings.
-❂ /fsub disable - To turn of ForceSubscribe..
-  💡If you disable fsub, you need to set again for working.. /fsub {channel username} 
-❂ /fsub clear - To unmute all members who muted by me.
+❂ /fsub {channel username} - لتشغيل وإعداد القناة.
+  💡افعل هذا أولاً...
+❂ /fsub - للحصول على الإعدادات الحالية.
+❂ /fsub disable - لغلق الاشتراك..
+  💡إذا قمت بتعطيل fsub ، فأنت بحاجة إلى التعيين مرة أخرى للعمل .. /fsub {channel username} 
+❂ /fsub clear - لإلغاء كتم صوت جميع الأعضاء الذين كتموا بواسطتي.
 *Federation*
-Everything is fun, until a spammer starts entering your group, and you have to block it. Then you need to start banning more, and more, and it hurts.
-But then you have many groups, and you don't want this spammer to be in one of your groups - how can you deal? Do you have to manually block it, in all your groups?\n
-*No longer!* With Federation, you can make a ban in one chat overlap with all other chats.\n
-You can even designate federation admins, so your trusted admin can ban all the spammers from chats you want to protect.\n
+كل شيء ممتع ، حتى يبدأ مرسل البريد العشوائي في الدخول إلى مجموعتك ، وعليك حظرها. ثم عليك أن تبدأ في حظر المزيد والمزيد ، وهذا مؤلم.
+ولكن بعد ذلك لديك العديد من المجموعات ، ولا تريد أن يكون مرسل البريد العشوائي هذا في إحدى مجموعاتك - كيف يمكنك التعامل؟ هل يجب عليك حظره يدويًا ، في كل مجموعاتك؟\n
+*ليس اطول!* مع الاتحاد ، يمكنك جعل الحظر في دردشة واحدة يتداخل مع جميع الدردشات الأخرى.\n
+يمكنك حتى تعيين مسؤولي اتحاد ، بحيث يمكن للمسؤول الموثوق به حظر جميع مرسلي البريد العشوائي من الدردشات التي تريد حمايتها.\n
 *Commands:*\n
-Feds are now divided into 3 sections for your ease.
-• `/fedownerhelp`*:* Provides help for fed creation and owner only commands
-• `/fedadminhelp`*:* Provides help for fed administration commands
-• `/feduserhelp`*:* Provides help for commands anyone can use
+يتم الآن تقسيم الفدراليين إلى 3 أقسام من أجل راحتك.
+❂ /fedownerhelp*:* يوفر المساعدة في إنشاء التغذية وأوامر المالك فقط
+❂ /fedadminhelp*:* يوفر المساعدة لأوامر إدارة التغذية
+❂ /feduserhelp*:* يوفر المساعدة للأوامر التي يمكن لأي شخص استخدامها
 """
 __mod_name__ = "F-Sub/Feds"

@@ -29,9 +29,9 @@ __mod_name__ = "Reddit"
 @capture_err
 async def reddit(_, message):
     if len(message.command) != 2:
-        return await message.reply_text("/reddit needs an argument")
+        return await message.reply_text("/reddit يحتاج إلى حجة")
     subreddit = message.text.split(None, 1)[1]
-    m = await message.reply_text("Searching")
+    m = await message.reply_text("يبحث")
     reddit = await arq.reddit(subreddit)
     if not reddit.ok:
         return await m.edit(reddit.result)
@@ -42,7 +42,7 @@ async def reddit(_, message):
     image = reddit.url
     link = reddit.postLink
     if nsfw:
-        return await m.edit("NSFW RESULTS COULD NOT BE SHOWN.")
+        return await m.edit("لا يمكن عرض نتائج NSFW.")
     caption = f"""
 **Title:** `{title}`
 **Subreddit:** {sreddit}

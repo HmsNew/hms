@@ -17,19 +17,19 @@ def wall(update: Update, context: CallbackContext):
     bot = context.bot
     query = " ".join(args)
     if not query:
-        msg.reply_text("Please enter a query!")
+        msg.reply_text("الرجاء إدخال استعلام!")
         return
     caption = query
     term = query.replace(" ", "%20")
     json_rep = r.get(
         f"https://wall.alphacoders.com/api2.0/get.php?auth={WALL_API}&method=search&term={term}",
     ).json()
-    if not json_rep.get("success"):
-        msg.reply_text(f"An error occurred! Report this @{SUPPORT_CHAT}")
+    if not json_rep.get("نجاح"):
+        msg.reply_text(f"حدث خطأ! برجاء الإبلاغ عن هذا هنا في جروب الدعم 🙂🖤 @{SUPPORT_CHAT}")
     else:
         wallpapers = json_rep.get("wallpapers")
         if not wallpapers:
-            msg.reply_text("No results found! Refine your search.")
+            msg.reply_text("لم يتم العثور على نتائج! حدد بحثك.")
             return
         index = randint(0, len(wallpapers) - 1)  # Choose random index
         wallpaper = wallpapers[index]

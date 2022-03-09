@@ -13,38 +13,38 @@ from HmsRobot.utils.functions import make_carbon
 @capture_err
 async def carbon_func(_, message):
     if not message.reply_to_message:
-        return await message.reply_text("`Reply to a text message to make carbon.`")
+        return await message.reply_text("`الرد على رسالة نصية لجعل الكربون.`")
     if not message.reply_to_message.text:
-        return await message.reply_text("`Reply to a text message to make carbon.`")
-    m = await message.reply_text("`Preparing Carbon`")
+        return await message.reply_text("`الرد على رسالة نصية لجعل الكربون.`")
+    m = await message.reply_text("`تحضير الكربون`")
     carbon = await make_carbon(message.reply_to_message.text)
-    await m.edit("`Uploading`")
+    await m.edit("`تحميل`")
     await pbot.send_photo(message.chat.id, carbon)
     await m.delete()
     carbon.close()
 
 
-MEMEK = "https://telegra.ph/file/991c94db16a466f580686.jpg"
+MEMEK = "https://telegra.ph/file/f67dd5909bbff96ff17bd.jpg"
 
 @pbot.on_message(filters.command("repo"))
 async def repo(_, message):
     await message.reply_photo(
         photo=MEMEK,
-        caption=f"""✨ **Hey I'm Hms** 
+        caption=f"""✨ **Hey I'm HmsRobot** 
 
-**Owner repo : [Queen Hms](https://t.me/hms_01)**
-**Python Version :** `{y()}`
-**Library Version :** `{o}`
-**Telethon Version :** `{s}`
-**Pyrogram Version :** `{z}`
+**#الملكه 🖤 : [My Queen](https://t.me/hms_01)**
+**#بايثون 🖤 :** `{y()}`
+**#المكتبه 🖤 :** `{o}`
+**#تيليثون 🖤 :** `{s}`
+**#بايروجرام 🖤 :** `{z}`
 
-**Create your own with click button bellow.**
+**إنشاء الخاصة بك مع انقر فوق الزر أدناه.**
 """,
         reply_markup=InlineKeyboardMarkup(
             [
                 [
                     InlineKeyboardButton(
-                        "Queen Hms", url="https://t.me/hms_01"), 
+                        "HmS", url="https://t.me/hms_01"), 
                     InlineKeyboardButton(
                         "Support", url="https://t.me/dd3mhms")
                 ]

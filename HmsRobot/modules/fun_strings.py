@@ -1,23 +1,23 @@
 RUN_STRINGS = (
-    "Now you see me, now you don't.",
+    "الآن تراني ، الآن أنت لا تفعل ذلك.",
     "ε=ε=ε=ε=┌(;￣▽￣)┘",
-    "Get back here!",
+    "نعود هنا!",
     "REEEEEEEEEEEEEEEEEE!!!!!!!",
-    "Look out for the wall!",
-    "Don't leave me alone with them!!",
-    "You've got company!",
-    "Chotto matte!",
-    "Yare yare daze",
-    "*Naruto run activated*",
-    "*Nezuko run activated*",
-    "Hey take responsibilty for what you just did!",
-    "May the odds be ever in your favour.",
-    "Run everyone, they just dropped a bomb 💣💣",
-    "And they disappeared forever, never to be seen again.",
-    "Legend has it, they're still running.",
-    "Hasta la vista, baby.",
-    "Ah, what a waste. I liked that one.",
-    "As The Doctor would say... RUN!",
+    "ابحث عن الحائط!",
+    "لا تتركني وحدي معهم !!",
+    "لديك شركة!",
+    "انتظر دقيقة!",
+    "نعم مذهل",
+    "*تم تنشيط تشغيل Naruto *",
+    "*تفعيل تشغيل Nezuko*",
+    "مرحبًا ، تحمل مسؤولية ما فعلته للتو!",
+    "قد تكون الاحتمالات في صالحك من أي وقت مضى.",
+    "قم بتشغيل الجميع ، لقد أسقطوا قنبلة 💣💣",
+    "واختفوا إلى الأبد ، ولن نراهم مرة أخرى.",
+    "الأسطورة تقول ، إنهم ما زالوا يعملون.",
+    "وداعا.",
+    "آه ، يا له من مضيعة. أحببت ذلك.",
+    "كما يقول الطبيب ... اركض!",
 )
 
 GIFS = [
@@ -27,13 +27,13 @@ GIFS = [
 ]
 
 SLAP_SAITAMA_TEMPLATES = (
-    "Slap me one more time and I'll mute you.",
-    "Stop slapping me. REEEEEEEEEEEEEE.",
+    "صفعني مرة أخرى وسوف أكتم صوتك.",
+    "توقف عن صفعى. REEEEEEEEEEEEEE.",
     [
-        "I am muting you for a minute.",  # normal reply
-        "Stop slapping me just because I can't mute you. REEEEEEEEEE.",  # reply to admin
+        "أنا أكتم صوتك لمدة دقيقة.",  # normal reply
+        "توقف عن صفعني فقط لأنني لا أستطيع كتم صوتك. REEEEEEEEEE.",  # reply to admin
         "tmute",  # command
-        "Shut up!",
+        "اسكت!",
         "Silence!",
     ],
 )

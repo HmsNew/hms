@@ -54,30 +54,30 @@ async def hmm(_, message):
     status = message.text.split(None, 1)[1]
     chat_id = message.chat.id
     if status == "ON" or status == "on" or status == "On":
-        lel = await edit_or_reply(message, "`Processing...`")
+        lel = await edit_or_reply(message, "`معالجة...`")
         lol = add_chat(int(message.chat.id))
         if not lol:
-            await lel.edit("HmsRobot AI Already Activated In This Chat")
+            await lel.edit("تم تنشيط الذكاء الاصطناعي في نيورك بالفعل في هذه الدردشة")
             return
-        await lel.edit(f"HmsRobot AI Actived by {message.from_user.mention()} for users in {message.chat.title}")
+        await lel.edit(f"تم تنشيط الذكاء الاصتناعي لبوت نيورك المنشط بواسطة {message.from_user.mention()} للمستخدمين في {message.chat.title}")
 
     elif status == "OFF" or status == "off" or status == "Off":
-        lel = await edit_or_reply(message, "`Processing...`")
+        lel = await edit_or_reply(message, "`معالجة...`")
         Escobar = remove_chat(int(message.chat.id))
         if not Escobar:
-            await lel.edit("HmsRobot AI Was Not Activated In This Chat")
+            await lel.edit("نيورك لم يتم تنشيطي في هذه الدردشة")
             return
-        await lel.edit(f"HmsRobot AI Deactivated by {message.from_user.mention()} for users in {message.chat.title}")
+        await lel.edit(f"تم إلغاء تنشيط الذكاء الاصطناعي في نيورك بواسطة {message.from_user.mention()} للمستخدمين في {message.chat.title}")
 
     elif status == "EN" or status == "en" or status == "english":
         if not chat_id in en_chats:
             en_chats.append(chat_id)
-            await message.reply_text(f"English AI chat Enabled by {message.from_user.mention()}")
+            await message.reply_text(f"الدردشة الإنجليزية AI ممكنة بواسطة {message.from_user.mention()}")
             return
-        await message.reply_text(f"English AI Chat Disabled by {message.from_user.mention()}")
+        await message.reply_text(f"الإنجليزية AI Chat معطل بواسطة {message.from_user.mention()}")
         message.continue_propagation()
     else:
-        await message.reply_text("I only recognize `/chatbot on` and `chatbot off` only")
+        await message.reply_text("أنا فقط أدرك `/chatbot on` and `chatbot off` فقط")
 
 
 @pbot.on_message(
@@ -417,7 +417,7 @@ async def inuka(client, message):
     response = response.replace("Have the control right.", "@hms_01 is my owner.")
     response = response.replace(
             "Hi, my friend, what can I do for you today?",
-            "Hi, My name is Emik Nice to meet you")
+            "Hi, My name is HmsRobot Nice to meet you")
 
     pro = response
     if not "en" in lan and not lan == "":
@@ -434,10 +434,10 @@ async def inuka(client, message):
 
 
 __help__ = """
-❂ HmsRobot AI is the only ai system which can detect & reply upto 200 language's
+➢ نيورك AI هو نظام الذكاء الاصطناعي الوحيد الذي يمكنه اكتشاف والرد على ما يصل إلى 200 لغة
 
-❂ /chatbot [ON/OFF]: Enables and disables AI Chat mode.
-❂ /chatbot EN : Enables English only chatbot.
+❂/chatbot [ON/OFF]: يمكّن ويعطل وضع الدردشة بالذكاء الاصطناعي.
+❂ /chatbot EN : تُمكّن روبوت المحادثة باللغة الإنجليزية فقط.
 """
 
 __mod_name__ = "Chatbot"

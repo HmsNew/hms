@@ -33,20 +33,20 @@ async def _(event):
             )
             end = datetime.now()
             ms = (end - start).seconds
-            h = await event.reply("Downloaded to {} in {} seconds.".format(downloaded_file_name, ms))
+            h = await event.reply("تم التنزيل {} in {} ثواني.".format(downloaded_file_name, ms))
             if downloaded_file_name.endswith((".webp")):
                 resize_image(downloaded_file_name)
             try:
                 start = datetime.now()
                 media_urls = upload_file(downloaded_file_name)
             except exceptions.TelegraphException as exc:
-                await h.edit("ERROR: " + str(exc))
+                await h.edit("خطا: " + str(exc))
                 os.remove(downloaded_file_name)
             else:
                 end = datetime.now()
                 ms_two = (end - start).seconds
                 os.remove(downloaded_file_name)
-                await h.edit("Uploaded to https://telegra.ph{}".format(media_urls[0], (ms + ms_two)), link_preview=True)
+                await h.edit("تحميلها على https://telegra.ph{}".format(media_urls[0], (ms + ms_two)), link_preview=True)
         elif input_str == "gt":
             user_object = await telethn.get_entity(r_message.sender_id)
             title_of_page = user_object.first_name # + " " + user_object.last_name
@@ -74,9 +74,9 @@ async def _(event):
             )
             end = datetime.now()
             ms = (end - start).seconds
-            await event.reply("Pasted to https://telegra.ph/{}".format(response["path"], ms), link_preview=True)
+            await event.reply("مُلصق في https://telegra.ph/{}".format(response["path"], ms), link_preview=True)
     else:
-        await event.reply("Reply to a message to get a permanent telegra.ph link.")
+        await event.reply("قم بالرد على رسالة للحصول على رابط telegra.ph دائم.")
 
 
 def resize_image(image):

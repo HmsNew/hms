@@ -8,20 +8,20 @@ from asyncio.exceptions import TimeoutError
 @register(pattern="^/sg ?(.*)")
 async def lastname(steal):
     steal.pattern_match.group(1)
-    puki = await steal.reply("```Retrieving Such User Information..```")
+    puki = await steal.reply("```استرجاع معلومات المستخدم هذه..```")
     if steal.fwd_from:
         return
     if not steal.reply_to_msg_id:
-        await puki.edit("```Please Reply To User Message.```")
+        await puki.edit("```الرجاء الرد على رسالة المستخدم.```")
         return
     message = await steal.get_reply_message()
     chat = "@SangMataInfo_bot"
     user_id = message.sender.id
     id = f"/search_id {user_id}"
     if message.sender.bot:
-        await puki.edit("```Reply To Real User's Message.```")
+        await puki.edit("```الرد على رسالة المستخدم الحقيقي.```")
         return
-    await puki.edit("```Please wait...```")
+    await puki.edit("```أرجو الإنتظار...```")
     try:
         async with ubot.conversation(chat) as conv:
             try:
@@ -30,7 +30,7 @@ async def lastname(steal):
                 response = await conv.get_response()
             except YouBlockedUserError:
                 await steal.reply(
-                    "```Error, report to @xU_S_A1```"
+                    "```خطأ ، أبلغ في @dd3mhms```"
                 )
                 return
             if r.text.startswith("Name"):
@@ -40,10 +40,10 @@ async def lastname(steal):
                     conv.chat_id, [msg.id, r.id, response.id, respond.id]
                 ) 
                 return
-            if response.text.startswith("No records") or r.text.startswith(
-                "No records"
+            if response.text.startswith("لا أتذكر") or r.text.startswith(
+                "لا أتذكر"
             ):
-                await puki.edit("```I Can't Find This User's Information, This User Has Never Changed His Name Before.```")
+                await puki.edit("```لا يمكنني العثور على معلومات هذا المستخدم ، هذا المستخدم لم يغير اسمه من قبل.```")
                 await ubot.delete_messages(
                     conv.chat_id, [msg.id, r.id, response.id]
                 )
@@ -55,7 +55,7 @@ async def lastname(steal):
                 conv.chat_id, [msg.id, r.id, response.id, respond.id]
             )
     except TimeoutError:
-        return await puki.edit("`I'm Sick Sorry...`")
+        return await puki.edit("`أنا مريض ، آسف...`")
 
 
 
@@ -64,31 +64,31 @@ async def quotess(qotli):
     if qotli.fwd_from:
         return
     if not qotli.reply_to_msg_id:
-        return await qotli.reply("```Mohon Balas Ke Pesan```")
+        return await qotli.reply("```الرجاء الرد على الرسالة```")
     reply_message = await qotli.get_reply_message()
     if not reply_message.text:
-        return await qotli.reply("```Mohon Balas Ke Pesan```")
+        return await qotli.reply("```الرجاء الرد على الرسالة```")
     chat = "@QuotLyBot"
     if reply_message.sender.bot:
-        return await qotli.reply("```Mohon Balas Ke Pesan```")
-    await qotli.reply("```Sedang Memproses Sticker, Mohon Menunggu```")
+        return await qotli.reply("```الرجاء الرد على الرسالة```")
+    await qotli.reply("```معالجة الملصق ، من فضلك انتظر```")
     try:
         async with ubot.conversation(chat) as conv:
             try:
                 response = await conv.get_response()
                 msg = await ubot.forward_messages(chat, reply_message)
                 response = await response
-                """ - don't spam notif - """
+                """ - لا إشعار البريد العشوائي - """
                 await ubot.send_read_acknowledge(conv.chat_id)
             except YouBlockedUserError:
-                return await qotli.edit("```Harap Jangan Blockir @QuotLyBot Buka Blokir Lalu Coba Lagi```")
+                return await qotli.edit("```من فضلك لا تحجب @QuotLyBot قم بإلغاء الحظر ثم حاول مرة أخرى```")
             if response.text.startswith("Hi!"):
-                await qotli.edit("```Mohon Menonaktifkan Pengaturan Privasi Forward Anda```")
+                await qotli.edit("```الرجاء تعطيل إعادة توجيه إعدادات الخصوصية الخاصة بك```")
             else:
                 await qotli.delete()
                 await tbot.send_message(qotli.chat_id, response.message)
                 await tbot.send_read_acknowledge(qotli.chat_id)
-                """ - cleanup chat after completed - """
+                """ - تنظيف الدردشة بعد الانتهاء - """
                 await ubot.delete_messages(conv.chat_id,
                                               [msg.id, response.id])
     except TimeoutError:

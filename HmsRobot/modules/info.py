@@ -12,7 +12,7 @@ async def get_user_info(user, already=False):
     if not already:
         user = await app.get_users(user)
     if not user.first_name:
-        return ["Deleted account", None]
+        return ["حساب محذوف", None]
     user_id = user.id
     username = user.username
     first_name = user.first_name
@@ -28,7 +28,7 @@ async def get_user_info(user, already=False):
         "Mention": [mention],
         "Sudo": is_sudo,
     }
-    caption = section("User info", body)
+    caption = section("معلومات المستخدم", body)
     return [caption, photo_id]
 
 
@@ -58,7 +58,7 @@ async def get_chat_info(chat, already=False):
         "Restricted": is_restricted,
         "Description": [description],
     }
-    caption = section("Chat info", body)
+    caption = section("معلومات الدردشة", body)
     return [caption, photo_id]
 
 
@@ -71,7 +71,7 @@ async def info_func(_, message: Message):
     elif not message.reply_to_message and len(message.command) != 1:
         user = message.text.split(None, 1)[1]
 
-    m = await message.reply_text("Processing...")
+    m = await message.reply_text("معالجة...")
 
     try:
         info_caption, photo_id = await get_user_info(user)
@@ -104,7 +104,7 @@ async def chat_info_func(_, message: Message):
         elif len(message.command) == 2:
             chat = message.text.split(None, 1)[1]
 
-        m = await message.reply_text("Processing...")
+        m = await message.reply_text("معالجة...")
 
         info_caption, photo_id = await get_chat_info(chat)
         if not photo_id:

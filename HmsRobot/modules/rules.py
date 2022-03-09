@@ -30,17 +30,17 @@ def send_rules(update, chat_id, from_pm=False):
     try:
         chat = bot.get_chat(chat_id)
     except BadRequest as excp:
-        if excp.message == "Chat not found" and from_pm:
+        if excp.message == "لم يتم العثور على الدردشة" and from_pm:
             bot.send_message(
                 user.id,
-                "The rules shortcut for this chat hasn't been set properly! Ask admins to "
-                "fix this.\nMaybe they forgot the hyphen in ID",
+                "لم يتم تعيين قواعد الاختصار لهذه الدردشة بشكل صحيح! اطلب من المدراء "
+                "اصلح هذا.\nربما نسوا الواصلة في بطاقة الهوية",
             )
             return
         raise
 
     rules = sql.get_rules(chat_id)
-    text = f"The rules for *{escape_markdown(chat.title)}* are:\n\n{rules}"
+    text = f"قواعد *{escape_markdown(chat.title)}* are:\n\n{rules}"
 
     if from_pm and rules:
         bot.send_message(
@@ -52,12 +52,12 @@ def send_rules(update, chat_id, from_pm=False):
     elif from_pm:
         bot.send_message(
             user.id,
-            "The group admins haven't set any rules for this chat yet. "
-            "This probably doesn't mean it's lawless though...!",
+            "لم يقم مديرو المجموعة بتعيين أي قواعد لهذه الدردشة حتى الآن. "
+            "هذا على الأرجح لا يعني أنه خارج عن القانون...!",
         )
     elif rules and reply_msg:
         reply_msg.reply_text(
-            "Please click the button below to see the rules.",
+            "الرجاء الضغط على الزر أدناه لمعرفة القواعد.",
             reply_markup=InlineKeyboardMarkup(
                 [
                     [
@@ -71,7 +71,7 @@ def send_rules(update, chat_id, from_pm=False):
         )
     elif rules:
         update.effective_message.reply_text(
-            "Please click the button below to see the rules.",
+            "الرجاء الضغط على الزر أدناه لمعرفة القواعد.",
             reply_markup=InlineKeyboardMarkup(
                 [
                     [
@@ -85,8 +85,8 @@ def send_rules(update, chat_id, from_pm=False):
         )
     else:
         update.effective_message.reply_text(
-            "The group admins haven't set any rules for this chat yet. "
-            "This probably doesn't mean it's lawless though...!",
+            "لم يقم مديرو المجموعة بتعيين أي قواعد لهذه الدردشة حتى الآن. "
+            "هذا على الأرجح لا يعني أنه خارج عن القانون...!",
         )
 
 
@@ -106,18 +106,18 @@ def set_rules(update: Update, context: CallbackContext):
         )
 
         sql.set_rules(chat_id, markdown_rules)
-        update.effective_message.reply_text("Successfully set rules for this group.")
+        update.effective_message.reply_text("تم تعيين قواعد لهذه المجموعة بنجاح.")
 
 
 @user_admin
 def clear_rules(update: Update, context: CallbackContext):
     chat_id = update.effective_chat.id
     sql.set_rules(chat_id, "")
-    update.effective_message.reply_text("Successfully cleared rules!")
+    update.effective_message.reply_text("تم مسح القواعد بنجاح!")
 
 
 def __stats__():
-    return f"× {sql.num_chats()} chats have rules set."
+    return f"× {sql.num_chats()} الدردشات لها قواعد محددة."
 
 
 def __import_data__(chat_id, data):
@@ -131,7 +131,7 @@ def __migrate__(old_chat_id, new_chat_id):
 
 
 def __chat_settings__(chat_id, user_id):
-    return f"This chat has had it's rules set: `{bool(sql.get_rules(chat_id))}`"
+    return f"هذه الدردشة لديها قواعدها المحددة: `{bool(sql.get_rules(chat_id))}`"
 
 
 __mod_name__ = "Rules"

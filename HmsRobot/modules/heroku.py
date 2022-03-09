@@ -21,17 +21,17 @@ async def variable(var):
     else:
         return
     """
-    Manage most of ConfigVars setting, set new var, get current var,
-    or delete var...
+    إدارة معظم إعدادات ConfigVars ، وتعيين var الجديد ، والحصول على var الحالي ،
+    أو حذف var ...
     """
     if HEROKU_APP_NAME is not None:
         app = Heroku.app(HEROKU_APP_NAME)
     else:
-        return await var.reply("`[HEROKU]:" "\nPlease setup your` **HEROKU_APP_NAME**")
+        return await var.reply("`[HEROKU]:" "\nيرجى إعداد` **HEROKU_APP_NAME**")
     exe = var.pattern_match.group(1)
     heroku_var = app.config()
     if exe == "see":
-        k = await var.reply("`Getting information...`")
+        k = await var.reply("`الحصول على المعلومات...`")
         await asyncio.sleep(1.5)
         try:
             variable = var.pattern_match.group(2).split()[0]
@@ -54,7 +54,7 @@ async def variable(var):
                         var.chat_id,
                         "configs.json",
                         reply_to=var.id,
-                        caption="`Output too large, sending it as a file`",
+                        caption="`الإخراج كبير جدًا ، وإرساله كملف`",
                     )
                 else:
                     await k.edit(
@@ -66,7 +66,7 @@ async def variable(var):
             os.remove("configs.json")
             return
     elif exe == "set":
-        s = await var.reply("`Setting information...weit ser`")
+        s = await var.reply("`ضبط المعلومات ... الوزن المحدد`")
         variable = var.pattern_match.group(2)
         if not variable:
             return await s.edit(">`.set var <ConfigVars-name> <value>`")
@@ -79,24 +79,24 @@ async def variable(var):
                 return await s.edit(">`/set var <ConfigVars-name> <value>`")
         await asyncio.sleep(1.5)
         if variable in heroku_var:
-            await s.edit(f"**{variable}**  `successfully changed to`  ->  **{value}**")
+            await s.edit(f"**{variable}**  `تغيرت بنجاح إلى`  ->  **{value}**")
         else:
             await s.edit(
-                f"**{variable}**  `successfully added with value`  ->  **{value}**"
+                f"**{variable}**  `أضيفت بنجاح مع القيمة`  ->  **{value}**"
             )
         heroku_var[variable] = value
     elif exe == "del":
-        m = await var.reply("`Getting information to deleting variable...`")
+        m = await var.reply("`الحصول على المعلومات لحذف المتغير...`")
         try:
             variable = var.pattern_match.group(2).split()[0]
         except IndexError:
-            return await m.edit("`Please specify ConfigVars you want to delete`")
+            return await m.edit("`الرجاء تحديد ConfigVars الذي تريد حذفه`")
         await asyncio.sleep(1.5)
         if variable in heroku_var:
-            await m.edit(f"**{variable}**  `successfully deleted`")
+            await m.edit(f"**{variable}**  `تم الحذف بنجاح`")
             del heroku_var[variable]
         else:
-            return await m.edit(f"**{variable}**  `is not exists`")
+            return await m.edit(f"**{variable}**  `غير موجود`")
 
 
 @register(pattern="^/usage(?: |$)")
@@ -108,9 +108,9 @@ async def dyno_usage(dyno):
     else:
         return
     """
-    Get your account Dyno Usage
+    احصل على Dyno Usage
     """
-    die = await dyno.reply("`Processing...`")
+    die = await dyno.reply("`معالجة...`")
     useragent = (
         "Mozilla/5.0 (Linux; Android 10; SM-G975F) "
         "AppleWebKit/537.36 (KHTML, like Gecko) "
@@ -125,7 +125,7 @@ async def dyno_usage(dyno):
     path = "/accounts/" + user_id + "/actions/get-quota"
     r = requests.get(heroku_api + path, headers=headers)
     if r.status_code != 200:
-        return await die.edit("`Error: something bad happened`\n\n" f">.`{r.reason}`\n")
+        return await die.edit("`خطأ: حدث شيء سيء`\n\n" f">.`{r.reason}`\n")
     result = r.json()
     quota = result["account_quota"]
     quota_used = result["quota_used"]
@@ -153,12 +153,12 @@ async def dyno_usage(dyno):
     await asyncio.sleep(1.5)
 
     return await die.edit(
-        "❂ **Dyno Usage **:\n\n"
+        "➢ **Dyno Usage **:\n\n"
         f" » Dyno usage for **{HEROKU_APP_NAME}**:\n"
         f"      •  `{AppHours}`**h**  `{AppMinutes}`**m**  "
         f"**|**  [`{AppPercentage}`**%**]"
         "\n\n"
-        "  » Dyno hours quota remaining this month:\n"
+        "  » حصة ساعات Dyno المتبقية هذا الشهر:\n"
         f"      •  `{hours}`**h**  `{minutes}`**m**  "
         f"**|**  [`{percentage}`**%**]"
         f"\n\n  » Dynos heroku {day} days left"
@@ -178,17 +178,17 @@ async def _(dyno):
         app = Heroku.app(HEROKU_APP_NAME)
     except:
         return await dyno.reply(
-            " Please make sure your Heroku API Key, Your App name are configured correctly in the heroku"
+            " يرجى التأكد من أن مفتاح Heroku API الخاص بك ، واسم التطبيق الخاص بك مهيأ بشكل صحيح في heroku"
         )
-    v = await dyno.reply("Getting Logs....")
+    v = await dyno.reply("الحصول على السجلات....")
     with open("logs.txt", "w") as log:
         log.write(app.get_log())
-    await v.edit("Got the logs wait a sec")
+    await v.edit("حصلت على سجلات انتظر ثانية")
     await dyno.client.send_file(
         dyno.chat_id,
         "logs.txt",
         reply_to=dyno.id,
-        caption="Emiko logs.",
+        caption="HmsRobot logs.",
     )
 
     await asyncio.sleep(5)
@@ -197,8 +197,8 @@ async def _(dyno):
 
 
 def prettyjson(obj, indent=2, maxlinelength=80):
-    """Renders JSON content with indentation and line splits/concatenations to fit maxlinelength.
-    Only dicts, lists and basic types are supported"""
+    """يعرض محتوى JSON بمسافة بادئة وتقسيمات / تسلسلات للخط لتناسب الطول الأقصى.
+    يتم دعم الإملاء والقوائم والأنواع الأساسية فقط"""
 
     items, _ = getsubitems(
         obj,

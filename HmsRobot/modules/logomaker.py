@@ -44,10 +44,10 @@ def mediainfo(media):
 
 @register(pattern="^/logo ?(.*)")
 async def logo_gen(event):
-    xx = await event.reply("`Preparing your logo...`")
+    xx = await event.reply("`تحضير اللوجو...`")
     name = event.pattern_match.group(1)
     if not name:
-        await xx.edit("`Provide some text to draw!\nExample: /logo <your name>!`")
+        await xx.edit("`قدم بعض النص للرسم!\nمثال: /logo <your name>!`")
         return
     bg_, font_ = "", ""
     if event.reply_to_msg_id:
@@ -108,12 +108,12 @@ async def logo_gen(event):
               stroke_width=strke, stroke_fill="black")
     flnme = f"logo.png"
     img.save(flnme, "png")
-    await xx.edit("`Uploading`")
+    await xx.edit("`تحميل`")
     if os.path.exists(flnme):
         await tbot.send_file(
             event.chat_id,
             file=flnme,
-            caption="Logo by [HmsRobot](https://t.me/Hms_1bot)",
+            caption="Logo by [#HmsRobot](https://t.me/hms_1bot)",
             force_document=False,
         )
         os.remove(flnme)
@@ -127,10 +127,10 @@ async def logo_gen(event):
 
 @register(pattern="^/wlogo ?(.*)")
 async def logo_(event):
-    xx = await event.reply("`Preparing your logo...`")
+    xx = await event.reply("`تحضير اللوجو...`")
     name = event.pattern_match.group(1)
     if not name:
-        await xx.edit("`Provide some text to draw!\nExample: /wlogo <your name>!`")
+        await xx.edit("`قدم بعض النص للرسم!\nمثال: /wlogo <your name>!`")
         return
     bg_, font_ = "", ""
     if event.reply_to_msg_id:
@@ -196,7 +196,7 @@ async def logo_(event):
         await tbot.send_file(
             event.chat_id,
             file=flnme,
-            caption="Logo by [HmsRobot](https://t.me/Hms_1bot)",
+            caption="Logo by [#HmsRobot](https://t.me/hms_1bot)",
             force_document=False,
         )
         os.remove(flnme)
@@ -208,14 +208,14 @@ async def logo_(event):
             os.remove(font_)
 
 
-__mod_name__ = "Logomaker"
+__mod_name__ = "Logo"
 
-__help__ = """ This is help menu for logomaker
+__help__ = """ هذه قائمة تعليمات لوجوميكر
 
-❂ /logo <text/name> - Create a logo with random view.
-❂ /wlogo <text/name> - Create a logo with wide view only.
+❂ /logo <text/name> - إنشاء لوجو مع عرض عشوائي.
+❂ /wlogo <text/name> - إنشاء لوجو مع عرض واسع فقط.
 
- Image Editor :
+ محرر الصور :
 
-❂  /edit <reply photo> - to edit image.
+❂ /edit <reply photo> - لتحرير الصورة.
 """

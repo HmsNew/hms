@@ -16,8 +16,8 @@ DOWNLOADPATH = "Downloads/"
 
 def get_date_in_two_weeks():
     """
-    get maximum date of storage for file
-    :return: date in two weeks
+         
+    ::    
     """
     today = datetime.datetime.today()
     date_in_two_weeks = today + datetime.timedelta(days=14)
@@ -40,7 +40,7 @@ async def send_to_transfersh_async(file):
                 download_link = await response.text()
 
     print(
-        "Link to download file(will be saved till {}):\n{}".format(
+        "  (   {}):\n{}".format(
             final_date, download_link
         )
     )
@@ -63,32 +63,32 @@ async def tsh(event):
     if event.reply_to_msg_id:
         start = time.time()
         url = await event.get_reply_message()
-        ilk = await event.respond("Downloading...")
+        ilk = await event.respond(" ...")
         try:
             file_path = await url.download_media(
                 progress_callback=lambda d, t: asyncio.get_event_loop().create_task(
-                    progress(d, t, ilk, start, "Downloading...")
+                    progress(d, t, ilk, start, " ...")
                 )
             )
         except Exception as e:
             traceback.print_exc()
             print(e)
-            await event.respond(f"Downloading Failed\n\n**Error:** {e}")
+            await event.respond(f" \n\n**:** {e}")
 
         await ilk.delete()
 
         try:
-            orta = await event.respond("Uploading to TransferSh...")
+            orta = await event.respond("  TransferSh...")
             download_link, final_date, size = await send_to_transfersh_async(file_path)
 
             str(time.time() - start)
             await orta.edit(
-                f"File Successfully Uploaded to TransferSh.\n\nLink 👉 {download_link}\nExpired Date 👉 {final_date}\n\nUploaded by *Hms_1bot*"
+                f"     TransferSh.\n\nLink 👉 {download_link}\n  👉 {final_date}\n\n   *Source1bot*"
             )
         except Exception as e:
             traceback.print_exc()
             print(e)
-            await event.respond(f"Uploading Failed\n\n**Error:** {e}")
+            await event.respond(f" \n\n**:** {e}")
 
     raise events.StopPropagation
 
@@ -98,32 +98,32 @@ async def tmp(event):
     if event.reply_to_msg_id:
         start = time.time()
         url = await event.get_reply_message()
-        ilk = await event.respond("Downloading...")
+        ilk = await event.respond(" ...")
         try:
             file_path = await url.download_media(
                 progress_callback=lambda d, t: asyncio.get_event_loop().create_task(
-                    progress(d, t, ilk, start, "Downloading...")
+                    progress(d, t, ilk, start, " ...")
                 )
             )
         except Exception as e:
             traceback.print_exc()
             print(e)
-            await event.respond(f"Downloading Failed\n\n**Error:** {e}")
+            await event.respond(f" \n\n**:** {e}")
 
         await ilk.delete()
 
         try:
-            orta = await event.respond("Uploading to TmpNinja...")
+            orta = await event.respond("  TmpNinja...")
             download_link = await send_to_tmp_async(file_path)
 
             str(time.time() - start)
             await orta.edit(
-                f"File Successfully Uploaded to TmpNinja.\n\nLink 👉 {download_link}\n\nUploaded by *Hms_1bot*"
+                f"     TmpNinja.\n\nLink 👉 {download_link}\n\n   *Source1bot*"
             )
         except Exception as e:
             traceback.print_exc()
             print(e)
-            await event.respond(f"Uploading Failed\n\n**Error:** {e}")
+            await event.respond(f" \n\n**:** {e}")
 
     raise events.StopPropagation
 
@@ -133,24 +133,24 @@ async def up(event):
     if event.reply_to_msg_id:
         start = time.time()
         url = await event.get_reply_message()
-        ilk = await event.respond("Downloading...")
+        ilk = await event.respond(" ...")
 
         try:
             filename = os.path.join(DOWNLOADPATH, os.path.basename(url.text))
             await download_file(url.text, filename, ilk, start, bot)
         except Exception as e:
             print(e)
-            await event.respond(f"Downloading Failed\n\n**Error:** {e}")
+            await event.respond(f" \n\n**:** {e}")
 
         await ilk.delete()
 
         try:
-            orta = await event.respond("Uploading to Telegram...")
+            orta = await event.respond("  Telegram...")
 
             dosya = await bot.upload_file(
                 filename,
                 progress_callback=lambda d, t: asyncio.get_event_loop().create_task(
-                    progress(d, t, orta, start, "Uploading to Telegram...")
+                    progress(d, t, orta, start, "  Telegram...")
                 ),
             )
 
@@ -159,13 +159,13 @@ async def up(event):
                 event.chat.id,
                 dosya,
                 force_document=True,
-                caption=f"Uploaded By *Hms_1bot*",
+                caption=f"   *Source1bot*",
             )
         except Exception as e:
             traceback.print_exc()
 
             print(e)
-            await event.respond(f"Uploading Failed\n\n**Error:** {e}")
+            await event.respond(f" \n\n**:** {e}")
 
         await orta.delete()
 

@@ -19,7 +19,7 @@ async def msg(event):
     try:
         a = country.info()
     except:
-        await event.reply("Country Not Avaiable Currently")
+        await event.reply("البلد غير متوفر حاليا")
     name = a.get("name")
     bb = a.get("altSpellings")
     hu = ""
@@ -79,29 +79,29 @@ async def msg(event):
 
     wiki = a.get("wiki")
 
-    caption = f"""<b><u>Information Gathered Successfully</b></u>
+    caption = f"""<b><u>تم جمع المعلومات بنجاح</b></u>
 <b>
-Country Name:- {name}
-Alternative Spellings:- {hu}
-Country Area:- {area} square kilometers
-Borders:- {borders}
-Calling Codes:- {call}
-Country's Capital:- {capital}
-Country's currency:- {currencies}
-Country's Flag:- {okie}
-Demonym:- {HmM}
-Country Type:- {EsCoBaR}
-ISO Names:- {iso}
-Languages:- {lMAO}
-Native Name:- {nonive}
-population:- {waste}
-Region:- {reg}
-Sub Region:- {sub}
-Time Zones:- {tom}
-Top Level Domain:- {lanester}
+اسم الدولة:- {name}
+تهجئات بديلة:- {hu}
+منطقة الدولة:- {area} square kilometers
+الحدود:- {borders}
+رموز الاتصال:- {call}
+عاصمة الدولة:- {capital}
+عملة البلد:- {currencies}
+علم الدولة:- {okie}
+ديمونيم:- {HmM}
+نوع الدولة:- {EsCoBaR}
+أسماء ISO:- {iso}
+اللغات:- {lMAO}
+الاسم الأصلي:- {nonive}
+عدد السكان:- {waste}
+منطقة:- {reg}
+المنطقة الفرعية:- {sub}
+المناطق الزمنية:- {tom}
+نطاق المستوى الأعلى:- {lanester}
 wikipedia:- {wiki}</b>
 
-Gathered By HmsRobot ✨.</b>
+جمعت بواسطه نيورك . ✨.</b>
 """
 
     await borg.send_message(

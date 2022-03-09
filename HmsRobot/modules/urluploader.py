@@ -24,11 +24,11 @@ async def download_coroutine(session, url, file_name, event, start, bot):
         if "text" in content_type and total_length < 500:
             return await response.release()
         await event.edit(
-            """**Initiating Download**
+            """**بدء التنزيل**
 **URL:** {}
 **File Name:** {}
 **File Size:** {}
-**© @Misszero_bot**""".format(
+**© @Source1bot**""".format(
                 url,
                 os.path.basename(file_name).replace("%20", " "),
                 humanbytes(total_length),
@@ -55,7 +55,7 @@ async def download_coroutine(session, url, file_name, event, start, bot):
                     try:
                         if total_length < downloaded:
                             total_length = downloaded
-                        current_message = """Downloading : {}%
+                        current_message = """جارى التحميل : {}%
 URL: {}
 File Name: {}
 File Size: {}
@@ -70,13 +70,13 @@ ETA: {}""".format(
                         )
                         if (
                             current_message != display_message
-                            and current_message != "empty"
+                            and current_message != "فارغ"
                         ):
                             print(current_message)
                             await event.edit(current_message, parse_mode="html")
 
                             display_message = current_message
                     except Exception as e:
-                        print("Error", e)
+                        print("خطا", e)
                         # logger.info(str(e))
         return await response.release()

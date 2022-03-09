@@ -1,37 +1,37 @@
 __mod_name__ = "Tools"
 
 __help__ = """
-*Sangmata Info bot*
-❂ /sg <reply>*:* To check history name
+*معلومات Sangmata بوت*
+❂ /sg <الرد>*:* للتحقق من اسم التاريخ
 
-*Date-time-Weather*
-❂ /time <country code>*:* Gives information about a timezone.
-❂ /weather <city>*:* Get weather info in a particular place.
-❂ /wttr <city>*:* Advanced weather module, usage same as /weather
-❂ /wttr moon*:* Get the current status of moon
+*التاريخ والوقت والطقس*
+❂ /time <الرقم الدولي>*:* يعطي معلومات حول منطقة زمنية.
+❂ /weather <مدينة>*:* الحصول على معلومات الطقس في مكان معين.
+❂ /wttr <مدينة>*:* وحدة الطقس المتقدمة ، نفس الاستخدام مثل /weather
+❂ /wttr moon*:* احصل على الوضع الحالي للقمر
 
-*Converts*
-❂ /encrypt*:* Encrypts The Given Text
-❂ /decrypt*:* Decrypts Previously Ecrypted Text
-❂ /zip*:* reply to a telegram file to compress it in .zip format
-❂ /unzip*:* reply to a telegram file to decompress it from the .zip format
+*المتحولون*
+❂ /encrypt*:* يشفر النص المعطى
+❂ /decrypt*:* يفك تشفير النص المشفر مسبقًا
+❂ /zip*:* الرد على ملف في التليجرام لضغطه بتنسيق zip
+❂ /unzip*:* الرد على ملف في التليجرام لفك ضغطه من تنسيق .zip
 
-*Random API*
-❂ /ptl or /asupan: get random video from Instagram timeline
-❂ /chika: get random video from chikakiku
-❂ /wibu:get random short anime video or photos
+*عشوائية API*
+❂ /ptl or !asupan: احصل على فيديو عشوائي من الجدول الزمني في Instagram
+❂ /chika: الحصول على فيديو عشوائي من chikakiku
+❂ /wibu:احصل على فيديو أو صور أنيمي قصيرة عشوائية
 ❂ /truth: challenge 
 ❂ /dare: challenge
 Link To File:
-❂ /up: reply to a direct download link to upload it to telegram as files
+❂ /up: الرد على رابط التنزيل المباشر لتحميله على Telegram كملفات
  
- File To Link:
-❂ /transfersh: reply to a telegram file to upload it on transfersh and get direct download link
-❂ /tmpninja: reply to a telegram file to upload it on tmpninja and get direct download link
- File Or Text To Telegraph:
-❂ /tgm : Get Telegraph Link Of Replied Media
-❂ /tgt: Get Telegraph Link of Replied Text
+ ملف للارتباط:
+❂ /transfersh: الرد على ملف في التليجرام لتحميله على عمليات النقل والحصول على رابط تنزيل مباشر
+❂ /tmpninja: الرد على ملف في التليجرام لتحميله على tmpninja والحصول على رابط التحميل المباشر
+ ملف أو نص إلى تلغراف:
+❂ /tgm : احصل على رابط Telegraph للوسائط التي تم الرد عليها
+❂ /tgt: احصل على رابط Telegraph للنص الذي تم الرد عليه
 
- Tagger
-❂ /tagall : for tag everyone at least 100 member first.
+ تاك
+❂ /tagall : لوضع علامة على الجميع 100 عضو على الأقل أولاً.
 """

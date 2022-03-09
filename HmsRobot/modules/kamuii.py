@@ -9,18 +9,18 @@ from HmsRobot import telethn as tbot, TEMP_DOWNLOAD_DIRECTORY, SUPPORT_CHAT
 @register(pattern="^/kamuii ?(.*)")
 async def _(fry):
     level = fry.pattern_match.group(1)
-    kntl = await fry.reply("`Deepfrying this image...`")
+    kntl = await fry.reply("`تقلى هذه الصورة بعمق...`")
     if fry.fwd_from:
         return
     if not fry.reply_to_msg_id:
-        await kntl.edit("`Reply to a stickers`")
+        await kntl.edit("`الرد على الملصقات`")
         return
     reply_message = await fry.get_reply_message()
     if not reply_message.media:
-        await fry.edit("`this file not supported`")
+        await fry.edit("`هذا الملف غير معتمد`")
         return
     if reply_message.sender.bot:
-        await fry.edit("`Reply to a asticker to destroy`")
+        await fry.edit("`الرد على asticker لتدمير`")
         return
     chat = "@image_deepfrybot"
     message_id_to_reply = fry.message.reply_to_msg_id
@@ -36,13 +36,13 @@ async def _(fry):
                 response = await conv.get_response()
             else:
                 response = await conv.get_response()
-            """ - don't spam notif - """
+            """ - لا إشعار البريد العشوائي - """
             await ubot2.send_read_acknowledge(conv.chat_id)
         except YouBlockedUserError:
-            await fry.reply(f"`Error, tell the problem on @{SUPPORT_CHAT}`")
+            await fry.reply(f"`خطأ ، أخبر المشكلة @{SUPPORT_CHAT}`")
             return
         if response.text.startswith("Forward"):
-            await fry.edit(f"`Error, tell the problem on @{SUPPORT_CHAT}`")
+            await fry.edit(f"`خطأ ، أخبر المشكلة @{SUPPORT_CHAT}`")
         else:
             downloaded_file_name = await ubot2.download_media(
                 response.media,
@@ -54,7 +54,7 @@ async def _(fry):
                 force_document=False,
                 reply_to=message_id_to_reply
             )
-            """ - cleanup chat after completed - """
+            """ - تنظيف الدردشة بعد الانتهاء - """
             try:
                 msg_level
             except NameError:

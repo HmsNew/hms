@@ -43,13 +43,13 @@ async def convert(
 
     for message in reply_messages:
         if not message.document:
-            return await m.edit("Not document, ABORTED!")
+            return await m.edit("ليس وثيقة ، تم إحباطها!")
 
         if message.document.mime_type.split("/")[0] != "image":
-            return await m.edit("Invalid mime type!")
+            return await m.edit("نوع Mime غير صالح!")
 
         if message.document.file_size > 5000000:
-            return await m.edit("Size too large, ABORTED!")
+            return await m.edit("الحجم كبير جدًا ، تم إحباطه!")
         documents.append(await message.download())
 
     for img_path in documents:
@@ -90,10 +90,10 @@ async def img_to_pdf(_, message: Message):
     reply = message.reply_to_message
     if not reply:
         return await message.reply(
-            "Reply to an image (as document) or group of images."
+            "الرد على صورة (كمستند) أو مجموعة صور."
         )
 
-    m = await message.reply_text("Converting..")
+    m = await message.reply_text("التحويل..")
     start_time = time()
 
     if reply.media_group_id:

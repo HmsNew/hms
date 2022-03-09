@@ -27,18 +27,18 @@ def allow_connections(update, context) -> str:
                 sql.set_allow_connect_to_chat(chat.id, False)
                 send_message(
                     update.effective_message,
-                    "Connection has been disabled for this chat",
+                    "تم تعطيل الاتصال لهذه الدردشة",
                 )
             elif var == "yes":
                 sql.set_allow_connect_to_chat(chat.id, True)
                 send_message(
                     update.effective_message,
-                    "Connection has been enabled for this chat",
+                    "تم تمكين الاتصال لهذه الدردشة",
                 )
             else:
                 send_message(
                     update.effective_message,
-                    "Please enter `yes` or `no`!",
+                    "تفضل `yes` or `no`!",
                     parse_mode=ParseMode.MARKDOWN,
                 )
         else:
@@ -46,19 +46,19 @@ def allow_connections(update, context) -> str:
             if get_settings:
                 send_message(
                     update.effective_message,
-                    "Connections to this group are *Allowed* for members!",
+                    "الاتصالات لهذه المجموعة هي *مسموح* للأعضاء!",
                     parse_mode=ParseMode.MARKDOWN,
                 )
             else:
                 send_message(
                     update.effective_message,
-                    "Connection to this group are *Not Allowed* for members!",
+                    "الاتصال بهذه المجموعة *غير مسموح* للأعضاء!",
                     parse_mode=ParseMode.MARKDOWN,
                 )
     else:
         send_message(
             update.effective_message,
-            "This command is for group only. Not in PM!",
+            "هذا الأمر للمجموعة فقط. ليس في PM!",
         )
 
 
@@ -80,9 +80,9 @@ def connection_chat(update, context):
         chat_name = update.effective_message.chat.title
 
     if conn:
-        message = "You are currently connected to {}.\n".format(chat_name)
+        message = "أنت متصل حاليا بـ {}.\n".format(chat_name)
     else:
-        message = "You are currently not connected in any group.\n"
+        message = "أنت حاليا غير متصل في أي مجموعة.\n"
     send_message(update.effective_message, message, parse_mode="markdown")
 
 
@@ -111,10 +111,10 @@ def connect_chat(update, context):
                         update.effective_message.from_user.id,
                     )
                 except BadRequest:
-                    send_message(update.effective_message, "Invalid Chat ID!")
+                    send_message(update.effective_message, "معرف الدردشة غير صالح!")
                     return
             except BadRequest:
-                send_message(update.effective_message, "Invalid Chat ID!")
+                send_message(update.effective_message, "معرف الدردشة غير صالح!")
                 return
 
             isadmin = getstatusadmin.status in ("administrator", "creator")
@@ -133,29 +133,29 @@ def connect_chat(update, context):
                     chat_name = conn_chat.title
                     send_message(
                         update.effective_message,
-                        "Successfully connected to *{}*. \nUse /helpconnect to check available commands.".format(
+                        "نجح الاتصال بـ *{}*. \nUse /helpconnect للتحقق من الأوامر المتاحة.".format(
                             chat_name,
                         ),
                         parse_mode=ParseMode.MARKDOWN,
                     )
                     sql.add_history_conn(user.id, str(conn_chat.id), chat_name)
                 else:
-                    send_message(update.effective_message, "Connection failed!")
+                    send_message(update.effective_message, "فشل الاتصال!")
             else:
                 send_message(
                     update.effective_message,
-                    "Connection to this chat is not allowed!",
+                    "الاتصال بهذه الدردشة غير مسموح به!",
                 )
         else:
             gethistory = sql.get_history_conn(user.id)
             if gethistory:
                 buttons = [
                     InlineKeyboardButton(
-                        text="❎ Close button",
+                        text="❎ زر الاغلاق",
                         callback_data="connect_close",
                     ),
                     InlineKeyboardButton(
-                        text="🧹 Clear history",
+                        text="🧹 تاريخ واضح",
                         callback_data="connect_clear",
                     ),
                 ]
@@ -164,22 +164,22 @@ def connect_chat(update, context):
             conn = connected(context.bot, update, chat, user.id, need_admin=False)
             if conn:
                 connectedchat = dispatcher.bot.getChat(conn)
-                text = "You are currently connected to *{}* (`{}`)".format(
+                text = "أنت متصل حاليا بـ *{}* (`{}`)".format(
                     connectedchat.title,
                     conn,
                 )
                 buttons.append(
                     InlineKeyboardButton(
-                        text="🔌 Disconnect",
+                        text="🔌 قطع الاتصال",
                         callback_data="connect_disconnect",
                     ),
                 )
             else:
-                text = "Write the chat ID or tag to connect!"
+                text = "اكتب معرف الدردشة أو العلامة للاتصال!"
             if gethistory:
-                text += "\n\n*Connection history:*\n"
-                text += "╒═══「 *Info* 」\n"
-                text += "│  Sorted: `Newest`\n"
+                text += "\n\n*سجل الاتصال:*\n"
+                text += "╒═══「 *معلومات* 」\n"
+                text += "│  مرتبة: `الأحدث`\n"
                 text += "│\n"
                 buttons = [buttons]
                 for x in sorted(gethistory.keys(), reverse=True):
@@ -200,7 +200,7 @@ def connect_chat(update, context):
                             ),
                         ],
                     )
-                text += "╘══「 Total {} Chats 」".format(
+                text += "╘══「 مجموع {} دردشات 」".format(
                     str(len(gethistory)) + " (max)"
                     if len(gethistory) == 5
                     else str(len(gethistory)),
@@ -234,14 +234,14 @@ def connect_chat(update, context):
                 chat_name = dispatcher.bot.getChat(chat.id).title
                 send_message(
                     update.effective_message,
-                    "Successfully connected to *{}*.".format(chat_name),
+                    "نجح الاتصال بـ *{}*.".format(chat_name),
                     parse_mode=ParseMode.MARKDOWN,
                 )
                 try:
                     sql.add_history_conn(user.id, str(chat.id), chat_name)
                     context.bot.send_message(
                         update.effective_message.from_user.id,
-                        "You are connected to *{}*. \nUse `/helpconnect` to check available commands.".format(
+                        "أنت متصل بـ *{}*. \nمستخدم `/helpconnect` للتحقق من الأوامر المتاحة.".format(
                             chat_name,
                         ),
                         parse_mode="markdown",
@@ -251,11 +251,11 @@ def connect_chat(update, context):
                 except Unauthorized:
                     pass
             else:
-                send_message(update.effective_message, "Connection failed!")
+                send_message(update.effective_message, "فشل الاتصال!")
         else:
             send_message(
                 update.effective_message,
-                "Connection to this chat is not allowed!",
+                "الاتصال بهذه الدردشة غير مسموح به!",
             )
 
 
@@ -266,12 +266,12 @@ def disconnect_chat(update, context):
         if disconnection_status:
             sql.disconnected_chat = send_message(
                 update.effective_message,
-                "Disconnected from chat!",
+                "انقطع الاتصال بالدردشة!",
             )
         else:
-            send_message(update.effective_message, "You're not connected!")
+            send_message(update.effective_message, "أنت غير متصل!")
     else:
-        send_message(update.effective_message, "This command is only available in PM.")
+        send_message(update.effective_message, "هذا الأمر متاح فقط في PM.")
 
 
 def connected(bot: Bot, update: Update, chat, user_id, need_admin=True):
@@ -303,14 +303,14 @@ def connected(bot: Bot, update: Update, chat, user_id, need_admin=True):
                     return conn_id
                 send_message(
                     update.effective_message,
-                    "You must be an admin in the connected group!",
+                    "يجب أن تكون مسؤولاً في المجموعة المتصلة!",
                 )
             else:
                 return conn_id
         else:
             send_message(
                 update.effective_message,
-                "The group changed the connection rights or you are no longer an admin.\nI've disconnected you.",
+                "قامت المجموعة بتغيير حقوق الاتصال أو أنك لم تعد مسؤولاً.\nلقد فصلتك.",
             )
             disconnect_chat(update, bot)
     else:
@@ -318,16 +318,16 @@ def connected(bot: Bot, update: Update, chat, user_id, need_admin=True):
 
 
 CONN_HELP = """
- Actions are available with connected groups:
- • View and edit Notes.
- • View and edit Filters.
- • Get invite link of chat.
- • Set and control AntiFlood settings.
- • Set and control Blacklist settings.
- • Set Locks and Unlocks in chat.
- • Enable and Disable commands in chat.
- • Export and Imports of chat backup.
- • More in future!"""
+ الإجراءات متاحة مع المجموعات المتصلة:
+ • عرض وتحرير الملاحظات.
+ • عرض وتحرير عوامل التصفية.
+ • احصل على رابط الدعوة من الدردشة.
+ • ضبط إعدادات مكافحة الفيضان والتحكم فيها.
+ • ضبط إعدادات القائمة السوداء والتحكم فيها.
+ • تعيين الأقفال وفتح في الدردشة.
+ • تمكين وتعطيل الأوامر في الدردشة.
+ • تصدير وواردات الدردشة الاحتياطية.
+ • المزيد في المستقبل!"""
 
 
 def help_connect_chat(update, context):
@@ -335,7 +335,7 @@ def help_connect_chat(update, context):
     args = context.args
 
     if update.effective_message.chat.type != "private":
-        send_message(update.effective_message, "PM me with that command to get help.")
+        send_message(update.effective_message, "PM لي مع هذا الأمر للحصول على المساعدة.")
         return
     send_message(update.effective_message, CONN_HELP, parse_mode="markdown")
 
@@ -367,53 +367,53 @@ def connect_button(update, context):
                 )
                 chat_name = conn_chat.title
                 query.message.edit_text(
-                    "Successfully connected to *{}*. \nUse `/helpconnect` to check available commands.".format(
+                    "نجح الاتصال بـ *{}*. \nUse `/helpconnect` للتحقق من الأوامر المتاحة.".format(
                         chat_name,
                     ),
                     parse_mode=ParseMode.MARKDOWN,
                 )
                 sql.add_history_conn(user.id, str(conn_chat.id), chat_name)
             else:
-                query.message.edit_text("Connection failed!")
+                query.message.edit_text("فشل الاتصال!")
         else:
             context.bot.answer_callback_query(
                 query.id,
-                "Connection to this chat is not allowed!",
+                "الاتصال بهذه الدردشة غير مسموح به!",
                 show_alert=True,
             )
     elif disconnect_match:
         disconnection_status = sql.disconnect(query.from_user.id)
         if disconnection_status:
-            sql.disconnected_chat = query.message.edit_text("Disconnected from chat!")
+            sql.disconnected_chat = query.message.edit_text("انقطع الاتصال بالدردشة!")
         else:
             context.bot.answer_callback_query(
                 query.id,
-                "You're not connected!",
+                "أنت غير متصل!",
                 show_alert=True,
             )
     elif clear_match:
         sql.clear_history_conn(query.from_user.id)
-        query.message.edit_text("History connected has been cleared!")
+        query.message.edit_text("تم مسح التاريخ المتصل!")
     elif connect_close:
-        query.message.edit_text("Closed.\nTo open again, type /connect")
+        query.message.edit_text("مغلق.\nللفتح مرة أخرى ، اكتب /connect")
     else:
         connect_chat(update, context)
 
 
-__mod_name__ = "Connection"
+__mod_name__ = "Connect"
 
 __help__ = """
-Sometimes, you just want to add some notes and filters to a group chat, but you don't want everyone to see; This is where connections come in...
-This allows you to connect to a chat's database, and add things to it without the commands appearing in chat! For obvious reasons, you need to be an admin to add things; but any member in the group can view your data.
+في بعض الأحيان ، تريد فقط إضافة بعض الملاحظات والفلاتر إلى دردشة جماعية ، لكنك لا تريد أن يراها الجميع ؛ هذا هو المكان الذي تأتي فيه الاتصالات ...
+يتيح لك ذلك الاتصال بقاعدة بيانات الدردشة وإضافة أشياء إليها دون ظهور الأوامر في الدردشة! لأسباب واضحة ، يجب أن تكون مسؤولاً لإضافة أشياء ؛ لكن أي عضو في المجموعة يمكنه عرض بياناتك.
 
-❂ /connect: Connects to chat (Can be done in a group by /connect or /connect <chat id> in PM)
-❂ /connection: List connected chats
-❂ /disconnect: Disconnect from a chat
-❂ /helpconnect: List available commands that can be used remotely
+❂ /connect: يتصل بالدردشة (يمكن إجراؤه في مجموعة بواسطة /connect or /connect <chat id> in PM)
+❂ /connection: سرد الدردشات المتصلة
+❂ /disconnect: قطع الاتصال بالمحادثة
+❂ /helpconnect: سرد الأوامر المتاحة التي يمكن استخدامها عن بعد
 
 *Admin only:*
 
-❂ /allowconnect <yes/no>: allow a user to connect to a chat
+❂ /allowconnect <yes/no>: السماح للمستخدم بالاتصال بالدردشة
 """
 
 CONNECT_CHAT_HANDLER = CommandHandler(

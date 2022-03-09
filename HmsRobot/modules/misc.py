@@ -32,27 +32,27 @@ from HmsRobot.modules.helper_funcs.chat_status import sudo_plus
 from HmsRobot.modules.helper_funcs.alternate import send_action, typing_action
 
 MARKDOWN_HELP = f"""
-Markdown is a very powerful formatting tool supported by telegram. {dispatcher.bot.first_name} has some enhancements, to make sure that \
-saved messages are correctly parsed, and to allow you to create buttons.
+Markdown هي أداة تنسيق قوية للغاية تدعمها Telegram {dispatcher.bot.first_name} لديه بعض التحسينات ، للتأكد من ذلك \
+يتم تحليل الرسائل المحفوظة بشكل صحيح ، وللسماح لك بإنشاء أزرار.
 
-❂ <code>_italic_</code>: wrapping text with '_' will produce italic text
-❂ <code>*bold*</code>: wrapping text with '*' will produce bold text
-❂ <code>`code`</code>: wrapping text with '`' will produce monospaced text, also known as 'code'
-❂ <code>[sometext](someURL)</code>: this will create a link - the message will just show <code>sometext</code>, \
-and tapping on it will open the page at <code>someURL</code>.
-<b>Example:</b><code>[test](example.com)</code>
+❂ <code>_italic_</code>: سيؤدي التفاف النص بـ "_" إلى إنتاج نص مائل
+❂ <code>*bold*</code>: سيؤدي التفاف النص بـ "*" إلى إنتاج نص غامق
+❂ <code>`code`</code>: التفاف النص بـ  سينتج نصًا أحادي المسافة ، يُعرف أيضًا باسم "التعليمات البرمجية"
+❂ <code>[sometext](someURL)</code>: سيؤدي هذا إلى إنشاء ارتباط - ستظهر الرسالة فقط <code>sometext</code>, \
+والضغط عليها سيفتح الصفحة في <code>someURL</code>.
+<b>مثال:</b><code>[test](example.com)</code>
 
-❂ <code>[buttontext](buttonurl:someURL)</code>: this is a special enhancement to allow users to have telegram \
-buttons in their markdown. <code>buttontext</code> will be what is displayed on the button, and <code>someurl</code> \
-will be the url which is opened.
-<b>Example:</b> <code>[This is a button](buttonurl:example.com)</code>
+❂ <code>[buttontext](buttonurl:someURL)</code>: هذا تحسين خاص للسماح للمستخدمين بالحصول على برقية \
+أزرار في تخفيض السعر. <code>buttontext</code> سيكون ما يتم عرضه على الزر ، و <code>someurl</code> \
+سيكون عنوان url الذي تم فتحه.
+<b>مثال:</b> <code>[This is a button](buttonurl:example.com)</code>
 
-If you want multiple buttons on the same line, use :same, as such:
+إذا كنت تريد عدة أزرار على نفس الخط ، فاستخدم:
 <code>[one](buttonurl://example.com)
 [two](buttonurl://google.com:same)</code>
-This will create two buttons on a single line, instead of one button per line.
+سيؤدي هذا إلى إنشاء زرين على سطر واحد ، بدلاً من زر واحد في كل سطر.
 
-Keep in mind that your message <b>MUST</b> contain some text other than just a button!
+ضع في اعتبارك أن رسالتك <b>MUST</b> تحتوي على بعض النصوص بخلاف مجرد زر!
 """
 
 
@@ -75,7 +75,7 @@ def echo(update: Update, context: CallbackContext):
 def markdown_help_sender(update: Update):
     update.effective_message.reply_text(MARKDOWN_HELP, parse_mode=ParseMode.HTML)
     update.effective_message.reply_text(
-        "Try forwarding the following message to me, and you'll see, and Use #test!"
+        "حاول إعادة توجيه الرسالة التالية إليّ ، وسترى ، واستخدم #test!"
     )
     update.effective_message.reply_text(
         "/save test This is a markdown test. _italics_, *bold*, code, "
@@ -87,7 +87,7 @@ def markdown_help_sender(update: Update):
 def markdown_help(update: Update, context: CallbackContext):
     if update.effective_chat.type != "private":
         update.effective_message.reply_text(
-            "Contact me in pm",
+            "تواصل معي في شات البوت",
             reply_markup=InlineKeyboardMarkup(
                 [
                     [
@@ -107,15 +107,15 @@ def wiki(update: Update, context: CallbackContext):
     kueri = re.split(pattern="wiki", string=update.effective_message.text)
     wikipedia.set_lang("en")
     if len(str(kueri[1])) == 0:
-        update.effective_message.reply_text("Enter keywords!")
+        update.effective_message.reply_text("أدخل الكلمات الرئيسية!")
     else:
         try:
-            pertama = update.effective_message.reply_text("🔄 Loading...")
+            pertama = update.effective_message.reply_text("🔄 جار التحميل...")
             keyboard = InlineKeyboardMarkup(
                 [
                     [
                         InlineKeyboardButton(
-                            text="🔧 More Info...",
+                            text="🔧 مزيد من المعلومات...",
                             url=wikipedia.page(kueri).url,
                         )
                     ]
@@ -128,12 +128,12 @@ def wiki(update: Update, context: CallbackContext):
                 reply_markup=keyboard,
             )
         except wikipedia.PageError as e:
-            update.effective_message.reply_text(f"⚠ Error: {e}")
+            update.effective_message.reply_text(f"⚠ خطا: {e}")
         except BadRequest as et:
-            update.effective_message.reply_text(f"⚠ Error: {et}")
+            update.effective_message.reply_text(f"⚠ خطا: {et}")
         except wikipedia.exceptions.DisambiguationError as eet:
             update.effective_message.reply_text(
-                f"⚠ Error\n There are too many query! Express it more!\nPossible query result:\n{eet}"
+                f"⚠ خطا\n هناك الكثير من الاستعلام! عبّر عنها أكثر!\nنتيجة الاستعلام المحتملة:\n{eet}"
             )
 
 
@@ -145,20 +145,20 @@ def wall(update: Update, context: CallbackContext):
     args = context.args
     query = " ".join(args)
     if not query:
-        msg.reply_text("Please enter a query!")
+        msg.reply_text("الرجاء إدخال استعلام!")
         return
     caption = query
     term = query.replace(" ", "%20")
     json_rep = r.get(
         f"https://wall.alphacoders.com/api2.0/get.php?auth={WALL_API}&method=search&term={term}"
     ).json()
-    if not json_rep.get("success"):
-        msg.reply_text("An error occurred!")
+    if not json_rep.get("نجاح"):
+        msg.reply_text("حدث خطأ!")
 
     else:
         wallpapers = json_rep.get("wallpapers")
         if not wallpapers:
-            msg.reply_text("No results found! Refine your search.")
+            msg.reply_text("لم يتم العثور على نتائج! حدد بحثك.")
             return
         index = randint(0, len(wallpapers) - 1)  # Choose random index
         wallpaper = wallpapers[index]
@@ -184,24 +184,20 @@ def wall(update: Update, context: CallbackContext):
 __help__ = """
 *Available commands:*
 
-❂ /markdownhelp*:* quick summary of how markdown works in telegram - can only be called in private chats
-❂ /paste*:* Saves replied content to `nekobin.com` and replies with a url
-❂ /react*:* Reacts with a random reaction 
-❂ /ud <word>*:* Type the word or expression you want to search use
-❂ /reverse*:* Does a reverse image search of the media which it was replied to.
-❂ /wiki <query>*:* wikipedia your query
-❂ /wall <query>*:* get a wallpaper from wall.alphacoders.com
-❂ /cash*:* currency converter
- Example:
- `/cash 1 USD INR`  
+❂ /markdownhelp*:* ملخص سريع لكيفية عمل تخفيض السعر في telegram - لا يمكن استدعاؤه إلا في المحادثات الخاصة
+❂ /paste*:* يحفظ الرد على nekobin.com والرد مع عنوان url
+❂ /react*:* يتفاعل مع تفاعل عشوائي
+❂ /ud <word>*:* اكتب الكلمة أو التعبير الذي تريد البحث عنه
+❂ /reverse*:* يقوم ببحث عكسي عن الصورة للوسائط التي تم الرد عليها.
+❂ /wiki <query>*:* ويكيبيديا استفسارك
+❂ /wall <query>*:* احصل على خلفية من wall.alphacoders.com
+❂ /cash*:* محول العملات
+ مثال:
+ `!cash 1 USD INR`  
       _OR_
- `/cash 1 usd inr`
+ `!cash 1 usd inr`
  Output: `1.0 USD = 75.505 INR`
 
-*Music Modules:*
-❂ /video or /vsong (query): download video from youtube
-❂ /music or /song (query): download song from yt servers. (API BASED)
-❂ /lyrics (song name) : This plugin searches for song lyrics with song name.
 """
 
 ECHO_HANDLER = DisableAbleCommandHandler(

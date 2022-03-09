@@ -1,5 +1,4 @@
-# By @TroJanzHEX
-# Improved by TeamDaisyX
+# By Neyork
 
 from pyrogram import filters
 from pyrogram.types import (
@@ -9,7 +8,7 @@ from pyrogram.types import (
     Message,
 )
 
-# By @TroJanzHEX
+# By HmsRobot
 from HmsRobot.ex_plugins.ImageEditor.edit_1 import (  # pylint:disable=import-error
     black_white,
     box_blur,
@@ -64,7 +63,7 @@ lel = 00000000
 async def photo(client: pbot, message: Message):
     try:
         if not message.reply_to_message.photo:
-            await client.send_message(message.chat.id, "Reply to an image man!ㅤㅤ")
+            await client.send_message(message.chat.id, "رد على صورة رجل!ㅤㅤ")
             return
     except:
         return
@@ -76,7 +75,7 @@ async def photo(client: pbot, message: Message):
     try:
         await client.send_message(
             chat_id=message.chat.id,
-            text="Select your required mode from below!ㅤㅤ",
+            text="حدد الوضع المطلوب من الأسفل!ㅤㅤ",
             reply_markup=InlineKeyboardMarkup(
                 [
                     [
@@ -116,12 +115,12 @@ async def photo(client: pbot, message: Message):
             reply_to_message_id=message.reply_to_message.message_id,
         )
     except Exception as e:
-        print("photomarkup error - " + str(e))
+        print("خطأ علامة الصورة - " + str(e))
         if "USER_IS_BLOCKED" in str(e):
             return
         else:
             try:
-                await message.reply_text("Something went wrong!", quote=True)
+                await message.reply_text("هناك خطأ ما!", quote=True)
             except Exception:
                 return
 
@@ -132,7 +131,7 @@ async def cb_handler(client: pbot, query: CallbackQuery):
     if lel == user_id:
         if query.data == "removebg":
             await query.message.edit_text(
-                "**Select required mode**ㅤㅤㅤㅤ",
+                "**حدد الوضع المطلوب**ㅤㅤㅤㅤ",
                 reply_markup=InlineKeyboardMarkup(
                     [
                         [
@@ -186,7 +185,7 @@ async def cb_handler(client: pbot, query: CallbackQuery):
 
         elif query.data == "glitch":
             await query.message.edit_text(
-                "**Select required mode**ㅤㅤㅤㅤ",
+                "**حدد الوضع المطلوب**ㅤㅤㅤㅤ",
                 reply_markup=InlineKeyboardMarkup(
                     [
                         [
@@ -202,7 +201,7 @@ async def cb_handler(client: pbot, query: CallbackQuery):
             )
         elif query.data == "normalglitch":
             await query.message.edit_text(
-                "**Select Glitch power level**",
+                "**حدد مستوى الطاقة خلل**",
                 reply_markup=InlineKeyboardMarkup(
                     [
                         [
@@ -229,7 +228,7 @@ async def cb_handler(client: pbot, query: CallbackQuery):
             )
         elif query.data == "scanlineglitch":
             await query.message.edit_text(
-                "**Select Glitch power level**",
+                "**حدد مستوى الطاقة خلل**",
                 reply_markup=InlineKeyboardMarkup(
                     [
                         [
@@ -256,7 +255,7 @@ async def cb_handler(client: pbot, query: CallbackQuery):
             )
         elif query.data == "blur":
             await query.message.edit(
-                "**Select a Type**",
+                "**حدد النوع**",
                 reply_markup=InlineKeyboardMarkup(
                     [
                         [
@@ -269,7 +268,7 @@ async def cb_handler(client: pbot, query: CallbackQuery):
             )
         elif query.data == "circle":
             await query.message.edit_text(
-                "**Select required mode**",
+                "**حدد الوضع المطلوب**",
                 reply_markup=InlineKeyboardMarkup(
                     [
                         [
@@ -285,7 +284,7 @@ async def cb_handler(client: pbot, query: CallbackQuery):
             )
         elif query.data == "border":
             await query.message.edit(
-                "**Select Border**",
+                "**حدد الحدود**",
                 reply_markup=InlineKeyboardMarkup(
                     [
                         [

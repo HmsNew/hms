@@ -10,7 +10,7 @@ from HmsRobot import dispatcher, DEV_USERS, OWNER_ID
 
 
 class ErrorsDict(dict):
-    "A custom dict to store errors and their count"
+    "ديكت مخصص لتخزين الأخطاء وعددها"
 
     def __contains__(self, error):
         error.identifier = "".join(random.choices("ABCDEFGHIJKLMNOPQRSTUVWXYZ", k=5))
@@ -35,12 +35,12 @@ def error_callback(update: Update, context: CallbackContext):
     )
     tb = "".join(tb_list)
     pretty_message = (
-        "An exception was raised while handling an update\n"
-        "User: {}\n"
-        "Chat: {} {}\n"
-        "Callback data: {}\n"
-        "Message: {}\n\n"
-        "Full Traceback: {}"
+        "تم رفع استثناء أثناء معالجة التحديث\n"
+        "مستخدم: {}\n"
+        "دردشه: {} {}\n"
+        "بيانات رد الاتصال: {}\n"
+        "رسالة: {}\n\n"
+        "التتبع الكامل: {}"
     ).format(
         update.effective_user.id,
         update.effective_chat.title if update.effective_chat else "",
@@ -59,7 +59,7 @@ def error_callback(update: Update, context: CallbackContext):
         context.bot.send_document(
             OWNER_ID,
             open("error.txt", "rb"),
-            caption=f"#{context.error.identifier}\n<b>Your sugar mommy got an error for you, you cute guy:</b>\n<code>{e}</code>",
+            caption=f"#{context.error.identifier}\n<b>والدتك السكر لديها خطأ لك ، أيها الرجل اللطيف:</b>\n<code>{e}</code>",
             parse_mode="html",
         )
         return
@@ -67,7 +67,7 @@ def error_callback(update: Update, context: CallbackContext):
     url = f"https://nekobin.com/{key}.py"
     context.bot.send_message(
         OWNER_ID,
-        text=f"#{context.error.identifier}\n<b>Your sugar mommy got an error for you, you cute guy:</b>\n<code>{e}</code>",
+        text=f"#{context.error.identifier}\n<b>والدتك السكر لديها خطأ لك ، أيها الرجل اللطيف:</b>\n<code>{e}</code>",
         reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("Nekobin", url=url)]]),
         parse_mode="html",
     )
@@ -77,7 +77,7 @@ def list_errors(update: Update, context: CallbackContext):
     if update.effective_user.id not in DEV_USERS:
         return
     e = dict(sorted(errors.items(), key=lambda item: item[1], reverse=True))
-    msg = "<b>Errors List:</b>\n"
+    msg = "<b>قائمة الأخطاء:</b>\n"
     for x in e:
         msg += f"• <code>{x}:</code> <b>{e[x]}</b> #{x.identifier}\n"
     update.effective_message.reply_text(msg, parse_mode="html")

@@ -15,7 +15,7 @@ spam_chats = []
 async def mentionall(event):
     chat_id = event.chat_id
     if event.is_private:
-        return await event.respond("__This command can be use in groups and channels!__")
+        return await event.respond("__يمكن استخدام هذا الأمر في مجموعات وقنوات!__")
 
     is_admin = False
     try:
@@ -37,10 +37,10 @@ async def mentionall(event):
         ):
             is_admin = True
     if not is_admin:
-        return await event.reply("__Only admins can mention all!__")
+        return await event.reply("__يمكن للمسؤولين فقط ذكر كل شيء!__")
 
     if event.pattern_match.group(1) and event.is_reply:
-        return await event.reply("__Give me one argument!__")
+        return await event.reply("__أعطني حجة واحدة!__")
     elif event.pattern_match.group(1):
         mode = "text_on_cmd"
         msg = event.pattern_match.group(1)
@@ -49,9 +49,9 @@ async def mentionall(event):
         msg = await event.get_reply_message()
         if msg == None:
             return await event.respond(
-                "__I can't mention members for older messages! (messages which are sent before I'm added to group)__")
+                "__لا أستطيع ذكر أعضاء للرسائل القديمة! (الرسائل التي تم إرسالها قبل إضافتي إلى المجموعة)__")
     else:
-        return await event.reply("__Reply to a message or give me some text to mention others!__")
+        return await event.reply("__رد على رسالة أو أعطني بعض النصوص لأذكر الآخرين!__")
 
     spam_chats.append(chat_id)
     usrnum = 0
@@ -98,25 +98,25 @@ async def cancel_spam(event):
         ):
             is_admin = True
     if not is_admin:
-        return await event.reply("__Only admins can execute this command!__")
+        return await event.reply("__يمكن للمسؤولين فقط تنفيذ هذا الأمر!__")
     if not event.chat_id in spam_chats:
-        return await event.reply("__There is no proccess on going...__")
+        return await event.reply("__لا توجد عملية مستمرة ...__")
     else:
         try:
             spam_chats.remove(event.chat_id)
         except:
             pass
-        return await event.respond("__Stopped Mention.__")
+        return await event.respond("__توقف أذكر.__")
 
 
 __mod_name__ = "Tag all"
 __help__ = """
-──「 Mention all func 」──
+──「 أذكر كل func 」──
 
-Caty Can Be a Mention Bot for your group.
+HmsRobot يمكن أن يكون أذكر الروبوت لمجموعتك.
 
-Only admins can tag all.  here is a list of commands
+يمكن للمسؤولين فقط وضع علامة على الكل. هنا قائمة الأوامر
 
-❂ /tagall or @all (reply to message or add another message) To mention all members in your group, without exception.
-❂ /cancel for canceling the mention-all.
+❂ /tagall or @all (الرد على الرسالة أو إضافة رسالة أخرى) لذكر جميع الأعضاء في مجموعتك ، دون استثناء.
+❂ /cancel لإلغاء ذكر الكل.
 """

@@ -12,73 +12,73 @@ from telegram.error import BadRequest
 from telegram.ext import CallbackContext, CommandHandler
 
 RBAN_ERRORS = {
-    "User is an administrator of the chat",
-    "Chat not found",
-    "Not enough rights to restrict/unrestrict chat member",
+    "المستخدم هو المسؤول عن الدردشة",
+    "لم يتم العثور على الدردشة",
+    "لا توجد حقوق كافية لتقييد / إلغاء تقييد عضو الدردشة",
     "User_not_participant",
     "Peer_id_invalid",
-    "Group chat was deactivated",
-    "Need to be inviter of a user to punch it from a basic group",
+    "تم إلغاء تنشيط الدردشة الجماعية",
+    "تحتاج إلى أن تكون داعياً لمستخدم لكمة من مجموعة أساسية",
     "Chat_admin_required",
-    "Only the creator of a basic group can punch group administrators",
+    "فقط منشئ المجموعة الأساسية يمكنه أن يثقب مسؤولي المجموعة",
     "Channel_private",
-    "Not in the chat",
+    "ليس في الدردشة",
 }
 
 RUNBAN_ERRORS = {
-    "User is an administrator of the chat",
-    "Chat not found",
-    "Not enough rights to restrict/unrestrict chat member",
+    "المستخدم هو المسؤول عن الدردشة",
+    "لم يتم العثور على الدردشة",
+    "لا توجد حقوق كافية لتقييد / إلغاء تقييد عضو الدردشة",
     "User_not_participant",
     "Peer_id_invalid",
-    "Group chat was deactivated",
-    "Need to be inviter of a user to punch it from a basic group",
+    "تم إلغاء تنشيط الدردشة الجماعية",
+    "تحتاج إلى أن تكون داعياً لمستخدم لكمة من مجموعة أساسية",
     "Chat_admin_required",
-    "Only the creator of a basic group can punch group administrators",
+    "فقط منشئ المجموعة الأساسية يمكنه أن يثقب مسؤولي المجموعة",
     "Channel_private",
-    "Not in the chat",
+    "ليس في الدردشة",
 }
 
 RKICK_ERRORS = {
-    "User is an administrator of the chat",
-    "Chat not found",
-    "Not enough rights to restrict/unrestrict chat member",
+    "المستخدم هو المسؤول عن الدردشة",
+    "لم يتم العثور على الدردشة",
+    "لا توجد حقوق كافية لتقييد / إلغاء تقييد عضو الدردشة",
     "User_not_participant",
     "Peer_id_invalid",
-    "Group chat was deactivated",
-    "Need to be inviter of a user to punch it from a basic group",
+    "تم إلغاء تنشيط الدردشة الجماعية",
+    "تحتاج إلى أن تكون داعياً لمستخدم لكمة من مجموعة أساسية",
     "Chat_admin_required",
-    "Only the creator of a basic group can punch group administrators",
+    "فقط منشئ المجموعة الأساسية يمكنه أن يثقب مسؤولي المجموعة",
     "Channel_private",
-    "Not in the chat",
+    "ليس في الدردشة",
 }
 
 RMUTE_ERRORS = {
-    "User is an administrator of the chat",
-    "Chat not found",
-    "Not enough rights to restrict/unrestrict chat member",
+    "المستخدم هو المسؤول عن الدردشة",
+    "لم يتم العثور على الدردشة",
+    "لا توجد حقوق كافية لتقييد / إلغاء تقييد عضو الدردشة",
     "User_not_participant",
     "Peer_id_invalid",
-    "Group chat was deactivated",
-    "Need to be inviter of a user to punch it from a basic group",
+    "تم إلغاء تنشيط الدردشة الجماعية",
+    "تحتاج إلى أن تكون داعياً لمستخدم لكمة من مجموعة أساسية",
     "Chat_admin_required",
-    "Only the creator of a basic group can punch group administrators",
+    "فقط منشئ المجموعة الأساسية يمكنه أن يثقب مسؤولي المجموعة",
     "Channel_private",
-    "Not in the chat",
+    "ليس في الدردشة",
 }
 
 RUNMUTE_ERRORS = {
-    "User is an administrator of the chat",
-    "Chat not found",
-    "Not enough rights to restrict/unrestrict chat member",
+    "المستخدم هو المسؤول عن الدردشة",
+    "لم يتم العثور على الدردشة",
+    "لا توجد حقوق كافية لتقييد / إلغاء تقييد عضو الدردشة",
     "User_not_participant",
     "Peer_id_invalid",
-    "Group chat was deactivated",
-    "Need to be inviter of a user to punch it from a basic group",
+    "تم إلغاء تنشيط الدردشة الجماعية",
+    "تحتاج إلى أن تكون داعياً لمستخدم لكمة من مجموعة أساسية",
     "Chat_admin_required",
-    "Only the creator of a basic group can punch group administrators",
+    "فقط منشئ المجموعة الأساسية يمكنه أن يثقب مسؤولي المجموعة",
     "Channel_private",
-    "Not in the chat",
+    "ليس في الدردشة",
 }
 
 
@@ -88,32 +88,32 @@ def rban(update: Update, context: CallbackContext):
     message = update.effective_message
 
     if not args:
-        message.reply_text("You don't seem to be referring to a chat/user.")
+        message.reply_text("يبدو أنك لا تشير إلى دردشة / مستخدم.")
         return
 
     user_id, chat_id = extract_user_and_text(message, args)
 
     if not user_id:
         message.reply_text(
-            "You don't seem to be referring to a user or the ID specified is incorrect..",
+            "يبدو أنك لا تشير إلى مستخدم أو أن المعرف المحدد غير صحيح ..",
         )
         return
     if not chat_id:
-        message.reply_text("You don't seem to be referring to a chat.")
+        message.reply_text("لا يبدو أنك تشير إلى محادثة.")
         return
 
     try:
         chat = bot.get_chat(chat_id.split()[0])
     except BadRequest as excp:
-        if excp.message == "Chat not found":
+        if excp.message == "لم يتم العثور على الدردشة":
             message.reply_text(
-                "Chat not found! Make sure you entered a valid chat ID and I'm part of that chat.",
+                "لم يتم العثور على الدردشة! تأكد من إدخال معرف دردشة صالح وأنا جزء من تلك الدردشة.",
             )
             return
         raise
 
     if chat.type == "private":
-        message.reply_text("I'm sorry, but that's a private chat!")
+        message.reply_text("أنا آسف ، لكن هذه محادثة خاصة!")
         return
 
     if (
@@ -121,31 +121,31 @@ def rban(update: Update, context: CallbackContext):
         or not chat.get_member(bot.id).can_restrict_members
     ):
         message.reply_text(
-            "I can't restrict people there! Make sure I'm admin and can ban users.",
+            "لا أستطيع تقييد الناس هناك! تأكد من أنني مسؤول ويمكنني حظر المستخدمين.",
         )
         return
 
     try:
         member = chat.get_member(user_id)
     except BadRequest as excp:
-        if excp.message == "User not found":
-            message.reply_text("I can't seem to find this user")
+        if excp.message == "لم يتم العثور على المستخدم":
+            message.reply_text("لا يمكنني العثور على هذا المستخدم")
             return
         raise
 
     if is_user_ban_protected(chat, user_id, member):
-        message.reply_text("I really wish I could ban admins...")
+        message.reply_text("أتمنى حقًا أن أحظر المشرفين ...")
         return
 
     if user_id == bot.id:
-        message.reply_text("I'm not gonna BAN myself, are you crazy?")
+        message.reply_text("لن احظر نفسي ، هل أنت مجنون؟")
         return
 
     try:
         chat.ban_member(user_id)
-        message.reply_text("Banned from chat!")
+        message.reply_text("ممنوع من الدردشة!")
     except BadRequest as excp:
-        if excp.message == "Reply message not found":
+        if excp.message == "لم يتم العثور على رسالة الرد":
             # Do not reply
             message.reply_text("Banned!", quote=False)
         elif excp.message in RBAN_ERRORS:
@@ -153,13 +153,13 @@ def rban(update: Update, context: CallbackContext):
         else:
             LOGGER.warning(update)
             LOGGER.exception(
-                "ERROR banning user %s in chat %s (%s) due to %s",
+                "خطأ في حظر المستخدم %s in chat %s (%s) due to %s",
                 user_id,
                 chat.title,
                 chat.id,
                 excp.message,
             )
-            message.reply_text("Well damn, I can't ban that user.")
+            message.reply_text("اللعنة ، لا يمكنني حظر هذا المستخدم.")
 
 
 @bot_admin
@@ -168,32 +168,32 @@ def runban(update: Update, context: CallbackContext):
     message = update.effective_message
 
     if not args:
-        message.reply_text("You don't seem to be referring to a chat/user.")
+        message.reply_text("يبدو أنك لا تشير إلى دردشة / مستخدم.")
         return
 
     user_id, chat_id = extract_user_and_text(message, args)
 
     if not user_id:
         message.reply_text(
-            "You don't seem to be referring to a user or the ID specified is incorrect..",
+            "يبدو أنك لا تشير إلى مستخدم أو أن المعرف المحدد غير صحيح ..",
         )
         return
     if not chat_id:
-        message.reply_text("You don't seem to be referring to a chat.")
+        message.reply_text("لا يبدو أنك تشير إلى محادثة.")
         return
 
     try:
         chat = bot.get_chat(chat_id.split()[0])
     except BadRequest as excp:
-        if excp.message == "Chat not found":
+        if excp.message == "لم يتم العثور على الدردشة":
             message.reply_text(
-                "Chat not found! Make sure you entered a valid chat ID and I'm part of that chat.",
+                "لم يتم العثور على الدردشة! تأكد من إدخال معرف دردشة صالح وأنا جزء من تلك الدردشة.",
             )
             return
         raise
 
     if chat.type == "private":
-        message.reply_text("I'm sorry, but that's a private chat!")
+        message.reply_text("أنا آسف ، لكن هذه محادثة خاصة!")
         return
 
     if (
@@ -201,47 +201,47 @@ def runban(update: Update, context: CallbackContext):
         or not chat.get_member(bot.id).can_restrict_members
     ):
         message.reply_text(
-            "I can't unrestrict people there! Make sure I'm admin and can unban users.",
+            "لا أستطيع إلغاء تقييد الناس هناك! تأكد من أنني مشرف ويمكنني إلغاء حظر المستخدمين.",
         )
         return
 
     try:
         member = chat.get_member(user_id)
     except BadRequest as excp:
-        if excp.message == "User not found":
-            message.reply_text("I can't seem to find this user there")
+        if excp.message == "لم يتم العثور على المستخدم":
+            message.reply_text("لا يمكنني العثور على هذا المستخدم هناك")
             return
         raise
 
     if is_user_in_chat(chat, user_id):
         message.reply_text(
-            "Why are you trying to remotely unban someone that's already in that chat?",
+            "لماذا تحاول إلغاء حظر شخص موجود بالفعل في تلك الدردشة عن بعد؟",
         )
         return
 
     if user_id == bot.id:
-        message.reply_text("I'm not gonna UNBAN myself, I'm an admin there!")
+        message.reply_text("لن أحظر الحظر بنفسي ، فأنا مسؤول هناك!")
         return
 
     try:
         chat.unban_member(user_id)
-        message.reply_text("Yep, this user can join that chat!")
+        message.reply_text("نعم ، يمكن لهذا المستخدم الانضمام إلى تلك الدردشة!")
     except BadRequest as excp:
-        if excp.message == "Reply message not found":
+        if excp.message == "لم يتم العثور على رسالة الرد":
             # Do not reply
-            message.reply_text("Unbanned!", quote=False)
+            message.reply_text("غير محظور!", quote=False)
         elif excp.message in RUNBAN_ERRORS:
             message.reply_text(excp.message)
         else:
             LOGGER.warning(update)
             LOGGER.exception(
-                "ERROR unbanning user %s in chat %s (%s) due to %s",
+                "خطأ في إلغاء حظر المستخدم %s in chat %s (%s) due to %s",
                 user_id,
                 chat.title,
                 chat.id,
                 excp.message,
             )
-            message.reply_text("Well damn, I can't unban that user.")
+            message.reply_text("اللعنة ، لا يمكنني إلغاء حظر هذا المستخدم.")
 
 
 @bot_admin
@@ -250,32 +250,32 @@ def rkick(update: Update, context: CallbackContext):
     message = update.effective_message
 
     if not args:
-        message.reply_text("You don't seem to be referring to a chat/user.")
+        message.reply_text("يبدو أنك لا تشير إلى دردشة / مستخدم.")
         return
 
     user_id, chat_id = extract_user_and_text(message, args)
 
     if not user_id:
         message.reply_text(
-            "You don't seem to be referring to a user or the ID specified is incorrect..",
+            "يبدو أنك لا تشير إلى مستخدم أو أن المعرف المحدد غير صحيح ..",
         )
         return
     if not chat_id:
-        message.reply_text("You don't seem to be referring to a chat.")
+        message.reply_text("لا يبدو أنك تشير إلى محادثة.")
         return
 
     try:
         chat = bot.get_chat(chat_id.split()[0])
     except BadRequest as excp:
-        if excp.message == "Chat not found":
+        if excp.message == "لم يتم العثور على الدردشة":
             message.reply_text(
-                "Chat not found! Make sure you entered a valid chat ID and I'm part of that chat.",
+                "لم يتم العثور على الدردشة! تأكد من إدخال معرف دردشة صالح وأنا جزء من تلك الدردشة.",
             )
             return
         raise
 
     if chat.type == "private":
-        message.reply_text("I'm sorry, but that's a private chat!")
+        message.reply_text("أنا آسف ، لكن هذه محادثة خاصة!")
         return
 
     if (
@@ -283,31 +283,31 @@ def rkick(update: Update, context: CallbackContext):
         or not chat.get_member(bot.id).can_restrict_members
     ):
         message.reply_text(
-            "I can't restrict people there! Make sure I'm admin and can punch users.",
+            "لا أستطيع تقييد الناس هناك! تأكد من أنني مسؤول ويمكنني ضرب المستخدمين.",
         )
         return
 
     try:
         member = chat.get_member(user_id)
     except BadRequest as excp:
-        if excp.message == "User not found":
-            message.reply_text("I can't seem to find this user")
+        if excp.message == "لم يتم العثور على المستخدم":
+            message.reply_text("لا يمكنني العثور على هذا المستخدم")
             return
         raise
 
     if is_user_ban_protected(chat, user_id, member):
-        message.reply_text("I really wish I could punch admins...")
+        message.reply_text("أتمنى حقًا أن أتمكن من توجيه الضربات إلى المديرين ...")
         return
 
     if user_id == bot.id:
-        message.reply_text("I'm not gonna punch myself, are you crazy?")
+        message.reply_text("أنا لن ألكم نفسي ، هل أنت مجنون؟")
         return
 
     try:
         chat.unban_member(user_id)
-        message.reply_text("Punched from chat!")
+        message.reply_text("لكمات من الدردشة!")
     except BadRequest as excp:
-        if excp.message == "Reply message not found":
+        if excp.message == "لم يتم العثور على رسالة الرد":
             # Do not reply
             message.reply_text("Punched!", quote=False)
         elif excp.message in RKICK_ERRORS:
@@ -315,13 +315,13 @@ def rkick(update: Update, context: CallbackContext):
         else:
             LOGGER.warning(update)
             LOGGER.exception(
-                "ERROR punching user %s in chat %s (%s) due to %s",
+                "خطأ في اللكم المستخدم %s in chat %s (%s) due to %s",
                 user_id,
                 chat.title,
                 chat.id,
                 excp.message,
             )
-            message.reply_text("Well damn, I can't punch that user.")
+            message.reply_text("اللعنة ، لا يمكنني ضرب هذا المستخدم.")
 
 
 @bot_admin
@@ -330,32 +330,32 @@ def rmute(update: Update, context: CallbackContext):
     message = update.effective_message
 
     if not args:
-        message.reply_text("You don't seem to be referring to a chat/user.")
+        message.reply_text("يبدو أنك لا تشير إلى دردشة / مستخدم.")
         return
 
     user_id, chat_id = extract_user_and_text(message, args)
 
     if not user_id:
         message.reply_text(
-            "You don't seem to be referring to a user or the ID specified is incorrect..",
+            "يبدو أنك لا تشير إلى مستخدم أو أن المعرف المحدد غير صحيح ..",
         )
         return
     if not chat_id:
-        message.reply_text("You don't seem to be referring to a chat.")
+        message.reply_text("لا يبدو أنك تشير إلى محادثة.")
         return
 
     try:
         chat = bot.get_chat(chat_id.split()[0])
     except BadRequest as excp:
-        if excp.message == "Chat not found":
+        if excp.message == "لم يتم العثور على الدردشة":
             message.reply_text(
-                "Chat not found! Make sure you entered a valid chat ID and I'm part of that chat.",
+                "لم يتم العثور على الدردشة! تأكد من إدخال معرف دردشة صالح وأنا جزء من تلك الدردشة.",
             )
             return
         raise
 
     if chat.type == "private":
-        message.reply_text("I'm sorry, but that's a private chat!")
+        message.reply_text("أنا آسف ، لكن هذه محادثة خاصة!")
         return
 
     if (
@@ -363,24 +363,24 @@ def rmute(update: Update, context: CallbackContext):
         or not chat.get_member(bot.id).can_restrict_members
     ):
         message.reply_text(
-            "I can't restrict people there! Make sure I'm admin and can mute users.",
+            "لا أستطيع تقييد الناس هناك! تأكد من أنني مسؤول ويمكنني كتم صوت المستخدمين.",
         )
         return
 
     try:
         member = chat.get_member(user_id)
     except BadRequest as excp:
-        if excp.message == "User not found":
-            message.reply_text("I can't seem to find this user")
+        if excp.message == "لم يتم العثور على المستخدم":
+            message.reply_text("لا يمكنني العثور على هذا المستخدم")
             return
         raise
 
     if is_user_ban_protected(chat, user_id, member):
-        message.reply_text("I really wish I could mute admins...")
+        message.reply_text("أتمنى حقًا أن أتمكن من تجاهل المسؤولين ...")
         return
 
     if user_id == bot.id:
-        message.reply_text("I'm not gonna MUTE myself, are you crazy?")
+        message.reply_text("لن اكتم نفسي ، هل أنت مجنون؟")
         return
 
     try:
@@ -389,9 +389,9 @@ def rmute(update: Update, context: CallbackContext):
             user_id,
             permissions=ChatPermissions(can_send_messages=False),
         )
-        message.reply_text("Muted from the chat!")
+        message.reply_text("كتم الصوت من الدردشة!")
     except BadRequest as excp:
-        if excp.message == "Reply message not found":
+        if excp.message == "لم يتم العثور على رسالة الرد":
             # Do not reply
             message.reply_text("Muted!", quote=False)
         elif excp.message in RMUTE_ERRORS:
@@ -399,13 +399,13 @@ def rmute(update: Update, context: CallbackContext):
         else:
             LOGGER.warning(update)
             LOGGER.exception(
-                "ERROR mute user %s in chat %s (%s) due to %s",
+                "خطأ كتم المستخدم %s in chat %s (%s) due to %s",
                 user_id,
                 chat.title,
                 chat.id,
                 excp.message,
             )
-            message.reply_text("Well damn, I can't mute that user.")
+            message.reply_text("حسنًا ، لا يمكنني كتم صوت هذا المستخدم.")
 
 
 @bot_admin
@@ -414,32 +414,32 @@ def runmute(update: Update, context: CallbackContext):
     message = update.effective_message
 
     if not args:
-        message.reply_text("You don't seem to be referring to a chat/user.")
+        message.reply_text("يبدو أنك لا تشير إلى دردشة / مستخدم.")
         return
 
     user_id, chat_id = extract_user_and_text(message, args)
 
     if not user_id:
         message.reply_text(
-            "You don't seem to be referring to a user or the ID specified is incorrect..",
+            "يبدو أنك لا تشير إلى مستخدم أو أن المعرف المحدد غير صحيح ..",
         )
         return
     if not chat_id:
-        message.reply_text("You don't seem to be referring to a chat.")
+        message.reply_text("لا يبدو أنك تشير إلى محادثة.")
         return
 
     try:
         chat = bot.get_chat(chat_id.split()[0])
     except BadRequest as excp:
-        if excp.message == "Chat not found":
+        if excp.message == "لم يتم العثور على الدردشة":
             message.reply_text(
-                "Chat not found! Make sure you entered a valid chat ID and I'm part of that chat.",
+                "لم يتم العثور على الدردشة! تأكد من إدخال معرف دردشة صالح وأنا جزء من تلك الدردشة.",
             )
             return
         raise
 
     if chat.type == "private":
-        message.reply_text("I'm sorry, but that's a private chat!")
+        message.reply_text("أنا آسف ، لكن هذه محادثة خاصة!")
         return
 
     if (
@@ -447,15 +447,15 @@ def runmute(update: Update, context: CallbackContext):
         or not chat.get_member(bot.id).can_restrict_members
     ):
         message.reply_text(
-            "I can't unrestrict people there! Make sure I'm admin and can unban users.",
+            "لا أستطيع إلغاء تقييد الناس هناك! تأكد من أنني مشرف ويمكنني إلغاء حظر المستخدمين.",
         )
         return
 
     try:
         member = chat.get_member(user_id)
     except BadRequest as excp:
-        if excp.message == "User not found":
-            message.reply_text("I can't seem to find this user there")
+        if excp.message == "لم يتم العثور على المستخدم":
+            message.reply_text("لا يمكنني العثور على هذا المستخدم هناك")
             return
         raise
 
@@ -466,11 +466,11 @@ def runmute(update: Update, context: CallbackContext):
             and member.can_send_other_messages
             and member.can_add_web_page_previews
         ):
-            message.reply_text("This user already has the right to speak in that chat.")
+            message.reply_text("هذا المستخدم لديه بالفعل الحق في التحدث في تلك الدردشة.")
             return
 
     if user_id == bot.id:
-        message.reply_text("I'm not gonna UNMUTE myself, I'm an admin there!")
+        message.reply_text("لن أقوم بإلغاء التجاهل بنفسي ، فأنا مشرف هناك!")
         return
 
     try:
@@ -484,9 +484,9 @@ def runmute(update: Update, context: CallbackContext):
                 can_add_web_page_previews=True,
             ),
         )
-        message.reply_text("Yep, this user can talk in that chat!")
+        message.reply_text("نعم ، يمكن لهذا المستخدم التحدث في تلك الدردشة!")
     except BadRequest as excp:
-        if excp.message == "Reply message not found":
+        if excp.message == "لم يتم العثور على رسالة الرد":
             # Do not reply
             message.reply_text("Unmuted!", quote=False)
         elif excp.message in RUNMUTE_ERRORS:
@@ -494,13 +494,13 @@ def runmute(update: Update, context: CallbackContext):
         else:
             LOGGER.warning(update)
             LOGGER.exception(
-                "ERROR unmnuting user %s in chat %s (%s) due to %s",
+                "خطأ في إلغاء صوت المستخدم %s in chat %s (%s) due to %s",
                 user_id,
                 chat.title,
                 chat.id,
                 excp.message,
             )
-            message.reply_text("Well damn, I can't unmute that user.")
+            message.reply_text("حسنًا ، لا يمكنني إلغاء كتم صوت هذا المستخدم.")
 
 
 RBAN_HANDLER = CommandHandler(

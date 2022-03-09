@@ -42,7 +42,7 @@ async def _(event):
         )
         if IBM_WATSON_CRED_URL is None or IBM_WATSON_CRED_PASSWORD is None:
             await event.reply(
-                "You need to set the required ENV variables for this module. \nModule stopping"
+                "تحتاج إلى تعيين متغيرات ENV المطلوبة لهذه الوحدة. \nتوقف الوحدة"
             )
         else:
             # await event.reply("Starting analysis")
@@ -71,19 +71,19 @@ async def _(event):
                 end = datetime.now()
                 ms = (end - start).seconds
                 if transcript_response != "":
-                    string_to_show = "TRANSCRIPT: `{}`\nTime Taken: {} seconds\nConfidence: `{}`".format(
+                    string_to_show = "نسخة طبق الأصل: `{}`\nالوقت المستغرق: {} ثواني\nثقة: `{}`".format(
                         transcript_response, ms, transcript_confidence
                     )
                 else:
-                    string_to_show = "TRANSCRIPT: `Nil`\nTime Taken: {} seconds\n\n**No Results Found**".format(
+                    string_to_show = "نسخة طبق الأصل: `Nil`\nالوقت المستغرق: {} ثواني\n\n**لم يتم العثور على نتائج**".format(
                         ms
                     )
                 await event.reply(string_to_show)
             else:
-                await event.reply(r["error"])
+                await event.reply(r["خطا"])
             # now, remove the temporary file
             os.remove(required_file_name)
     else:
-        await event.reply("Reply to a voice message, to get the text out of it.")
+        await event.reply("قم بالرد على رسالة صوتية لإخراج النص منها.")
 
 __mod_name__ = "TTS/STT"
