@@ -11,28 +11,28 @@ from telegram import (InlineKeyboardButton, InlineKeyboardMarkup, ParseMode,
                       Update)
 from telegram.ext import CallbackContext, CallbackQueryHandler
 
-info_btn = "More Information"
-kaizoku_btn = "Kaizoku ☠️"
-kayo_btn = "Kayo 🏴‍☠️"
-prequel_btn = "⬅️ Prequel"
-sequel_btn = "Sequel ➡️"
-close_btn = "Close ❌"
+info_btn = "معلومات اكثر"
+kaizoku_btn = "القرصان ☠️"
+kayo_btn = "أنت 🏴‍☠️"
+prequel_btn = "⬅️ بادئة"
+sequel_btn = "تتمة ➡️"
+close_btn = "يغلق ❌"
 
 
 def shorten(description, info='anilist.co'):
     msg = ""
     if len(description) > 700:
         description = description[0:500] + '....'
-        msg += f"\n*Description*: _{description}_[Read More]({info})"
+        msg += f"\n*وصف*: _{description}_[Read More]({info})"
     else:
-        msg += f"\n*Description*:_{description}_"
+        msg += f"\n*وصف*:_{description}_"
     return msg
 
 
 #time formatter from uniborg
 def t(milliseconds: int) -> str:
-    """Inputs time in milliseconds, to get beautified time,
-    as string"""
+    """إدخال الوقت بالمللي ثانية للحصول على وقت جميل ،
+    كسلسلة"""
     seconds, milliseconds = divmod(int(milliseconds), 1000)
     minutes, seconds = divmod(seconds, 60)
     hours, minutes = divmod(minutes, 60)
@@ -179,7 +179,7 @@ def airing(update: Update, context: CallbackContext):
         time = t(time)
         msg += f"\n*Episode*: `{response['nextAiringEpisode']['episode']}`\n*Airing In*: `{time}`"
     else:
-        buttons = [[InlineKeyboardButton("More Info", url=info)]]
+        buttons = [[InlineKeyboardButton("مزيد من المعلومات", url=info)]]
         msg += f"\n*Episode*: `{response['episodes']}`\n*Status*: `N/A`"
     update.effective_message.reply_photo(
         photo=image,
@@ -203,7 +203,7 @@ def anime(update: Update, context: CallbackContext):
             'variables': variables
         }).json()
     if 'errors' in json.keys():
-        update.effective_message.reply_text('Anime not found')
+        update.effective_message.reply_text('لم يتم العثور على أنيمي')
         return
     if json:
         json = json['data']['Media']
@@ -233,7 +233,7 @@ def anime(update: Update, context: CallbackContext):
                 InlineKeyboardButton("Trailer 🎬", url=trailer)
             ]]
         else:
-            buttons = [[InlineKeyboardButton("More Info", url=info)]]
+            buttons = [[InlineKeyboardButton("مزيد من المعلومات", url=info)]]
         if image:
             try:
                 update.effective_message.reply_photo(
@@ -269,7 +269,7 @@ def character(update: Update, context: CallbackContext):
             'variables': variables
         }).json()
     if 'errors' in json.keys():
-        update.effective_message.reply_text('Character not found')
+        update.effective_message.reply_text('الحرف غير موجود')
         return
     if json:
         json = json['data']['Character']
@@ -304,7 +304,7 @@ def manga(update: Update, context: CallbackContext):
         }).json()
     msg = ''
     if 'errors' in json.keys():
-        update.effective_message.reply_text('Manga not found')
+        update.effective_message.reply_text('مانجا غير موجود')
         return
     if json:
         json = json['data']['Media']
@@ -370,10 +370,10 @@ def user(update: Update, context: CallbackContext):
     try:
         user = jikan.user(search_query)
     except jikanpy.APIException:
-        update.effective_message.reply_text("Username not found.")
+        update.effective_message.reply_text("اسم المستخدم لم يتم العثور.")
         return
 
-    progress_message = update.effective_message.reply_text("Searching.... ")
+    progress_message = update.effective_message.reply_text("يبحث.... ")
 
     date_format = "%Y-%m-%d"
     if user['image_url'] is None:
@@ -408,15 +408,15 @@ def user(update: Update, context: CallbackContext):
     caption = ""
 
     caption += textwrap.dedent(f"""
-    *Username*: [{user['username']}]({user['url']})
-    *Gender*: `{user['gender']}`
-    *Birthday*: `{user_birthday_formatted}`
-    *Joined*: `{user_joined_date_formatted}`
-    *Days wasted watching anime*: `{user['anime_stats']['days_watched']}`
-    *Days wasted reading manga*: `{user['manga_stats']['days_read']}`
+    *اسم مستخدم*: [{user['username']}]({user['url']})
+    *جنس*: `{user['gender']}`
+    *عيد الميلاد*: `{user_birthday_formatted}`
+    *انضم*: `{user_joined_date_formatted}`
+    *ضيعت الأيام في مشاهدة الأنيمي*: `{user['anime_stats']['days_watched']}`
+    *أيام ضائعة في قراءة المانجا*: `{user['manga_stats']['days_read']}`
     """)
 
-    caption += f"*About*: {about_string}"
+    caption += f"*حول*: {about_string}"
 
     buttons = [[InlineKeyboardButton(info_btn, url=user['url'])],
                [
@@ -470,7 +470,7 @@ def button(update: Update, context: CallbackContext):
         if query.from_user.id == original_user_id:
             message.delete()
             progress_message = bot.sendMessage(message.chat.id,
-                                               "Searching.... ")
+                                               "يبحث.... ")
             caption, buttons, image = get_anime_manga(mal_id, query_type,
                                                       original_user_id)
             bot.sendPhoto(
@@ -482,7 +482,7 @@ def button(update: Update, context: CallbackContext):
                 disable_web_page_preview=False)
             progress_message.delete()
         else:
-            query.answer("You are not allowed to use this.")
+            query.answer("لا يسمح لك باستخدام هذا.")
 
 
 def site_search(update: Update, context: CallbackContext, site: str):
@@ -493,7 +493,7 @@ def site_search(update: Update, context: CallbackContext, site: str):
     try:
         search_query = args[1]
     except IndexError:
-        message.reply_text("Give something to search")
+        message.reply_text("أعط شيئا للبحث")
         return
 
     if site == "kaizoku":
@@ -503,14 +503,14 @@ def site_search(update: Update, context: CallbackContext, site: str):
         search_result = soup.find_all("h2", {'class': "post-title"})
 
         if search_result:
-            result = f"<b>Search results for</b> <code>{html.escape(search_query)}</code> <b>on</b> <code>AnimeKaizoku</code>: \n"
+            result = f"<b>نتائج البحث عن</b> <code>{html.escape(search_query)}</code> <b>on</b> <code>AnimeKaizoku</code>: \n"
             for entry in search_result:
                 post_link = "https://animekaizoku.com/" + entry.a['href']
                 post_name = html.escape(entry.text)
                 result += f"• <a href='{post_link}'>{post_name}</a>\n"
         else:
             more_results = False
-            result = f"<b>No result found for</b> <code>{html.escape(search_query)}</code> <b>on</b> <code>AnimeKaizoku</code>"
+            result = f"<b>لم يتم العثور على نتيجة ل</b> <code>{html.escape(search_query)}</code> <b>on</b> <code>AnimeKaizoku</code>"
 
     elif site == "kayo":
         search_url = f"https://animekayo.com/?s={search_query}"
@@ -518,11 +518,11 @@ def site_search(update: Update, context: CallbackContext, site: str):
         soup = bs4.BeautifulSoup(html_text, "html.parser")
         search_result = soup.find_all("h2", {'class': "title"})
 
-        result = f"<b>Search results for</b> <code>{html.escape(search_query)}</code> <b>on</b> <code>AnimeKayo</code>: \n"
+        result = f"<b>نتائج البحث عن</b> <code>{html.escape(search_query)}</code> <b>on</b> <code>AnimeKayo</code>: \n"
         for entry in search_result:
 
-            if entry.text.strip() == "Nothing Found":
-                result = f"<b>No result found for</b> <code>{html.escape(search_query)}</code> <b>on</b> <code>AnimeKayo</code>"
+            if entry.text.strip() == "لم يتم العثور على شيء":
+                result = f"<b>لم يتم العثور على نتيجة ل</b> <code>{html.escape(search_query)}</code> <b>on</b> <code>AnimeKayo</code>"
                 more_results = False
                 break
 
@@ -553,20 +553,20 @@ def kayo(update: Update, context: CallbackContext):
 
 __help__ = """
  ──「 Anime search 」──                           
-❂ /anime <anime>: returns information about the anime.
-❂ /whatanime: returns source of anime when replied to photo or gif.                                                          
-❂ /character <character>: returns information about the character.
-❂ /manga <manga>: returns information about the manga.
-❂ /user <user>: returns information about a MyAnimeList user.
-❂ /upcoming: returns a list of new anime in the upcoming seasons.
-❂ /airing <anime>: returns anime airing info.
-❂ /whatanime <anime>: reply to gif or photo.
-❂ /kaizoku <anime>: search an anime on animekaizoku.com
-❂ /kayo <anime>: search an anime on animekayo.com
+❂ /anime <anime>: يُرجع معلومات حول الأنمي.
+❂ /whatanime: إرجاع مصدر أنيمي عند الرد على صورة أو gif.                                                          
+❂ /character <character>: يعرض معلومات حول الشخصية.
+❂ /manga <manga>: يعرض معلومات حول المانجا.
+❂ /user <user>: إرجاع معلومات حول مستخدم MyAnimeList.
+❂ /upcoming: يسترجع قائمة الأنمي الجديد في المواسم القادمة.
+❂ /airing <anime>: إرجاع معلومات بث أنيمي.
+❂ /whatanime <anime>: الرد على gif أو الصورة.
+❂ /kaizoku <anime>: البحث في أنيمي على animekaizoku.com
+❂ /kayo <anime>: البحث في أنيمي على animekayo.com
 
  「 Anime Quotes 」
-❂ /animequotes: for anime quotes randomly as photos.
-❂ /quote: send quotes randomly as text
+❂ /animequotes: لأنيمي يقتبس بشكل عشوائي كصور.
+❂ /quote: إرسال الاقتباسات بشكل عشوائي كنص
  """
 
 ANIME_HANDLER = DisableAbleCommandHandler("anime", anime, run_async=True)

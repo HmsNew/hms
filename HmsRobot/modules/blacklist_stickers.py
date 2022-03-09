@@ -33,7 +33,7 @@ def blackliststicker(update: Update, context: CallbackContext):
         chat_id = update.effective_chat.id
         chat_name = chat.title
 
-    sticker_list = "<b>List blacklisted stickers currently in {}:</b>\n".format(
+    sticker_list = "<b>قائمة الملصقات المدرجة في القائمة السوداء حاليًا {}:</b>\n".format(
         chat_name,
     )
 
@@ -50,13 +50,13 @@ def blackliststicker(update: Update, context: CallbackContext):
     for text in split_text:
         if (
             sticker_list
-            == "<b>List blacklisted stickers currently in {}:</b>\n".format(
+            == "<b>قائمة الملصقات المدرجة في القائمة السوداء حاليًا {}:</b>\n".format(
                 chat_name,
             ).format(html.escape(chat_name))
         ):
             send_message(
                 update.effective_message,
-                "There are no blacklist stickers in <b>{}</b>!".format(
+                "لا توجد ملصقات القائمة السوداء في <b>{}</b>!".format(
                     html.escape(chat_name),
                 ),
                 parse_mode=ParseMode.HTML,
@@ -98,7 +98,7 @@ def add_blackliststicker(update: Update, context: CallbackContext):
             except BadRequest:
                 send_message(
                     update.effective_message,
-                    "Sticker `{}` can not be found!".format(trigger),
+                    "Sticker `{}` لايمكن إيجاده!".format(trigger),
                     parse_mode="markdown",
                 )
 
@@ -108,7 +108,7 @@ def add_blackliststicker(update: Update, context: CallbackContext):
         if len(to_blacklist) == 1:
             send_message(
                 update.effective_message,
-                "Sticker <code>{}</code> added to blacklist stickers in <b>{}</b>!".format(
+                "Sticker <code>{}</code> تمت إضافته إلى القائمة السوداء للملصقات بتنسيق <b>{}</b>!".format(
                     html.escape(to_blacklist[0]),
                     html.escape(chat_name),
                 ),
@@ -117,7 +117,7 @@ def add_blackliststicker(update: Update, context: CallbackContext):
         else:
             send_message(
                 update.effective_message,
-                "<code>{}</code> stickers added to blacklist sticker in <b>{}</b>!".format(
+                "<code>{}</code> تمت إضافة الملصقات إلى ملصق القائمة السوداء بتنسيق <b>{}</b>!".format(
                     added,
                     html.escape(chat_name),
                 ),
@@ -127,7 +127,7 @@ def add_blackliststicker(update: Update, context: CallbackContext):
         added = 0
         trigger = msg.reply_to_message.sticker.set_name
         if trigger is None:
-            send_message(update.effective_message, "Sticker is invalid!")
+            send_message(update.effective_message, "الملصق غير صالح!")
             return
         try:
             get = bot.getStickerSet(trigger)
@@ -136,7 +136,7 @@ def add_blackliststicker(update: Update, context: CallbackContext):
         except BadRequest:
             send_message(
                 update.effective_message,
-                "Sticker `{}` can not be found!".format(trigger),
+                "Sticker `{}` لايمكن إيجاده!".format(trigger),
                 parse_mode="markdown",
             )
 
@@ -145,7 +145,7 @@ def add_blackliststicker(update: Update, context: CallbackContext):
 
         send_message(
             update.effective_message,
-            "Sticker <code>{}</code> added to blacklist stickers in <b>{}</b>!".format(
+            "Sticker <code>{}</code> تمت إضافته إلى القائمة السوداء للملصقات بتنسيق <b>{}</b>!".format(
                 trigger,
                 html.escape(chat_name),
             ),
@@ -154,7 +154,7 @@ def add_blackliststicker(update: Update, context: CallbackContext):
     else:
         send_message(
             update.effective_message,
-            "Tell me what stickers you want to add to the blacklist.",
+            "أخبرني ما هي الملصقات التي تريد إضافتها إلى القائمة السوداء.",
         )
 
 
@@ -192,7 +192,7 @@ def unblackliststicker(update: Update, context: CallbackContext):
             if successful:
                 send_message(
                     update.effective_message,
-                    "Sticker <code>{}</code> deleted from blacklist in <b>{}</b>!".format(
+                    "Sticker <code>{}</code> تم حذفه من القائمة السوداء في <b>{}</b>!".format(
                         html.escape(to_unblacklist[0]),
                         html.escape(chat_name),
                     ),
@@ -201,13 +201,13 @@ def unblackliststicker(update: Update, context: CallbackContext):
             else:
                 send_message(
                     update.effective_message,
-                    "This sticker is not on the blacklist...!",
+                    "هذا الملصق ليس في القائمة السوداء ...!",
                 )
 
         elif successful == len(to_unblacklist):
             send_message(
                 update.effective_message,
-                "Sticker <code>{}</code> deleted from blacklist in <b>{}</b>!".format(
+                "Sticker <code>{}</code> تم حذفه من القائمة السوداء في <b>{}</b>!".format(
                     successful,
                     html.escape(chat_name),
                 ),
@@ -217,14 +217,14 @@ def unblackliststicker(update: Update, context: CallbackContext):
         elif not successful:
             send_message(
                 update.effective_message,
-                "None of these stickers exist, so they cannot be removed.",
+                "لا توجد أي من هذه الملصقات ، لذا لا يمكن إزالتها.",
                 parse_mode=ParseMode.HTML,
             )
 
         else:
             send_message(
                 update.effective_message,
-                "Sticker <code>{}</code> deleted from blacklist. {} did not exist, so it's not deleted.".format(
+                "Sticker <code>{}</code> حذف من القائمة السوداء. {} لم يكن موجودًا ، لذلك لم يتم حذفه.".format(
                     successful,
                     len(to_unblacklist) - successful,
                 ),
@@ -240,7 +240,7 @@ def unblackliststicker(update: Update, context: CallbackContext):
         if success:
             send_message(
                 update.effective_message,
-                "Sticker <code>{}</code> deleted from blacklist in <b>{}</b>!".format(
+                "Sticker <code>{}</code> تم حذفه من القائمة السوداء في <b>{}</b>!".format(
                     trigger,
                     chat_name,
                 ),
@@ -249,12 +249,12 @@ def unblackliststicker(update: Update, context: CallbackContext):
         else:
             send_message(
                 update.effective_message,
-                "{} not found on blacklisted stickers...!".format(trigger),
+                "{} غير موجود في الملصقات بالقائمة السوداء ...!".format(trigger),
             )
     else:
         send_message(
             update.effective_message,
-            "Tell me what stickers you want to add to the blacklist.",
+            "أخبرني ما هي الملصقات التي تريد إضافتها إلى القائمة السوداء.",
         )
 
 
@@ -274,7 +274,7 @@ def blacklist_mode(update: Update, context: CallbackContext):
         if update.effective_message.chat.type == "private":
             send_message(
                 update.effective_message,
-                "You can do this command in groups, not PM",
+                "يمكنك القيام بهذا الأمر في مجموعات ، وليس PM",
             )
             return ""
         chat = update.effective_chat
@@ -286,7 +286,7 @@ def blacklist_mode(update: Update, context: CallbackContext):
             settypeblacklist = "turn off"
             sql.set_blacklist_strength(chat_id, 0, "0")
         elif args[0].lower() in ["del", "delete"]:
-            settypeblacklist = "left, the message will be deleted"
+            settypeblacklist = "على اليسار ، سيتم حذف الرسالة"
             sql.set_blacklist_strength(chat_id, 1, "0")
         elif args[0].lower() == "warn":
             settypeblacklist = "warned"
@@ -302,40 +302,40 @@ def blacklist_mode(update: Update, context: CallbackContext):
             sql.set_blacklist_strength(chat_id, 5, "0")
         elif args[0].lower() == "tban":
             if len(args) == 1:
-                teks = """It looks like you are trying to set a temporary value to blacklist, but has not determined the time; use `/blstickermode tban <timevalue>`.
-                                              Examples of time values: 4m = 4 minute, 3h = 3 hours, 6d = 6 days, 5w = 5 weeks."""
+                teks = """يبدو أنك تحاول تعيين قيمة مؤقتة إلى القائمة السوداء ، لكنك لم تحدد الوقت ؛ استعمال `/blstickermode tban <timevalue>`.
+                                              أمثلة على قيم الوقت: 4m = 4 minute, 3h = 3 hours, 6d = 6 days, 5w = 5 weeks."""
                 send_message(update.effective_message, teks, parse_mode="markdown")
                 return
-            settypeblacklist = "temporary banned for {}".format(args[1])
+            settypeblacklist = "حظرت مؤقتا ل {}".format(args[1])
             sql.set_blacklist_strength(chat_id, 6, str(args[1]))
         elif args[0].lower() == "tmute":
             if len(args) == 1:
-                teks = """It looks like you are trying to set a temporary value to blacklist, but has not determined the time; use `/blstickermode tmute <timevalue>`.
-                                              Examples of time values: 4m = 4 minute, 3h = 3 hours, 6d = 6 days, 5w = 5 weeks."""
+                teks = """يبدو أنك تحاول تعيين قيمة مؤقتة إلى القائمة السوداء ، لكنك لم تحدد الوقت ؛ استعمال `/blstickermode tmute <timevalue>`.
+                                              أمثلة على قيم الوقت: 4m = 4 minute, 3h = 3 hours, 6d = 6 days, 5w = 5 weeks."""
                 send_message(update.effective_message, teks, parse_mode="markdown")
                 return
-            settypeblacklist = "temporary muted for {}".format(args[1])
+            settypeblacklist = "كتم الصوت مؤقتًا لـ {}".format(args[1])
             sql.set_blacklist_strength(chat_id, 7, str(args[1]))
         else:
             send_message(
                 update.effective_message,
-                "I only understand off/del/warn/ban/kick/mute/tban/tmute!",
+                "أنا أفهم فقط off/del/warn/ban/kick/mute/tban/tmute!",
             )
             return
         if conn:
-            text = "Blacklist sticker mode changed, users will be `{}` at *{}*!".format(
+            text = "تم تغيير وضع ملصق القائمة السوداء ، فسيكون المستخدمون `{}` at *{}*!".format(
                 settypeblacklist,
                 chat_name,
             )
         else:
-            text = "Blacklist sticker mode changed, users will be `{}`!".format(
+            text = "تم تغيير وضع ملصق القائمة السوداء ، فسيكون المستخدمون `{}`!".format(
                 settypeblacklist,
             )
         send_message(update.effective_message, text, parse_mode="markdown")
         return (
             "<b>{}:</b>\n"
-            "<b>Admin:</b> {}\n"
-            "Changed sticker blacklist mode. users will be {}.".format(
+            "<b>مشرف:</b> {}\n"
+            "تم تغيير وضع القائمة السوداء للملصقات. سيكون المستخدمون {}.".format(
                 html.escape(chat.title),
                 mention_html(user.id, html.escape(user.first_name)),
                 settypeblacklist,
@@ -355,16 +355,16 @@ def blacklist_mode(update: Update, context: CallbackContext):
     elif getmode == 5:
         settypeblacklist = "ban"
     elif getmode == 6:
-        settypeblacklist = "temporarily banned for {}".format(getvalue)
+        settypeblacklist = "محظور مؤقتا ل {}".format(getvalue)
     elif getmode == 7:
-        settypeblacklist = "temporarily muted for {}".format(getvalue)
+        settypeblacklist = "صامت مؤقتًا لـ {}".format(getvalue)
     if conn:
-        text = "Blacklist sticker mode is currently set to *{}* in *{}*.".format(
+        text = "وضع ملصق القائمة السوداء مضبوط حاليًا على *{}* in *{}*.".format(
             settypeblacklist,
             chat_name,
         )
     else:
-        text = "Blacklist sticker mode is currently set to *{}*.".format(
+        text = "وضع ملصق القائمة السوداء مضبوط حاليًا على *{}*.".format(
             settypeblacklist,
         )
     send_message(update.effective_message, text, parse_mode=ParseMode.MARKDOWN)
@@ -396,7 +396,7 @@ def del_blackliststicker(update: Update, context: CallbackContext):
                     warn(
                         update.effective_user,
                         chat,
-                        "Using sticker '{}' which in blacklist stickers".format(
+                        "باستخدام الملصق '{}' التي في ملصقات القائمة السوداء".format(
                             trigger,
                         ),
                         message,
@@ -413,7 +413,7 @@ def del_blackliststicker(update: Update, context: CallbackContext):
                     )
                     bot.sendMessage(
                         chat.id,
-                        "{} muted because using '{}' which in blacklist stickers".format(
+                        "{} كتم بسبب استخدام '{}' التي في ملصقات القائمة السوداء".format(
                             mention_markdown(user.id, user.first_name),
                             trigger,
                         ),
@@ -426,7 +426,7 @@ def del_blackliststicker(update: Update, context: CallbackContext):
                     if res:
                         bot.sendMessage(
                             chat.id,
-                            "{} kicked because using '{}' which in blacklist stickers".format(
+                            "{} ركل بسبب استخدام '{}' التي في ملصقات القائمة السوداء".format(
                                 mention_markdown(user.id, user.first_name),
                                 trigger,
                             ),
@@ -438,7 +438,7 @@ def del_blackliststicker(update: Update, context: CallbackContext):
                     chat.kick_member(user.id)
                     bot.sendMessage(
                         chat.id,
-                        "{} banned because using '{}' which in blacklist stickers".format(
+                        "{} محظور بسبب استخدام '{}' التي في ملصقات القائمة السوداء".format(
                             mention_markdown(user.id, user.first_name),
                             trigger,
                         ),
@@ -451,7 +451,7 @@ def del_blackliststicker(update: Update, context: CallbackContext):
                     chat.kick_member(user.id, until_date=bantime)
                     bot.sendMessage(
                         chat.id,
-                        "{} banned for {} because using '{}' which in blacklist stickers".format(
+                        "{} المحظورة ل {} بسبب استخدام '{}' التي في ملصقات القائمة السوداء".format(
                             mention_markdown(user.id, user.first_name),
                             value,
                             trigger,
@@ -470,7 +470,7 @@ def del_blackliststicker(update: Update, context: CallbackContext):
                     )
                     bot.sendMessage(
                         chat.id,
-                        "{} muted for {} because using '{}' which in blacklist stickers".format(
+                        "{} صامت لـ {} بسبب استخدام '{}' التي في ملصقات القائمة السوداء".format(
                             mention_markdown(user.id, user.first_name),
                             value,
                             trigger,
@@ -479,8 +479,8 @@ def del_blackliststicker(update: Update, context: CallbackContext):
                     )
                     return
             except BadRequest as excp:
-                if excp.message != "Message to delete not found":
-                    LOGGER.exception("Error while deleting blacklist message.")
+                if excp.message != "لم يتم العثور على رسالة للحذف":
+                    LOGGER.exception("خطأ أثناء حذف رسالة القائمة السوداء.")
                 break
 
 
@@ -497,11 +497,11 @@ def __migrate__(old_chat_id, new_chat_id):
 
 def __chat_settings__(chat_id, user_id):
     blacklisted = sql.num_stickers_chat_filters(chat_id)
-    return "There are `{} `blacklisted stickers.".format(blacklisted)
+    return "هناك `{} `الملصقات المدرجة في القائمة السوداء.".format(blacklisted)
 
 
 def __stats__():
-    return "× {} blacklist stickers, across {} chats.".format(
+    return "× {} ملصقات القائمة السوداء ، عبر {} دردشات.".format(
         sql.num_stickers_filters(),
         sql.num_stickers_filter_chats(),
     )

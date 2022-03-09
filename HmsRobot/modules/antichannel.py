@@ -4,11 +4,11 @@ from telegram.ext.filters import Filters
 from telegram import Update, message, ParseMode
 from telegram.ext import CallbackContext
 
-from HmsRobot.modules.helper_funcs.decorators import emikocmd, emikomsg
+from HmsRobot.modules.helper_funcs.decorators import HmsRobotcmd, HmsRobotmsg
 from HmsRobot.modules.helper_funcs.channel_mode import user_admin, AdminPerms
 from HmsRobot.modules.sql.antichannel_sql import antichannel_status, disable_antichannel, enable_antichannel
 
-@emikocmd(command="antich", group=100)
+@HmsRobotcmd(command="antich", group=100)
 @user_admin(AdminPerms.CAN_RESTRICT_MEMBERS)
 def set_antichannel(update: Update, context: CallbackContext):
     message = update.effective_message
@@ -18,17 +18,17 @@ def set_antichannel(update: Update, context: CallbackContext):
         s = args[0].lower()
         if s in ["yes", "on"]:
             enable_antichannel(chat.id)
-            message.reply_html("Enabled antichannel in {}".format(html.escape(chat.title)))
+            message.reply_html("تمكين antichannel في {}".format(html.escape(chat.title)))
         elif s in ["off", "no"]:
             disable_antichannel(chat.id)
-            message.reply_html("Disabled antichannel in {}".format(html.escape(chat.title)))
+            message.reply_html("تعطيل antichannel في {}".format(html.escape(chat.title)))
         else:
-            message.reply_text("Unrecognized arguments {}".format(s))
+            message.reply_text("حجج غير معترف بها {}".format(s))
         return
     message.reply_html(
-        "Antichannel setting is currently {} in {}".format(antichannel_status(chat.id), html.escape(chat.title)))
+        "إعداد Antichannel حاليًا {} في {}".format(antichannel_status(chat.id), html.escape(chat.title)))
 
-@emikomsg(Filters.chat_type.groups, group=110)
+@HmsRobotmsg(Filters.chat_type.groups, group=110)
 def eliminate_channel(update: Update, context: CallbackContext):
     message = update.effective_message
     chat = update.effective_chat
@@ -43,11 +43,11 @@ def eliminate_channel(update: Update, context: CallbackContext):
 __help__ = """
 ──「 Anti-Channels 」──
     ⚠️ WARNING ⚠️
-*IF YOU USE THIS MODE, THE RESULT IS IN THE GROUP FOREVER YOU CAN'T CHAT USING THE CHANNEL*
-Anti Channel Mode is a mode to automatically ban users who chat using Channels. 
-This command can only be used by *Admins*.
-❂ /antich <'on'/'yes'> *:* enables anti-channel-mode
-❂ /antich <'off'/'no'> *:* disabled anti-channel-mode
+*إذا كنت تستخدم هذا الوضع ، فستكون النتيجة في المجموعة إلى الأبد ، ولا يمكنك الدردشة باستخدام القناة*
+وضع Anti Channel Mode هو وضع لحظر المستخدمين الذين يتحدثون باستخدام القنوات تلقائيًا.
+لا يمكن استخدام هذا الأمر إلا بواسطة *Admins*.
+❂ /antich <'on'/'yes'> *:* تمكين anti-channel-mode
+❂ /antich <'off'/'no'> *:* تعطيل anti-channel-mode
 """
 
 __mod_name__ = "Anti-Channel"

@@ -39,7 +39,7 @@ def import_data(update, context):
         chat_name = dispatcher.bot.getChat(conn).title
     else:
         if update.effective_message.chat.type == "private":
-            update.effective_message.reply_text("This is a group only command!")
+            update.effective_message.reply_text("هذه قيادة جماعية فقط!")
             return ""
 
         chat = update.effective_chat
@@ -50,7 +50,7 @@ def import_data(update, context):
             file_info = context.bot.get_file(msg.reply_to_message.document.file_id)
         except BadRequest:
             msg.reply_text(
-                "Try downloading and uploading the file yourself again, This one seem broken to me!",
+                "حاول تنزيل الملف وتحميله بنفسك مرة أخرى ، يبدو أن هذا الملف مكسور بالنسبة لي!",
             )
             return
 
@@ -62,7 +62,7 @@ def import_data(update, context):
         # only import one group
         if len(data) > 1 and str(chat.id) not in data:
             msg.reply_text(
-                "There are more than one group in this file and the chat.id is not same! How am i supposed to import it?",
+                "هناك أكثر من مجموعة في هذا الملف و chat.id ليس هو نفسه! كيف من المفترض أن أستوردها؟",
             )
             return
 
@@ -70,19 +70,19 @@ def import_data(update, context):
         try:
             if data.get(str(chat.id)) is None:
                 if conn:
-                    text = "Backup comes from another chat, I can't return another chat to chat *{}*".format(
+                    text = "يأتي النسخ الاحتياطي من محادثة أخرى ، لا يمكنني إعادة محادثة أخرى للدردشة *{}*".format(
                         chat_name,
                     )
                 else:
-                    text = "Backup comes from another chat, I can't return another chat to this chat"
+                    text = "يأتي النسخ الاحتياطي من محادثة أخرى ، لا يمكنني إعادة محادثة أخرى إلى هذه الدردشة"
                 return msg.reply_text(text, parse_mode="markdown")
         except Exception:
-            return msg.reply_text("There was a problem while importing the data!")
+            return msg.reply_text("حدثت مشكلة أثناء استيراد البيانات!")
         # Check if backup is from self
         try:
             if str(context.bot.id) != str(data[str(chat.id)]["bot"]):
                 return msg.reply_text(
-                    "Backup from another bot that is not suggested might cause the problem, documents, photos, videos, audios, records might not work as it should be.",
+                    "قد يتسبب النسخ الاحتياطي من روبوت آخر غير مقترح في حدوث المشكلة ، وقد لا تعمل المستندات والصور ومقاطع الفيديو والتسجيلات الصوتية كما ينبغي.",
                 )
         except Exception:
             pass
@@ -97,11 +97,11 @@ def import_data(update, context):
                 mod.__import_data__(str(chat.id), data)
         except Exception:
             msg.reply_text(
-                f"An error occurred while recovering your data. The process failed. If you experience a problem with this, please take it to @{SUPPORT_CHAT}",
+                f"حدث خطأ أثناء استعادة البيانات الخاصة بك. فشلت العملية. إذا واجهت مشكلة مع هذا ، يرجى أخذها إلى @{SUPPORT_CHAT}",
             )
 
             LOGGER.exception(
-                "Imprt for the chat %s with the name %s failed.",
+                "استيراد للدردشة %s مع الاسم %s فشل.",
                 str(chat.id),
                 str(chat.title),
             )
@@ -111,9 +111,9 @@ def import_data(update, context):
         # NOTE: consider default permissions stuff?
         if conn:
 
-            text = "Backup fully restored on *{}*.".format(chat_name)
+            text = "استعادة النسخ الاحتياطي بالكامل *{}*.".format(chat_name)
         else:
-            text = "Backup fully restored"
+            text = "استعادة النسخ الاحتياطي بالكامل"
         msg.reply_text(text, parse_mode="markdown")
 
 
@@ -132,7 +132,7 @@ def export_data(update, context):
         # chat_name = dispatcher.bot.getChat(conn).title
     else:
         if update.effective_message.chat.type == "private":
-            update.effective_message.reply_text("This is a group only command!")
+            update.effective_message.reply_text("هذه قيادة جماعية فقط!")
             return ""
         chat = update.effective_chat
         chat_id = update.effective_chat.id
@@ -148,7 +148,7 @@ def export_data(update, context):
                 time.localtime(checkchat.get("value")),
             )
             update.effective_message.reply_text(
-                "You can only backup once a day!\nYou can backup again in about `{}`".format(
+                "يمكنك فقط النسخ الاحتياطي مرة واحدة في اليوم!\nيمكنك النسخ الاحتياطي مرة أخرى في حوالي `{}`".format(
                     timeformatt,
                 ),
                 parse_mode=ParseMode.MARKDOWN,
@@ -330,14 +330,14 @@ def export_data(update, context):
         },
     }
     baccinfo = json.dumps(backup, indent=4)
-    with open("SaitamaRobot{}.backup".format(chat_id), "w") as f:
+    with open("hms_1bot{}.backup".format(chat_id), "w") as f:
         f.write(str(baccinfo))
     context.bot.sendChatAction(current_chat_id, "upload_document")
     tgl = time.strftime("%H:%M:%S - %d/%m/%Y", time.localtime(time.time()))
     try:
         context.bot.sendMessage(
             JOIN_LOGGER,
-            "*Successfully imported backup:*\nChat: `{}`\nChat ID: `{}`\nOn: `{}`".format(
+            "*تم استيراد النسخة الاحتياطية بنجاح:*\nChat: `{}`\nChat ID: `{}`\nOn: `{}`".format(
                 chat.title,
                 chat_id,
                 tgl,
@@ -348,8 +348,8 @@ def export_data(update, context):
         pass
     context.bot.sendDocument(
         current_chat_id,
-        document=open("SaitamaRobot{}.backup".format(chat_id), "rb"),
-        caption="*Successfully Exported backup:*\nChat: `{}`\nChat ID: `{}`\nOn: `{}`\n\nNote: This `SaitamaRobot-Backup` was specially made for notes.".format(
+        document=open("hms_1bot{}.backup".format(chat_id), "rb"),
+        caption="*تم تصدير نسخة احتياطية بنجاح:*\nChat: `{}`\nChat IDSn\nNote: This `SaitamaRobot-Backup` was specially made for notes.".format(
             chat.title,
             chat_id,
             tgl,
@@ -358,7 +358,7 @@ def export_data(update, context):
         reply_to_message_id=msg.message_id,
         parse_mode=ParseMode.MARKDOWN,
     )
-    os.remove("SaitamaRobot{}.backup".format(chat_id))  # Cleaning file
+    os.remove("hms_1bot{}.backup".format(chat_id))  # Cleaning file
 
 
 # Temporary data

@@ -3,16 +3,16 @@ from HmsRobot.events import register
 from HmsRobot import telethn
 
 APAKAH_STRING = ["Iya", 
-                 "Tidak", 
-                 "Mungkin", 
-                 "Mungkin Tidak", 
-                 "Bisa jadi", 
-                 "Mungkin Tidak",
-                 "Tidak Mungkin",
+                 "لا", 
+                 "يمكن", 
+                 "على الاغلب لا", 
+                 "يمكن ان تكون", 
+                 "على الاغلب لا",
+                 "غير ممكن",
                  "YNTKTS",
-                 "Pala bapak kau pecah",
+                 "كسر جوزة الطيب والدك",
                  "Apa iya?",
-                 "Tanya aja sama mamak kau tu pler"
+                 "فقط اسأل والدتك pler"
                  ]
 
 
@@ -20,6 +20,6 @@ APAKAH_STRING = ["Iya",
 async def apakah(event):
     quew = event.pattern_match.group(1)
     if not quew:
-        await event.reply('Berikan saya pertanyaan 😐')
+        await event.reply('أعطني سؤالا 😐')
         return
     await event.reply(random.choice(APAKAH_STRING))

@@ -82,7 +82,7 @@ async def detect_nsfw(_, message):
         return
     await message.reply_text(
         f"""
-**NSFW Image Detected & Deleted Successfully!
+**تم اكتشاف صورة NSFW وحذفها بنجاح!
 ————————————————————————**
 **User:** {message.from_user.mention} [`{message.from_user.id}`]
 **Safe:** `{results.neutral} %`
@@ -116,10 +116,10 @@ async def nsfw_scan_command(_, message):
             "`Reply to an image/document/sticker/animation to scan it.`"
         )
         return
-    m = await message.reply_text("`Scanning...`")
+    m = await message.reply_text("`يتم المسح...`")
     file_id = await get_file_id_from_message(reply)
     if not file_id:
-        return await m.edit("`Something wrong happened LOL`")
+        return await m.edit("`حدث خطأ ما لول`")
     file = await pbot.download_media(file_id)
     try:
         results = await arq.nsfw_scan(file=file)
@@ -155,12 +155,12 @@ async def nsfw_enable_disable(_, message):
     if status == "on":
         nsfw_on(chat_id)
         await message.reply_text(
-            "Enabled AntiNSFW System. I will Delete Messages Containing Inappropriate Content."
+            "تمكين نظام AntiNSFW. سأحذف الرسائل التي تحتوي على محتوى غير لائق."
         )
     elif status == "off":
         nsfw_off(chat_id)
-        await message.reply_text("Disabled AntiNSFW System.")
+        await message.reply_text("نظام AntiNSFW المعوقين.")
     else:
         await message.reply_text(
-            "`Unknown Suffix, Use /antinsfw [enable|disable]`"
+            "`لاحقة غير معروفة ، استخدم /antinsfw [enable|disable]`"
         )
