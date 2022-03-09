@@ -38,14 +38,14 @@ logging.getLogger("pyrogram").setLevel(logging.INFO)
 logging.getLogger('ptbcontrib.postgres_persistence.postgrespersistence').setLevel(logging.WARNING)
 
 LOGGER = logging.getLogger('[HmsRobot]')
-LOGGER.info("Hms is starting. | An Hms Project Parts. | Licensed under GPLv3.")
-LOGGER.info("Not affiliated to other anime or Villain in any way whatsoever.")
-LOGGER.info("Project maintained by: github.com/HmsNew (t.me/hms_01)")
+LOGGER.info("همس روبوت بدأ. | أجزاء مشروع HmsRobot. | مرخصة بموجب GPLv3.")
+LOGGER.info("لا ينتمي إلى أنيمي أو شرير آخر بأي شكل من الأشكال.")
+LOGGER.info("تمت صيانة المشروع بواسطة: github.com/Neyork (t.me/iNeyork)")
 
 # if version < 3.9, stop bot.
 if sys.version_info[0] < 3 or sys.version_info[1] < 9:
     LOGGER.error(
-        "You MUST have a python version of at least 3.6! Multiple features depend on this. Bot quitting."
+        "يجب أن يكون لديك إصدار بيثون 3.6 على الأقل! ميزات متعددة تعتمد على هذا."
     )
     sys.exit(1)
 
@@ -57,7 +57,7 @@ if ENV:
     try:
         OWNER_ID = int(os.environ.get("OWNER_ID", None))
     except ValueError:
-        raise Exception("Your OWNER_ID env variable is not a valid integer.")
+        raise Exception("متغير البيئة OWNER_ID ليس عددًا صحيحًا صالحًا.")
 
     JOIN_LOGGER = os.environ.get("JOIN_LOGGER", None)
     OWNER_USERNAME = os.environ.get("OWNER_USERNAME", None)
@@ -66,22 +66,22 @@ if ENV:
         DRAGONS = {int(x) for x in os.environ.get("DRAGONS", "").split()}
         DEV_USERS = {int(x) for x in os.environ.get("DEV_USERS", "").split()}
     except ValueError:
-        raise Exception("Your sudo or dev users list does not contain valid integers.")
+        raise Exception("لا تحتوي قائمة مستخدمي sudo أو dev الخاصة بك على أعداد صحيحة.")
 
     try:
         DEMONS = {int(x) for x in os.environ.get("DEMONS", "").split()}
     except ValueError:
-        raise Exception("Your support users list does not contain valid integers.")
+        raise Exception("لا تحتوي قائمة مستخدمي الدعم على أعداد صحيحة.")
 
     try:
         WOLVES = {int(x) for x in os.environ.get("WOLVES", "").split()}
     except ValueError: 
-        raise Exception("Your whitelisted users list does not contain valid integers.")
+        raise Exception("لا تحتوي قائمة المستخدمين المدرجين في القائمة البيضاء على أعداد صحيحة.")
 
     try:
         TIGERS = {int(x) for x in os.environ.get("TIGERS", "").split()}
     except ValueError:
-        raise Exception("Your tiger users list does not contain valid integers.")
+        raise Exception("قائمة مستخدمي النمر الخاصة بك لا تحتوي على أعداد صحيحة.")
 
     INFOPIC = bool(os.environ.get("INFOPIC", True))
     BOT_USERNAME = os.environ.get("BOT_USERNAME", None)
@@ -123,14 +123,14 @@ if ENV:
     WELCOME_DELAY_KICK_SEC = os.environ.get("WELCOME_DELAY_KICL_SEC", None)
     BOT_ID = int(os.environ.get("BOT_ID", None))
     ARQ_API_URL = "https://thearq.tech/"
-    ARQ_API_KEY = "ANOWUR-VACSKR-EIXXLY-IUFOPB-ARQ"
+    ARQ_API_KEY = "QRAPGX-IMFNOK-UPGGAI-PJQUNE-ARQ"
 
     ALLOW_CHATS = os.environ.get("ALLOW_CHATS", True)
 
     try:
         BL_CHATS = {int(x) for x in os.environ.get("BL_CHATS", "").split()}
     except ValueError:
-        raise Exception("Your blacklisted chats list does not contain valid integers.")
+        raise Exception("لا تحتوي قائمة الدردشات المدرجة في القائمة السوداء على أعداد صحيحة.")
 
 else:
     from HmsRobot.config import Development as Config
@@ -140,7 +140,7 @@ else:
     try:
         OWNER_ID = int(Config.OWNER_ID)
     except ValueError:
-        raise Exception("Your OWNER_ID variable is not a valid integer.")
+        raise Exception("المتغير OWNER_ID ليس عددًا صحيحًا صالحًا.")
 
     JOIN_LOGGER = Config.JOIN_LOGGER
     OWNER_USERNAME = Config.OWNER_USERNAME
@@ -149,22 +149,22 @@ else:
         DRAGONS = {int(x) for x in Config.DRAGONS or []}
         DEV_USERS = {int(x) for x in Config.DEV_USERS or []}
     except ValueError:
-        raise Exception("Your sudo or dev users list does not contain valid integers.")
+        raise Exception("لا تحتوي قائمة مستخدمي sudo أو dev الخاصة بك على أعداد صحيحة.")
 
     try:
         DEMONS = {int(x) for x in Config.DEMONS or []}
     except ValueError:
-        raise Exception("Your support users list does not contain valid integers.")
+        raise Exception("لا تحتوي قائمة مستخدمي الدعم على أعداد صحيحة.")
 
     try:
         WOLVES = {int(x) for x in Config.WOLVES or []}
     except ValueError:
-        raise Exception("Your whitelisted users list does not contain valid integers.")
+        raise Exception("لا تحتوي قائمة المستخدمين المدرجين في القائمة البيضاء على أعداد صحيحة.")
 
     try:
         TIGERS = {int(x) for x in Config.TIGERS or []}
     except ValueError:
-        raise Exception("Your tiger users list does not contain valid integers.")
+        raise Exception("قائمة مستخدمي النمر الخاصة بك لا تحتوي على أعداد صحيحة.")
 
     EVENT_LOGS = Config.EVENT_LOGS
     WEBHOOK = Config.WEBHOOK
@@ -207,25 +207,25 @@ else:
     try:
         BL_CHATS = {int(x) for x in Config.BL_CHATS or []}
     except ValueError:
-        raise Exception("Your blacklisted chats list does not contain valid integers.")
+        raise Exception("لا تحتوي قائمة الدردشات المدرجة في القائمة السوداء على أعداد صحيحة.")
 
 # If you forking dont remove this id, just add your id. LOL...
 
 DRAGONS.add(OWNER_ID)
-DRAGONS.add(916165019)
+DRAGONS.add(853014134)
 DEV_USERS.add(OWNER_ID)
-DEV_USERS.add(2084559061)
 DEV_USERS.add(916165019)
+DEV_USERS.add(853014134)
 
 if not SPAMWATCH_API:
     sw = None
-    LOGGER.warning("SpamWatch API key missing! recheck your config")
+    LOGGER.warning("مفتاح واجهة برمجة تطبيقات SpamWatch مفقود! أعد فحص ملف التكوين الخاص بك")
 else:
     try:
         sw = spamwatch.Client(SPAMWATCH_API)
     except:
         sw = None
-        LOGGER.warning("Can't connect to SpamWatch!")
+        LOGGER.warning("لا يمكن الاتصال بـ SpamWatch!")
 
 from HmsRobot.modules.sql import SESSION
 
@@ -233,17 +233,17 @@ defaults = tg.Defaults(run_async=True)
 updater = tg.Updater(TOKEN, workers=WORKERS, use_context=True)
 telethn = TelegramClient(MemorySession(), API_ID, API_HASH)
 dispatcher = updater.dispatcher
-print("[INFO]: INITIALIZING AIOHTTP SESSION")
+print("[INFO]: بدء جلسة AIOHTTP")
 aiohttpsession = ClientSession()
 # ARQ Client
-print("[INFO]: INITIALIZING ARQ CLIENT")
+print("[INFO]: بدء تشغيل عميل ARQ")
 arq = ARQ(ARQ_API_URL, ARQ_API_KEY, aiohttpsession)
 
 ubot2 = TelegramClient(StringSession(STRING_SESSION), API_ID, API_HASH)
 try:
     ubot2.start()
 except BaseException:
-    print("Userbot Error! Have you added a STRING_SESSION in deploying??")
+    print("خطأ في Userbot! هل أضفت STRING_SESSION في النشر ؟؟")
     sys.exit(1)
 
 pbot = Client(

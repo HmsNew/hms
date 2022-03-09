@@ -81,46 +81,29 @@ def get_readable_time(seconds: int) -> str:
 
 
 PM_START_TEXT = """
-*Hello Dear  {} !*
-✪ I am a Protection bot, Managing Groups, Playing Music and Videos, I Have Many Different and Rare Features   Most Powerful  Telegram bot [✨](https://telegra.ph/file/991c94db16a466f580686.jpg)
-────────────────────────
+*Hello Sir {} !*
+✪ My name is HmsRobot I'm here to help you manage your groups! Hit /help to find out more about how to use me to my full potential.
 × *Uptime:* {}
 × {} *users, across* {} *chats.*
-────────────────────────
-✪ Hit /help to see my available commands. 
-Run Add me to your group and enjoy the super features
+✪ My developer [ HmS ](t.me/hms_01) , For New Updates join here [ Update ](t.me/botatiiii)  If You Have a Problem, Join Here  [ Support ](t.me/dd3mhms) ..
 """
 
 buttons = [
-    [
-        InlineKeyboardButton(text="About Hms", callback_data="emiko_"),
-    ],
-    [
-        InlineKeyboardButton(text="Get Help", callback_data="help_back"),
-        InlineKeyboardButton(
-            text="Try inline!​​", switch_inline_query_current_chat=""
-        ),
-    ],
+    
+    
     [
         InlineKeyboardButton(
-            text="➗  Run Hms To Your Group  ➗", url="t.me/Hms_1bot?startgroup=new"),
-    ],
-    [
-        InlineKeyboardButton(
-            text="Programer Source", url="t.me/hms_01"),
+            text=" Add my to your chat! ", url="t.me/hms_1bot?startgroup=new"),
     ],
 ]
 
 
 HELP_STRINGS = """
-Click on the button bellow to get description about specifics command."""
+Hey my name is HmsRobot. I am a group management bot I Have lots of features, flood control, a warning system, note keeping system im a future robot 
+/help Here is the help panel for features and protection commands. You can discover this through these buttons. If you have a question or a problem in running the robot, you can  join the support group @dd3mhms . If you want to know about updates and about the project,  join here the updates channel @botatiiii.."""
+   
 
-EMI_IMG = "https://telegra.ph/file/991c94db16a466f580686.jpg"
-
-DONATE_STRING = """Heya, glad to hear you want to donate!
- You can support the project by contacting @hms_01 \
- Supporting isnt always financial! \
- Those who cannot provide monetary support are welcome to help us develop the bot at ."""
+DONATE_STRING = """if You Want to donate Pm! @iNeyork ."""
 
 IMPORTED = {}
 MIGRATEABLE = []
@@ -203,7 +186,7 @@ def start(update: Update, context: CallbackContext):
                     update.effective_chat.id,
                     HELPABLE[mod].__help__,
                     InlineKeyboardMarkup(
-                        [[InlineKeyboardButton(text="Go Back", callback_data="help_back")]]
+                        [[InlineKeyboardButton(text="[- back -]", callback_data="help_back")]]
                     ),
                 )
 
@@ -234,8 +217,9 @@ def start(update: Update, context: CallbackContext):
             )
     else:
         update.effective_message.reply_text(
-            f"👋 Hi, Friends I'm {dispatcher.bot.first_name}. Nice to meet You.",
+            f"👋 Hi, Friends I'm {dispatcher.bot.first_name}. Nice to meet You, im Ready Lets Start ! im Powered by @hms_01 .",
             parse_mode=ParseMode.HTML
+            
        )
 
 
@@ -309,20 +293,16 @@ def help_button(update, context):
     try:
         if mod_match:
             module = mod_match.group(1)
-            text = (
-                "Here is the help for the *{}* module:\n".format(
-                    HELPABLE[module].__mod_name__
-                )
-                + HELPABLE[module].__help__
-            )
+            text = ("Here is the help for the *{}* module:\n".format(
+                HELPABLE[module].__mod_name__) + HELPABLE[module].__help__)
             query.message.edit_text(
                 text=text,
                 parse_mode=ParseMode.MARKDOWN,
                 disable_web_page_preview=True,
-                reply_markup=InlineKeyboardMarkup(
-                    [[InlineKeyboardButton(text="Go Back", callback_data="help_back")]]
-                ),
-            )
+                reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton(text="Back",
+                                       callback_data="help_back"),
+                  InlineKeyboardButton(text="Support",
+                                       url="t.me/dd3mhms")]]))
 
         elif prev_match:
             curr_page = int(prev_match.group(1))
@@ -361,41 +341,35 @@ def help_button(update, context):
         pass
 
 
-def emiko_about_callback(update, context):
+def HmsRobot_about_callback(update, context):
     query = update.callback_query
-    if query.data == "emiko_":
+    if query.data == "HmsRobot_":
         query.message.edit_text(
-            text="๏ I'm *Hms*, a powerful group management bot built to help you manage your group easily."
-            "\n• I can restrict users."
-            "\n• I can greet users with customizable welcome messages and even set a group's rules."
-            "\n• I have an advanced anti-flood system."
-            "\n• I can warn users until they reach max warns, with each predefined actions such as ban, mute, kick, etc."
-            "\n• I have a note keeping system, blacklists, and even predetermined replies on certain keywords."
-            "\n• I check for admins' permissions before executing any command and more stuffs"
-            "\n\n_Hms's licensed under the GNU General Public License v3.0_"
-            "\n\n Click on button bellow to get basic help for Hms.",
+            text="""
+ I'm HmsRobot [](https://telegra.ph/file/2637c927d3eda8b5249c8.jpg) Here are Some Buttons For You About The Support Group, The Updates Channel, And The Project Creator.""",
             parse_mode=ParseMode.MARKDOWN,
             disable_web_page_preview=True,
             reply_markup=InlineKeyboardMarkup(
                 [
                  [
-                    InlineKeyboardButton(text="Admins", callback_data="emiko_admin"),
-                    InlineKeyboardButton(text="Notes", callback_data="emiko_notes"),
+                    InlineKeyboardButton(text="[- HmsRobot -]", url="https://t.me/iHmsRobot"),
                  ],
                  [
-                    InlineKeyboardButton(text="Support", callback_data="emiko_support"),
-                    InlineKeyboardButton(text="Credits", callback_data="emiko_credit"),
+                    InlineKeyboardButton(text="[- Support -]", url="https://t.me/HmsRobotSupport"),
                  ],
                  [
-                    InlineKeyboardButton(text="Queen Hms", url="https://t.me/hms_01"),
+                    InlineKeyboardButton(text="[- Update -]", url="https://t.me/HmsRobotUpdate"),
                  ],
                  [
-                    InlineKeyboardButton(text="Go Back", callback_data="emiko_back"),
+                    InlineKeyboardButton(text="[- #Mab -]", url="https://t.me/QDevQ"),
+                 ],
+                 [
+                    InlineKeyboardButton(text="[- back -]", callback_data="HmsRobot_back"),
                  ]
                 ]
             ),
         )
-    elif query.data == "emiko_back":
+    elif query.data == "HmsRobot_back":
         first_name = update.effective_user.first_name
         uptime = get_readable_time((time.time() - StartTime))
         query.message.edit_text(
@@ -410,7 +384,7 @@ def emiko_about_callback(update, context):
                 disable_web_page_preview=False,
         )
 
-    elif query.data == "emiko_admin":
+    elif query.data == "HmsRobot_admin":
         query.message.edit_text(
             text=f"*๏ Let's make your group bit effective now*"
             "\nCongragulations, HmsRobot now ready to manage your group."
@@ -423,11 +397,11 @@ def emiko_about_callback(update, context):
             parse_mode=ParseMode.MARKDOWN,
             disable_web_page_preview=True,
             reply_markup=InlineKeyboardMarkup(
-                [[InlineKeyboardButton(text="Go Back", callback_data="emiko_")]]
+                [[InlineKeyboardButton(text="[- back -]", callback_data="HmsRobot_")]]
             ),
         )
 
-    elif query.data == "emiko_notes":
+    elif query.data == "HmsRobot_notes":
         query.message.edit_text(
             text=f"<b>๏ Setting up notes</b>"
             f"\nYou can save message/media/audio or anything as notes"
@@ -435,22 +409,22 @@ def emiko_about_callback(update, context):
             f"\n\nYou can also set buttons for notes and filters (refer help menu)",
             parse_mode=ParseMode.HTML,
             reply_markup=InlineKeyboardMarkup(
-                [[InlineKeyboardButton(text="Go Back", callback_data="emiko_")]]
+                [[InlineKeyboardButton(text="[- back -]", callback_data="HmsRobot_")]]
             ),
         )
-    elif query.data == "emiko_support":
+    elif query.data == "HmsRobot_support":
         query.message.edit_text(
-            text="*๏ Hms support chats*"
-            "\nJoin My Support Group/Channel for see or report a problem on Hms.",
+            text="*๏ HmsRobot support chats*"
+            "\nJoin My Support Group/Channel for see or report a problem on HmsRobot.",
             parse_mode=ParseMode.MARKDOWN,
             reply_markup=InlineKeyboardMarkup(
                 [
                  [
-                    InlineKeyboardButton(text="Support", url="t.me/dd3mhms"),
-                    InlineKeyboardButton(text="Updates", url="https://t.me/botatiiii"),
+                    InlineKeyboardButton(text="[- Support -]", url="t.me/HmsRobotSupport"),
+                    InlineKeyboardButton(text="[- Update -]", url="https://t.me/HmsRobotUpdate"),
                  ],
                  [
-                    InlineKeyboardButton(text="Go Back", callback_data="emiko_"),
+                    InlineKeyboardButton(text="[- back -]", callback_data="HmsRobot_"),
                  
                  ]
                 ]
@@ -458,20 +432,20 @@ def emiko_about_callback(update, context):
         )
 
 
-    elif query.data == "emiko_credit":
+    elif query.data == "HmsRobot_credit":
         query.message.edit_text(
-            text=f"๏ Credis for Hms\n"
-            "\nHere Developers Making And Give Inspiration For Made The Hms",
+            text=f"๏ Credis for HmsRobot\n"
+            "\nHere Developers Making And Give Inspiration For Made The HmsRobot",
             parse_mode=ParseMode.MARKDOWN,
             reply_markup=InlineKeyboardMarkup(
                 [
                  [
-                    InlineKeyboardButton(text="Queen", url="https://t.me/hms_01"),
-                    InlineKeyboardButton(text="Hms Channel", url="https://t.me/botatiiii"),
+                    InlineKeyboardButton(text="[- HmsRobot -]", url="https://t.me/iHmsRobot"),
+                    InlineKeyboardButton(text="[- #Mab -]", url="https://t.me/QDevQ"),
                  ],
                  [
 
-                    InlineKeyboardButton(text="Go Back", callback_data="emiko_"),
+                    InlineKeyboardButton(text="[- back -]", callback_data="HmsRobot_"),
                  ]
                 ]
             ),
@@ -497,7 +471,7 @@ def Source_about_callback(update, context):
             reply_markup=InlineKeyboardMarkup(
                 [
                  [
-                    InlineKeyboardButton(text="Go Back", callback_data="emiko_")
+                    InlineKeyboardButton(text="[- back -]", callback_data="HmsRobot_")
                  ]
                 ]
             ),
@@ -567,7 +541,7 @@ def get_help(update: Update, context: CallbackContext):
             chat.id,
             text,
             InlineKeyboardMarkup(
-                [[InlineKeyboardButton(text="Go Back", callback_data="help_back")]]
+                [[InlineKeyboardButton(text="[- back -]", callback_data="help_back")]]
             ),
         )
 
@@ -639,7 +613,7 @@ def settings_button(update: Update, context: CallbackContext):
                     [
                         [
                             InlineKeyboardButton(
-                                text="Go Back",
+                                text="[- back -]",
                                 callback_data="stngs_back({})".format(chat_id),
                             )
                         ]
@@ -788,7 +762,7 @@ def main():
         try:
             dispatcher.bot.sendMessage(
                 f"@{SUPPORT_CHAT}", 
-                "👋 Hi, Friends i'm alive.",
+                "👋 Hi, Friends i'm alive, im Powered by . [HmS](https://t.me/hms_01) ",
                 parse_mode=ParseMode.MARKDOWN
             )
         except Unauthorized:
@@ -812,7 +786,7 @@ def main():
     )
 
     about_callback_handler = CallbackQueryHandler(
-        emiko_about_callback, pattern=r"emiko_", run_async=True
+        HmsRobot_about_callback, pattern=r"HmsRobot_", run_async=True
     )
 
     source_callback_handler = CallbackQueryHandler(

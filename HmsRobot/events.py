@@ -12,11 +12,11 @@ from HmsRobot import telethn
 
 client = MongoClient()
 client = MongoClient(MONGO_DB_URI)
-db = client["Hms_1bot"]
+db = client["hms_1bot"]
 gbanned = db.gban
 
 def register(**args):
-    """ Registers a new message. """
+    """ يسجل رسالة جديدة. """
     pattern = args.get("pattern", None)
 
     r_pattern = r"^[/!.]"
@@ -34,7 +34,7 @@ def register(**args):
 
 
 def chataction(**args):
-    """ Registers chat actions. """
+    """ يسجل إجراءات الدردشة. """
 
     def decorator(func):
         telethn.add_event_handler(func, events.ChatAction(**args))
@@ -44,7 +44,7 @@ def chataction(**args):
 
 
 def userupdate(**args):
-    """ Registers user updates. """
+    """ يسجل تحديثات المستخدم. """
 
     def decorator(func):
         telethn.add_event_handler(func, events.UserUpdate(**args))
@@ -54,7 +54,7 @@ def userupdate(**args):
 
 
 def inlinequery(**args):
-    """ Registers inline query. """
+    """ يسجل الاستعلام المضمنة. """
     pattern = args.get("pattern", None)
 
     if pattern is not None and not pattern.startswith("(?i)"):
@@ -68,7 +68,7 @@ def inlinequery(**args):
 
 
 def callbackquery(**args):
-    """ Registers inline query. """
+    """ يسجل الاستعلام المضمنة. """
 
     def decorator(func):
         telethn.add_event_handler(func, events.CallbackQuery(**args))
@@ -115,13 +115,13 @@ def bot(**args):
             if check.is_group or check.is_private:
                 pass
             else:
-                print("i don't work in channels")
+                print("انا لا اعمل في القنوات")
                 return
             if check.is_group:
                if check.chat.megagroup:
                   pass
                else:
-                  print("i don't work in small chats")
+                  print("أنا لا أعمل في الأحاديث الصغيرة")
                   return
                           
             users = gbanned.find({})
