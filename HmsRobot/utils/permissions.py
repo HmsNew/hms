@@ -25,7 +25,7 @@ async def authorised(func, subFunc2, client, message, *args, **kwargs):
 async def unauthorised(message: Message, permission, subFunc2):
     chatID = message.chat.id
     text = (
-        "You don't have the required permission to perform this action."
+        "ليس لديك الإذن المطلوب لتنفيذ هذا الإجراء."
         + f"\n**Permission:** __{permission}__"
     )
     try:

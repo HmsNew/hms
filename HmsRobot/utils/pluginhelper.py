@@ -171,7 +171,7 @@ async def fetch_audio(client, message):
         return
     warner_stark = message.reply_to_message
     if warner_stark.audio is None and warner_stark.video is None:
-        await message.reply("`Format Not Supported`")
+        await message.reply("`  `")
         return
     if warner_stark.video:
         lel = await message.reply("`Video Detected, Converting To Audio !`")
@@ -180,9 +180,9 @@ async def fetch_audio(client, message):
         await runcmd(stark_cmd)
         final_warner = "friday.mp3"
     elif warner_stark.audio:
-        lel = await edit_or_reply(message, "`Download Started !`")
+        lel = await edit_or_reply(message, "` !`")
         final_warner = await message.reply_to_message.download()
-    await lel.edit("`Almost Done!`")
+    await lel.edit("` !`")
     await lel.delete()
     return final_warner
 
@@ -199,7 +199,7 @@ async def edit_or_reply(message, text, parse_mode="md"):
 
 
 async def runcmd(cmd: str) -> Tuple[str, str, int, int]:
-    """run command in terminal"""
+    """    """
     args = shlex.split(cmd)
     process = await asyncio.create_subprocess_exec(
         *args, stdout=asyncio.subprocess.PIPE, stderr=asyncio.subprocess.PIPE
@@ -214,7 +214,7 @@ async def runcmd(cmd: str) -> Tuple[str, str, int, int]:
 
 
 async def convert_to_image(message, client) -> [None, str]:
-    """Convert Most Media Formats To Raw Image"""
+    """      """
     final_path = None
     if not (
         message.reply_to_message.photo
@@ -269,7 +269,7 @@ async def fetch(url):
 
 
 def get_text(message: Message) -> [None, str]:
-    """Extract Text From Commands"""
+    """   """
     text_to_return = message.text
     if message.text is None:
         return None

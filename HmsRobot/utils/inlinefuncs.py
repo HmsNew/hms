@@ -98,11 +98,11 @@ async def inline_help_func(__HELP__):
     answerss = [
         InlineQueryResultArticle(
             title="Inline Commands",
-            description="Help Related To Inline Usage.",
+            description="المساعدة المتعلقة بالاستخدام الانلاين.",
             input_message_content=InputTextMessageContent(
-                "**__Click A Button To Get Started.__**"
+                "**__انقر فوق زر للبدء.__**"
             ),
-            thumb_url="https://telegra.ph/file/991c94db16a466f580686.jpg",
+            thumb_url="https://telegra.ph/file/9ed782cdeff8e11a90b0b.jpg",
             reply_markup=buttons,
         ),
     ]
@@ -115,27 +115,27 @@ async def alive_function(answers):
     bot_state = "Dead" if not await app.get_me() else "Alive"
     ubot_state = "Dead" if not await ubot2.get_me() else "Alive"
     buttons.add(
-        InlineKeyboardButton("Main bot", url="https://t.me/Hms_1bot"),
+        InlineKeyboardButton("Main bot", url="https://t.me/hms_1bot"),
         InlineKeyboardButton(
-            "Go Inline!", switch_inline_query_current_chat=""
+            "Try Inline!", switch_inline_query_current_chat=""
         ),
     )
 
     msg = f"""
-**[Queen Hms ❤️](https://t.me/hms_01):**
-**MainBot:** `{bot_state}`
-**UserBot:** `{ubot_state}`
-**Python:** `{pyver.split()[0]}`
-**Pyrogram:** `{pyrover}`
-**MongoDB:** `{mongover}`
-**Platform:** `{sys.platform}`
-**Profiles:** [BOT](t.me/{BOT_USERNAME}) | [UBOT](t.me/hms_01)
+**[ #Hms 🖤](https://t.me/hms_01):**
+**#MainBot 🖤:** `{bot_state}`
+**#UserBot 🖤:** `{ubot_state}`
+**#Python 🖤:** `{pyver.split()[0]}`
+**#Pyrogram 🖤:** `{pyrover}`
+**#MongoDB 🖤:** `{mongover}`
+**#Platform 🖤:** `{sys.platform}`
+**#Profiles 🖤:** [BOT](t.me/{BOT_USERNAME}) | [UBOT](t.me/hms_01)
 """
     answers.append(
         InlineQueryResultArticle(
             title="Alive",
-            description="Check Bot's Stats",
-            thumb_url="https://telegra.ph/file/991c94db16a466f580686.jpg",
+            description="تحقق من إحصائيات البوت",
+            thumb_url="https://telegra.ph/file/f67dd5909bbff96ff17bd.jpg",
             input_message_content=InputTextMessageContent(
                 msg, disable_web_page_preview=True
             ),
@@ -150,7 +150,7 @@ async def translate_func(answers, lang, tex):
     if not result.ok:
         answers.append(
             InlineQueryResultArticle(
-                title="Error",
+                title="خطا",
                 description=result.result,
                 input_message_content=InputTextMessageContent(result.result),
             )
@@ -158,7 +158,7 @@ async def translate_func(answers, lang, tex):
         return answers
     result = result.result
     msg = f"""
-__**Translated from {result.src} to {result.dest}**__
+__**ترجمت من {result.src} to {result.dest}**__
 **INPUT:**
 {tex}
 **OUTPUT:**
@@ -166,7 +166,7 @@ __**Translated from {result.src} to {result.dest}**__
     answers.extend(
         [
             InlineQueryResultArticle(
-                title=f"Translated from {result.src} to {result.dest}.",
+                title=f"ترجمت من {result.src} to {result.dest}.",
                 description=result.translatedText,
                 input_message_content=InputTextMessageContent(msg),
             ),
@@ -374,21 +374,21 @@ async def lyrics_func(answers, text):
 
 async def tg_search_func(answers, text, user_id):
     if user_id not in DEV_USERS:
-        msg = "**ERROR**\n__THIS FEATURE IS ONLY FOR DEV USERS__"
+        msg = "**خطا**\n__هذه الميزة مخصصة فقط للمستخدمين المميزين__"
         answers.append(
             InlineQueryResultArticle(
-                title="ERROR",
-                description="THIS FEATURE IS ONLY FOR SUDO USERS",
+                title="خطا",
+                description="هذه الميزة مخصصة فقط للمستخدمين المميزين",
                 input_message_content=InputTextMessageContent(msg),
             )
         )
         return answers
     if str(text)[-1] != ":":
-        msg = "**ERROR**\n__Put A ':' After The Text To Search__"
+        msg = "**خطا**\n__Put A ':' بعد النص المطلوب البحث فيه__"
         answers.append(
             InlineQueryResultArticle(
-                title="ERROR",
-                description="Put A ':' After The Text To Search",
+                title="خطا",
+                description="Put A ':' بعد النص المطلوب البحث فيه",
                 input_message_content=InputTextMessageContent(msg),
             )
         )
@@ -444,11 +444,11 @@ async def music_inline_func(answers, query):
         ]
     except Exception as e:
         print(e)
-        msg = f"You Need To Join Here With Your Bot And Userbot To Get Cached Music.\n{group_invite}"
+        msg = f"تحتاج إلى الانضمام هنا مع الروبوت الخاص بك و Userbot للحصول على الموسيقى المخزنة مؤقتًا.\n{group_invite}"
         answers.append(
             InlineQueryResultArticle(
-                title="ERROR",
-                description="Click Here To Know More.",
+                title="خطا",
+                description="انقر هنا لمعرفة المزيد.",
                 input_message_content=InputTextMessageContent(
                     msg, disable_web_page_preview=True
                 ),
@@ -484,7 +484,7 @@ async def paste_func(answers, text):
     end_time = time()
     answers.append(
         InlineQueryResultArticle(
-            title=f"Pasted In {round(end_time - start_time)} Seconds.",
+            title=f"لصق في {round(end_time - start_time)} ثواني.",
             description=url,
             input_message_content=InputTextMessageContent(msg),
         )
@@ -579,23 +579,23 @@ async def speedtest_init(query):
     answers = []
     user_id = query.from_user.id
     if user_id not in DEV_USERS:
-        msg = "**ERROR**\n__THIS FEATURE IS ONLY FOR DEV USERS__"
+        msg = "**ERROR**\n__هذه الميزة مخصصة فقط للمستخدمين المميزين__"
         answers.append(
             InlineQueryResultArticle(
                 title="ERROR",
-                description="THIS FEATURE IS ONLY FOR SUDO USERS",
+                description="هذه الميزة مخصصة فقط للمستخدمين المميزين",
                 input_message_content=InputTextMessageContent(msg),
             )
         )
         return answers
-    msg = "**Click The Button Below To Perform A Speedtest**"
+    msg = "**انقر فوق الزر أدناه لإجراء اختبار سرعة**"
     button = InlineKeyboard(row_width=1)
     button.add(
         InlineKeyboardButton(text="Test", callback_data="test_speedtest")
     )
     answers.append(
         InlineQueryResultArticle(
-            title="Click Here",
+            title="اضغط هنا",
             input_message_content=InputTextMessageContent(msg),
             reply_markup=button,
         )
@@ -609,7 +609,7 @@ async def speedtest_init(query):
 @app.on_callback_query(filters.regex("test_speedtest"))
 async def test_speedtest_cq(_, cq):
     if cq.from_user.id not in DEV_USERS:
-        return await cq.answer("This Isn't For You!")
+        return await cq.answer("هذا ليس لك!")
     inline_message_id = cq.inline_message_id
     await app.edit_inline_text(inline_message_id, "**Testing**")
     loop = asyncio.get_running_loop()

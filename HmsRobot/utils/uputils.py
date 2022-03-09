@@ -35,8 +35,8 @@ def convert_from_bytes(size):
 
 
 def humanbytes(size):
-    """Input size in bytes,
-    outputs in a human readable format"""
+    """حجم الإدخال بالبايت ،
+    المخرجات بتنسيق يمكن قراءته بواسطة الإنسان"""
     # https://stackoverflow.com/a/49361727/4723940
     if not size:
         return ""
@@ -51,8 +51,8 @@ def humanbytes(size):
 
 
 def time_formatter(milliseconds: int) -> str:
-    """Inputs time in milliseconds, to get beautified time,
-    as string"""
+    """إدخال الوقت بالمللي ثانية للحصول على وقت جميل ،
+    كسلسلة"""
     seconds, milliseconds = divmod(int(milliseconds), 1000)
     minutes, seconds = divmod(seconds, 60)
     hours, minutes = divmod(minutes, 60)
