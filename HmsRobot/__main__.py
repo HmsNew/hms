@@ -82,7 +82,7 @@ def get_readable_time(seconds: int) -> str:
 
 PM_START_TEXT = """
 *Hello Sir {} !*
-✪ My name is HmsRobot I'm here to help you manage your groups! Hit /help to find out more about how to use me to my full potential.
+✪ My name is HmsRobot I'm here to help you manage your groups! Hit /help to find out more about how to use me to my full potential [HmsRobot](https://telegra.ph/file/f67dd5909bbff96ff17bd.jpg).
 × *Uptime:* {}
 × {} *users, across* {} *chats.*
 ✪ My developer [ HmS ](t.me/hms_01) , For New Updates join here [ Update ](t.me/botatiiii)  If You Have a Problem, Join Here  [ Support ](t.me/dd3mhms) ..
