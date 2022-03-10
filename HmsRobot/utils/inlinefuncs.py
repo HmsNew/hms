@@ -102,7 +102,7 @@ async def inline_help_func(__HELP__):
             input_message_content=InputTextMessageContent(
                 "**__انقر فوق زر للبدء.__**"
             ),
-            thumb_url="https://telegra.ph/file/9ed782cdeff8e11a90b0b.jpg",
+            thumb_url="https://telegra.ph/file/f67dd5909bbff96ff17bd.jpg",
             reply_markup=buttons,
         ),
     ]
